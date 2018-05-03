@@ -53,7 +53,9 @@ export default class CreateGroup extends Component {
   isDropZone(gesture){
     var dz = this.state.dropZoneValues;
     //there is no checking x because the drop zone occupies all horizontal space
-    if(gesture.moveY > dz.y && gesture.moveY < (dz.height + dz.y)){
+    //BUG: there is a navigation bar with the back button occupying the top of the screen
+    //the y checking shoult star at 0 after the bar, but it starts on the bar
+    if(gesture.moveY > dz.y && gesture.moveY < 2*(dz.height + dz.y)){
       return true;
     } else {
       return false;
@@ -73,7 +75,7 @@ export default class CreateGroup extends Component {
             <View style = {styles.dropZone} 
                   /*seta os valores assim que o View for renderizado:*/
                   onLayout={this.setDropZoneValues.bind(this)}>
-                <Text style = {styles.text}>Drop me here!!</Text>
+                <Text style = {styles.text}>Drop me here!</Text>
             </View>
 
             {this.renderDraggable()}
