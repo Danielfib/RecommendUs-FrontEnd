@@ -32,21 +32,48 @@ export default class CreateGroup extends Component {
       
       //when released, return circle to a fixed position
       onPanResponderRelease       : (e, gesture) => {
-        Animated.spring(
-          this.state.pan,
-          {toValue:{x:0,y:0}, //comes back to center
-          friction: 6,        //default is 7
-          tension: 50}       //default is 40
-        ).start();
+        //if useer releases on drop zone, the circle vanishes
+        if(this.isDropZone(gesture)){
+          this.setState({
+            showDraggable   : false
+          });
+        } else {
+          Animated.spring(
+            this.state.pan,
+            {toValue:{x:0,y:0}, //comes back to center
+            friction: 6,        //default is 7
+            tension: 50}       //default is 40
+          ).start();
+        }
       }
+    });
+  }
+
+  //checks if the coordinates of the gesture are inside the drop zone
+  isDropZone(gesture){
+    var dz = this.state.dropZoneValues;
+    //there is no checking x because the drop zone occupies all horizontal space
+    if(gesture.moveY > dz.y && gesture.moveY < (dz.height + dz.y)){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //funcao que atualiza os valores do dropZone do estado (varia em funcao da tela)
+  setDropZoneValues(event) {
+    this.setState({
+      dropZoneValues  : event.nativeEvent.layout
     });
   }
 
   render(){
     return(
         <View style = {styles.mainContainer}>
-            <View style = {styles.dropZone}>
-                <Text style = {styles.text}>Drop me here!</Text>
+            <View style = {styles.dropZone} 
+                  /*seta os valores assim que o View for renderizado:*/
+                  onLayout={this.setDropZoneValues.bind(this)}>
+                <Text style = {styles.text}>Drop me here!!</Text>
             </View>
 
             {this.renderDraggable()}
