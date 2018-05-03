@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Button, View, Text } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { default as CreateGroup } from './screens/createGroup';
+import CreateGroup from './screens/createGroup';
 
 //home (atualmente vazia)
 class HomeScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screeniii</Text>
+        <Text>Home Screeniiii</Text>
         
         {/*botao pra trocar de tela*/}
         <Button
