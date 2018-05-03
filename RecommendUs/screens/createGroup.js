@@ -16,6 +16,8 @@ export default class CreateGroup extends Component {
     this.state = {
       //this component will take care of interpolating X and Y
       //these values will be set to the style of the element to animate.
+      showDraggable   : true, //if the circle is visible or not (and with multiple circles?)
+      dropZoneValues  : null,
       pan: new Animated.ValueXY()
     };
 
@@ -53,15 +55,17 @@ export default class CreateGroup extends Component {
   }
 
   renderDraggable(){
-    return(
-        <View style = {styles.draggableContainer}>
-            <Animated.View
-              {...this.panResponder.panHandlers}    //assigns the handlers to the Animated.View
-              style = {[this.state.pan.getLayout(), styles.circle]}>
-              <Text style = {styles.text}>Drag me!</Text>
-            </Animated.View>
-        </View>
-    );
+    if(this.state.showDraggable){ //only shows if state is set to true
+      return(
+          <View style = {styles.draggableContainer}>
+              <Animated.View
+                {...this.panResponder.panHandlers}    //assigns the handlers to the Animated.View
+                style = {[this.state.pan.getLayout(), styles.circle]}>
+                <Text style = {styles.text}>Drag me!</Text>
+              </Animated.View>
+          </View>
+      );
+    }
   }
 }
 
