@@ -6,8 +6,7 @@ import {
 } from 'react-native';
 
 const NAVBAR_H = 90; //we need to get this height not esthatically
-//import Viewport from '../components/Viewport'
-//React.AppRegistry.registerComponent('DragAndDrop', () => Viewport);
+
 //tela de criar grupo
 export default class CreateGroup extends Component {
   constructor(props){
@@ -53,15 +52,7 @@ export default class CreateGroup extends Component {
   //checks if the coordinates of the gesture are inside the drop zone
   isDropZone(gesture){
     var dz = this.state.dropZoneValues;    
-    //console.log(dz);
-    //height:100
-    //width: 300
-    //y:0   x:0
-    //the nav bar makes part of the coordinates
-    //there is no checking x because the drop zone occupies all horizontal space
-    //BUG: there is a navigation bar with the back button occupying the top of the screen
-    //the y checking shoult star at 0 after the bar, but it starts on the bar.
-    //so, basically, (0,0) is in the navbar, when it shoul be right below it.
+  
     if(gesture.moveY > dz.y && gesture.moveY < (dz.height + NAVBAR_H)){
       return true;
     } else {
