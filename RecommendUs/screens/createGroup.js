@@ -10,6 +10,28 @@ import {
 
 //tela de criar grupo
 export default class CreateGroup extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      //this component will take care of interpolating X and Y
+      //these values will be set to the style of the element to animate.
+      pan: new Animated.ValueXY()
+    };
+
+    //responsible for the dragging
+    this.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder  : () => true,
+      onPanResponderMove            : Animated.event([null,{
+        //drag coordinates when moving
+        dx  : this.state.pan.x,
+        dy  : this.state.pan.y
+      }]),
+      //when released:
+      onPanResponderRelease       : (e, gesture) => {}
+    });
+  }
+
   render(){
     return(
         <View style = {styles.mainContainer}>
@@ -20,13 +42,15 @@ export default class CreateGroup extends Component {
             {this.renderDraggable()}
         </View>
     );
-}
+  }
 
   renderDraggable(){
     return(
         <View style = {styles.draggableContainer}>
-            <Animated.View style = {styles.circle}>
-                <Text style = {styles.text}>Drag me!</Text>
+            <Animated.View
+              {...this.panResponder.panHandlers}    //assigns the handlers to the Animated.View
+              style = {[this.state.pan.getLayout(), styles.circle]}>
+              <Text style = {styles.text}>Drag me!</Text>
             </Animated.View>
         </View>
     );
