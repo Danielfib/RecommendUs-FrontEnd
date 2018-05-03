@@ -27,8 +27,14 @@ export default class CreateGroup extends Component {
         dx  : this.state.pan.x,
         dy  : this.state.pan.y
       }]),
-      //when released:
-      onPanResponderRelease       : (e, gesture) => {}
+      
+      //when released, return circle to a fixed position
+      onPanResponderRelease       : (e, gesture) => {
+        Animated.spring(
+          this.state.pan,
+          {toValue:{x:0,y:0}}
+        ).start();
+      }
     });
   }
 
