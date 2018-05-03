@@ -3,6 +3,8 @@ import { Button, View, Text } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import CreateGroup from './screens/createGroup';
 
+const NAV_BAR_H = 20;
+
 //home (atualmente vazia)
 class HomeScreen extends React.Component {
   render() {
