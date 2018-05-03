@@ -32,7 +32,9 @@ export default class CreateGroup extends Component {
       onPanResponderRelease       : (e, gesture) => {
         Animated.spring(
           this.state.pan,
-          {toValue:{x:0,y:0}}
+          {toValue:{x:0,y:0}, //comes back to center
+          friction: 6,        //default is 7
+          tension: 50}       //default is 40
         ).start();
       }
     });
