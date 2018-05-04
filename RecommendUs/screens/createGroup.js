@@ -5,7 +5,8 @@ import {
   StyleSheet, PanResponder, Animated, Dimensions
 } from 'react-native';
 
-const NAVBAR_H = 90; //we need to get this height not esthatically
+const NAVBAR_H = 90; //we need to get this height not statically(later)
+//or find a way to (0,0) be right below nav bar
 
 //tela de criar grupo
 export default class CreateGroup extends Component {
@@ -15,9 +16,10 @@ export default class CreateGroup extends Component {
     this.state = {
       //this component will take care of interpolating X and Y
       //these values will be set to the style of the element to animate.
-      showDraggable   : true, //if the circle is visible or not (and with multiple circles?)
+      isDroppedInDZ   : false, //if the circle is visible or not (and with multiple circles?)
       dropZoneValues  : null,
-      pan: new Animated.ValueXY()
+      pan: new Animated.ValueXY(),
+      selected: new Animated.ValueXY()
     };
 
     //responsible for the dragging
@@ -34,19 +36,29 @@ export default class CreateGroup extends Component {
         //if useer releases on drop zone, the circle vanishes
         console.log(gesture.moveY);
         if(this.isDropZone(gesture)){
-          this.setState({
-            showDraggable   : false
-          });
+          this.setState({isDroppedInDZ: true});
         } else {
-          Animated.spring(
-            this.state.pan,
-            {toValue:{x:0,y:0}, //comes back to center
-            friction: 6,        //default is 7
-            tension: 50}       //default is 40
-          ).start();
+          this.setState({isDroppedInDZ: false});
         }
+
+        this.setSpringTarget();
       }
     });
+  }
+
+  setSpringTarget() {
+    if(this.state.isDroppedInDZ){
+      //vai para a sessao reservada
+      //agora só preciso aqui fazer com que a bolinha vá a area DZ
+    } else {
+      //volta para onde o circulo estava:
+      Animated.spring(
+        this.state.pan,
+        {toValue:{x:0,y:0}, //comes back to center
+        friction: 6,        //default is 7
+        tension: 50}       //default is 40
+      ).start();
+    }
   }
 
   //checks if the coordinates of the gesture are inside the drop zone
@@ -82,7 +94,7 @@ export default class CreateGroup extends Component {
   }
 
   renderDraggable(){
-    if(this.state.showDraggable){ //only shows if state is set to true
+    //if(this.state.showDraggable){ //only shows if state is set to true
       return(
           <View style = {styles.draggableContainer}>
               <Animated.View
@@ -93,7 +105,7 @@ export default class CreateGroup extends Component {
           </View>
       );
     }
-  }
+  //}
 }
 
 //style:
