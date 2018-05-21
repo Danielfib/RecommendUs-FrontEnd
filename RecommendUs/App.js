@@ -19,7 +19,7 @@ export default class daggable extends Component {
 
   //called when react renders a component (before render method)
   componentWillMount(){
-    //listener for the delta value change
+    //listener for the delta value change.
     this._val = {x:0, y:0}
     this.state.pan.addListener((value) => this._val = value);
 
@@ -67,6 +67,6 @@ let styles = StyleSheet.create({
   dragabble_Text: {
     textAlign : 'center',
     marginTop : 25,
-    color     : '#f;ff'
+    color     : '#fff'
   }
 });
