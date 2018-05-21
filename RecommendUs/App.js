@@ -6,7 +6,7 @@ import { Button,
          StyleSheet, 
          PanResponder } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import CreateGroup from './screens/createGroup';
+//import CreateGroup from './screens/createGroup';
 
 export default class daggable extends Component {
   constructor(){
