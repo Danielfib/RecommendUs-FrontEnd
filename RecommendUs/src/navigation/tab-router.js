@@ -3,11 +3,8 @@ import {
     TabBarBottom,
 } from 'react-navigation'
 
-import HomeNavigator from 'navigation/home'
-import NotificationNavigator from 'navigation/notifications'
-
-
-import device from 'properties/device'
+import HomeNavigator from './home'
+import NotificationNavigator from './notifications'
 
 // Showcase de telas
 const root = TabNavigator (

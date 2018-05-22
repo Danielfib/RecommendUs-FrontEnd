@@ -3,7 +3,7 @@ import {
 } from 'react-navigation'
 
 //import Login from 'screens/login/login'
-import TabRouter from 'navigation/tab-router'
+import TabRouter from './tab-router'
 
 const MainNavigator = StackNavigator(
     {

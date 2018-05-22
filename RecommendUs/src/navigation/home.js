@@ -2,7 +2,7 @@ import {
     StackNavigator,
 } from 'react-navigation'
 
-import Preference2 from 'screens/app/home/preference2'
+import Preference2 from '../screens/app/home/preference2'
 
 const HomeNavigator = StackNavigator(
     {
