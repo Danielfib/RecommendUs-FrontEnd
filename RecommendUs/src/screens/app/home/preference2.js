@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 
 import BarStatus from '../../../components/StatusBar'
+import Header from '../../../components/Header'
 
 class Preference2 extends React.Component {
     
@@ -23,7 +24,14 @@ class Preference2 extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <BarStatus />
+                <BarStatus/>
+                <Header>
+                    <Text style={styles.titleHeader}>
+                        {
+                            "Preferências"
+                        }
+                    </Text>
+                </Header>
                 <Text>
                     {
                         "Oi!"
@@ -37,5 +45,12 @@ class Preference2 extends React.Component {
 export default Preference2
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        flex: 1,
+    },
+    titleHeader: {
+        color: '#FFFFFF',
+        fontWeight: '500',
+        fontSize: 24,
+    },
 })
