@@ -31,11 +31,11 @@ class Preference2 extends React.Component {
                         {"Preferências"}
                     </Text>
                 </Header>
+                <CardChoose/>
                 <View style={styles.choice}>
                     <Text style={styles.title}>
                         {"Qual é o clima?"}
                     </Text>
-                    <CardChoose />
                 </View>
                 <View style={styles.choice}>
                     <Text style={styles.title}>
