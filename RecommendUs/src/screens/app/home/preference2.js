@@ -8,6 +8,7 @@ import {
 
 import BarStatus from '../../../components/StatusBar'
 import Header from '../../../components/Header'
+import CardChoose from '../../../components/CardChoose'
 
 class Preference2 extends React.Component {
     
@@ -27,16 +28,20 @@ class Preference2 extends React.Component {
                 <BarStatus/>
                 <Header>
                     <Text style={styles.titleHeader}>
-                        {
-                            "Preferências"
-                        }
+                        {"Preferências"}
                     </Text>
                 </Header>
-                <Text>
-                    {
-                        "Oi!"
-                    }
-                </Text>
+                <View style={styles.choice}>
+                    <Text style={styles.title}>
+                        {"Qual é o clima?"}
+                    </Text>
+                    <CardChoose />
+                </View>
+                <View style={styles.choice}>
+                    <Text style={styles.title}>
+                        {"O que você quer comer?"}
+                    </Text>
+                </View>
             </View>
         );
     }
@@ -52,5 +57,12 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: '500',
         fontSize: 24,
+    },
+    choice: {
+        marginLeft: 15,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: '500',
     },
 })
