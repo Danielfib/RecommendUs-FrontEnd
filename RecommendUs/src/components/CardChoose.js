@@ -30,7 +30,9 @@ export default class CardChoose extends React.Component {
 
 const styles = StyleSheet.create({
     card: {
-        marginLeft: 10,
+        margin: 15,
+        width: 100,
+        height: 100,
     },
     tick: {
         position: 'absolute',
@@ -47,7 +49,9 @@ const styles = StyleSheet.create({
     },
     textView: {
         position: 'absolute',
-        bottom: 5,
+        left: 0,
+        right: 0,
+        bottom: 8,
         justifyContent: 'center',
         alignItems: 'center'
     },
