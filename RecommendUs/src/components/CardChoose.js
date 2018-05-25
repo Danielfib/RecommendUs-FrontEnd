@@ -7,6 +7,8 @@ import {
     StyleSheet,
 } from 'react-native'
 
+import em from '../properties/responsive'
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 export default class CardChoose extends React.Component {
@@ -19,8 +21,8 @@ export default class CardChoose extends React.Component {
 
         return (
             <View style={styles.card}>
-                <Image style={styles.img} source={{uri: image}} />
-                <View style={[styles.cardButton,
+                <Image style={[styles.img, styles.dimensionsCard,]} source={{uri: image}} />
+                <View style={[styles.cardButton, styles.dimensionsCard,
                     {
                         backgroundColor: selected ?
                         'rgba(111, 207, 151, .5)' :
@@ -44,24 +46,23 @@ export default class CardChoose extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    card: {
-        margin: 15,
+    dimensionsCard: {
         width: 100,
         height: 100,
+    },
+    card: {
+        marginTop: em (4),
+        marginRight: em (4),
     },
     icon: {
         position: 'absolute',
         margin: 5,
     },
     img: {
-        width: 100,
-        height: 100,
         borderRadius: 15,
     },
     cardButton: {
         position: 'absolute',
-        width: 100,
-        height: 100,
         borderRadius: 15,
     },
     textView: {
