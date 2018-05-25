@@ -18,7 +18,7 @@ class Preference2 extends React.Component {
     }
 
     static navigatinoOptions = {
-        header: null,
+        header: null
     }
     
     render() {

@@ -18,7 +18,9 @@ export default class Header extends React.Component {
         return (
             <View style={styles.header}>
                 <View style={styles.arrowBox}>
-                   <Ionicons name={'md-arrow-back'} size={30} color={'#FFFFFF'}/>
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                        <Ionicons name={'md-arrow-back'} size={30} color={'#FFFFFF'}/>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.content}>
                     {this.props.children}
@@ -30,20 +32,18 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
     header: {
-        display: 'flex',
         flexDirection: 'row',
         height: 50,
         backgroundColor: '#A30000',
     },
     arrowBox: {
-        flex: 1,
-        justifyContent: 'center',
+        alignSelf: 'center',
+        marginLeft: 10,
     },
     content: {
         flex: 1,
-        alignSelf: 'center',
         alignItems: 'center',
+        alignSelf: 'center',
         justifyContent: 'center',
-        backgroundColor: 'blue'
     },
 })
