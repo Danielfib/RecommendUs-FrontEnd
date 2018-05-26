@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: em (2),
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     text: {
         color: '#FFFFFF',

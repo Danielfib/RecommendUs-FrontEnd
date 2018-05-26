@@ -3,12 +3,14 @@ import React from 'react'
 import {
     View,
     Text,
+    ScrollView,
     StyleSheet,
 } from 'react-native'
 
 import BarStatus from '../../../components/StatusBar'
 import Header from '../../../components/Header'
 import CardChoose from '../../../components/CardChoose'
+import ImageCircle from '../../../components/ImageCircle'
 
 import em from '../../../properties/responsive'
 
@@ -25,6 +27,7 @@ class Preference2 extends React.Component {
     }
     
     render() {
+        // Tamanho dos cards: 21 para o clima e 30 para os tipos de comida
         return (
             <View style={styles.container}>
                 <BarStatus/>
@@ -33,32 +36,32 @@ class Preference2 extends React.Component {
                         {"Preferências"}
                     </Text>
                 </Header>
-                <View style={styles.subContainer}>
-                    <View style={styles.friendsView}>
-                        <Text style={styles.friendsText}>
-                            {"Esperando Confirmação"}
-                        </Text>
-                    </View>
-                    <View style={styles.choices}>
-                        <View style={styles.choice}>
-                            <Text style={styles.title}>
-                                {"Qual é o clima?"}
+                <ScrollView>
+                    <View style={styles.subContainer}>
+                        <View style={styles.friendsView}>
+                            <View style={styles.friendsPhotos}></View>
+                            <Text style={styles.friendsText}>
+                                {"Esperando Confirmação"}
                             </Text>
-                            <View style={styles.restaurantView}></View>
                         </View>
-                        <View style={[styles.choice, {flex: 2,}]}>
-                            <Text style={styles.title}>
-                                {"O que você quer comer?"}
-                            </Text>
-                            <View style={styles.foodView}>
-                                <CardChoose size={30} selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
-                                <CardChoose size={30} selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
-                                <CardChoose size={30} selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
-                                <CardChoose size={30} selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
+                        <View style={styles.choices}>
+                            <View style={styles.choice}>
+                                <Text style={styles.title}>
+                                    {"Qual é o clima?"}
+                                </Text>
+                                <ScrollView>
+                                    <View style={styles.restaurantView}></View>
+                                </ScrollView>
+                            </View>
+                            <View style={[styles.choice, {flex: 2,}]}>
+                                <Text style={styles.title}>
+                                    {"O que você quer comer?"}
+                                </Text>
+                                <View style={styles.foodView}></View>
                             </View>
                         </View>
                     </View>
-                </View>
+                </ScrollView>
             </View>
         );
     }
@@ -80,11 +83,15 @@ const styles = StyleSheet.create({
     },
     friendsView: {
         alignItems: 'center',
-        marginVertical: em (4.5),
+        marginTop: em (3),
+    },
+    friendsPhotos: {
+        flexDirection: 'row',
+        marginBottom: em (3),
     },
     friendsText: {
         color: '#A30000',
-        fontSize: em (3.6),
+        fontSize: em (4),
         fontWeight: '500',
     },
     choices: {
@@ -92,7 +99,7 @@ const styles = StyleSheet.create({
         marginLeft: em (4.5),
     },
     choice: {
-        marginVertical: em (6),
+        marginVertical: em (4),
     },
     restaurantView: {
         flexDirection: 'row',
