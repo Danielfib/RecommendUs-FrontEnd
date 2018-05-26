@@ -51,10 +51,10 @@ class Preference2 extends React.Component {
                                 {"O que você quer comer?"}
                             </Text>
                             <View style={styles.foodView}>
-                                <CardChoose selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
-                                <CardChoose selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
-                                <CardChoose selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
-                                <CardChoose selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
+                                <CardChoose size={30} selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
+                                <CardChoose size={30} selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
+                                <CardChoose size={30} selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
+                                <CardChoose size={30} selected={false} image={'http://i.imgur.com/IGlBYaC.jpg'} name={'Amigos'}/>
                             </View>
                         </View>
                     </View>
@@ -73,18 +73,18 @@ const styles = StyleSheet.create({
     titleHeader: {
         color: '#FFFFFF',
         fontWeight: '500',
-        fontSize: 24,
+        fontSize: em (7.6),
     },
     subContainer: {
         flex: 1,
     },
     friendsView: {
         alignItems: 'center',
-        marginVertical: 15,
+        marginVertical: em (4.5),
     },
     friendsText: {
         color: '#A30000',
-        fontSize: 12,
+        fontSize: em (3.6),
         fontWeight: '500',
     },
     choices: {
@@ -92,9 +92,11 @@ const styles = StyleSheet.create({
         marginLeft: em (4.5),
     },
     choice: {
-        marginVertical: 20,
+        marginVertical: em (6),
     },
-    restaurantView: {},
+    restaurantView: {
+        flexDirection: 'row',
+    },
     foodView: {
         flex: 2,
         width: em (91),
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     title: {
-        fontSize: 24,
+        fontSize: em (7.6),
         fontWeight: '500',
     },
 })

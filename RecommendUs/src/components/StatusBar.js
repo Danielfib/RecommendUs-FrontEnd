@@ -9,6 +9,8 @@ import {
     Constants,
 } from 'expo'
 
+import em from '../properties/responsive'
+
 export default class BarStatus extends React.Component {
     
     render() {

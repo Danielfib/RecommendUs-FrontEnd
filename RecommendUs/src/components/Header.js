@@ -10,6 +10,8 @@ import {
     Constants,
 } from 'expo'
 
+import em from '../properties/responsive'
+
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export default class Header extends React.Component {
@@ -33,12 +35,12 @@ export default class Header extends React.Component {
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
-        height: 50,
+        height: em (15),
         backgroundColor: '#A30000',
     },
     arrowBox: {
         alignSelf: 'center',
-        marginLeft: 10,
+        marginLeft: em (3),
     },
     content: {
         flex: 1,
