@@ -11,6 +11,7 @@ import BarStatus from '../../../components/StatusBar'
 import Header from '../../../components/Header'
 import CardChoose from '../../../components/CardChoose'
 import ImageCircle from '../../../components/ImageCircle'
+import NextButton from '../../../components/NextButton'
 
 import em from '../../../properties/responsive'
 
@@ -62,6 +63,7 @@ class Preference2 extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
+                <NextButton />
             </View>
         );
     }
