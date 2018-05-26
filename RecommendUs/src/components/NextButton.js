@@ -22,7 +22,7 @@ export default class NextButton extends React.Component {
                 <Ionicons
                     style={styles.icon}
                     name={'md-arrow-round-forward'}
-                    size={40}
+                    size={35}
                     color={'#FFFFFF'}
                 />
             </View>

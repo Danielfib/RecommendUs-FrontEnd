@@ -4,6 +4,7 @@ import {
     View,
     Text,
     ScrollView,
+    TouchableOpacity,
     StyleSheet,
 } from 'react-native'
 
@@ -63,7 +64,9 @@ class Preference2 extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
-                <NextButton />
+                <TouchableOpacity>
+                    <NextButton />
+                </TouchableOpacity>
             </View>
         );
     }
