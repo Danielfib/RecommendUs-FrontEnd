@@ -17,10 +17,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 export default class Header extends React.Component {
     
     render() {
+
+        const navigation = this.props.navigation
+
         return (
             <View style={styles.header}>
                 <View style={styles.arrowBox}>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Ionicons name={'md-arrow-back'} size={30} color={'#FFFFFF'}/>
                     </TouchableOpacity>
                 </View>

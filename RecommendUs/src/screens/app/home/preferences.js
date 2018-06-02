@@ -18,7 +18,7 @@ export default class Preferences extends React.Component {
       return (
         <View style = {style.mainContainer}>
           <BarStatus/>
-          <Header>
+          <Header navigation={this.props.navigation}>
               <Text style={style.titleHeader}>
                   {"Preferências"}
               </Text>
