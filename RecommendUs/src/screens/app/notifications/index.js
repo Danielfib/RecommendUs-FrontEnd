@@ -2,19 +2,24 @@ import React from 'react'
 
 import {
     View,
-    StyleSheet,
+    Text,
+    ScrollView,
     TouchableOpacity,
+    StyleSheet,
 } from 'react-native'
 
-import {
-    Constants,
-} from 'expo'
+import BarStatus from '../../../components/StatusBar'
+import Header from '../../../components/Header'
+import CardChoose from '../../../components/CardChoose'
+import ImageCircle from '../../../components/ImageCircle'
+import NextButton from '../../../components/NextButton'
+import NotificationCard from '../../../components/NotificationCard'
 
 import em from '../../../properties/responsive'
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-export default class Notifications extends React.Component {
+class Notifications extends React.Component {
     
     static navigationOptions = {
         tabBarIcon: ({ focused, tintColor }) => {
@@ -22,28 +27,67 @@ export default class Notifications extends React.Component {
         }
     }
 
+    constructor(props) {
+        super(props)
+
+        this.state = {}
+    }
+    
     render() {
+        // Tamanho dos cards: 21 para o clima e 30 para os tipos de comida
         return (
-            <View style={styles.header}>
-                <View style={styles.content}>
-                    {this.props.children}
-                </View>
+            <View style={styles.container}>
+                <BarStatus/>
+                <ScrollView>
+                    <View style={styles.subContainer}>
+                        <Text style={styles.title}>
+                            {"Ei! Olha quem te chamou:"}
+                        </Text>
+                        <NotificationCard />
+                    </View>
+                </ScrollView>
             </View>
         );
     }
 }
 
+export default Notifications
+
 const styles = StyleSheet.create({
-    header: {
-        flexDirection: 'row',
-        height: em (15),
-        backgroundColor: '#A30000',
-    },
-    content: {
+    container: {
         flex: 1,
-        marginRight: em (9),
-        alignItems: 'center',
-        alignSelf: 'center',
-        justifyContent: 'center',
+    },
+    subContainer: {
+        flex: 1,
+    },
+    title: {
+        color: '#000000',
+        fontSize: em (7),
+        fontWeight: '500',
+    },
+    choices: {
+        flex: 1,
+        marginLeft: em (4.5),
+    },
+    choice: {
+        marginVertical: em (4),
+    },
+    restaurantView: {
+        flexDirection: 'row',
+    },
+    foodView: {
+        flex: 2,
+        width: em (91),
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    title: {
+        fontSize: em (7.6),
+        fontWeight: '500',
+    },
+    nextButton: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
     },
 })

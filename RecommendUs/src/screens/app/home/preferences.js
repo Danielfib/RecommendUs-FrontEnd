@@ -46,7 +46,9 @@ export default class Preferences extends React.Component {
           </Header>
           <View style = {style.container}>
             <View style={style.friendsView}>
-                <View style={style.friendsPhotos}></View>
+                <View style={style.friendsPhotos}>
+                  <ImageCircle image={"https://memegenerator.net/img/images/17056620.jpg"} />
+                </View>
                 <Text style={style.friendsText}>
                     {"Esperando Confirmação"}
                 </Text>
@@ -67,7 +69,7 @@ export default class Preferences extends React.Component {
               <PickerButton/>
               <TouchableOpacity
                 style={style.nextButton}
-                onPress={() => this.props.navigation.navigate('prefereces2')}
+                onPress={() => this.props.navigation.navigate('prefereces2', {})}
               >
                   <NextButton />
               </TouchableOpacity>
@@ -106,7 +108,7 @@ const style = StyleSheet.create({
   textTitle: {
     fontSize: em(8),
     color: '#000000',
-    marginLeft: em (8),
+    marginLeft: em (6),
     fontFamily: 'Roboto',
     fontWeight: '500' 
   },

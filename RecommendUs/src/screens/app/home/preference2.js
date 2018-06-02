@@ -52,7 +52,7 @@ class Preference2 extends React.Component {
                         <View style={styles.choices}>
                             <View style={styles.choice}>
                                 <Text style={styles.title}>
-                                    {"Qual é o clima?"}
+                                    {"Qual é a ocasião?"}
                                 </Text>
                                 <ScrollView>
                                     <View style={styles.restaurantView}></View>
