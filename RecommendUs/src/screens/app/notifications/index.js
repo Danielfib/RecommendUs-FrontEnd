@@ -16,12 +16,9 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export default class Notifications extends React.Component {
     
-    static navigationOptions = ({ screenProps }) => {
-        
-        return {
-          tabBarIcon: ({ focused, tintColor }) => {
-            return <MaterialIcons name={'notifications'} size={30} color={tintColor} />;
-          }
+    static navigationOptions = {
+        tabBarIcon: ({ focused, tintColor }) => {
+          return <MaterialIcons name={'notifications'} size={30} color={tintColor} />;
         }
     }
 

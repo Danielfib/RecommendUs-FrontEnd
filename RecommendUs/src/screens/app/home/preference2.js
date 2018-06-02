@@ -18,14 +18,17 @@ import em from '../../../properties/responsive'
 
 class Preference2 extends React.Component {
     
+    static navigationOptions = {
+        header: null,
+        
+        tabBarVisible: false,
+        swipeEnabled: false,
+    }
+
     constructor(props) {
         super(props)
 
         this.state = {}
-    }
-
-    static navigatinoOptions = {
-        header: null
     }
     
     render() {

@@ -16,12 +16,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 export default class Home extends React.Component {
     
-    static navigationOptions = ({ screenProps }) => {
-        
-        return {
-          tabBarIcon: ({ focused, tintColor }) => {
-            return <FontAwesome name={'home'} size={30} color={tintColor} />;
-          }
+    static navigationOptions = {
+        tabBarIcon: ({ focused, tintColor }) => {
+          return <FontAwesome name={'home'} size={30} color={tintColor} />;
         }
     }
 

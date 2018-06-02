@@ -13,7 +13,28 @@ import NextButton from '../../../components/NextButton'
 
 import em from '../../../properties/responsive'
 
-export default class Preferences extends React.Component { 
+export default class Preferences extends React.Component {
+
+  static navigationOptions = {
+    header: null,
+    
+    tabBarVisible: false,
+    swipeEnabled: false,
+  }
+  
+  constructor(props) {
+    super(props)
+
+    this.state = {}
+  }
+
+  static navigatinoOptions = {
+      header: null,
+      
+      tabBarVisible: false,
+      swipeEnabled: false,
+  }
+
     render() {
       return (
         <View style = {style.mainContainer}>
