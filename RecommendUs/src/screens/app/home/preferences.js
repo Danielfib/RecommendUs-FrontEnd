@@ -21,7 +21,7 @@ export default class Preferences extends React.Component {
     tabBarVisible: false,
     swipeEnabled: false,
   }
-  
+
   constructor(props) {
     super(props)
 
@@ -51,9 +51,9 @@ export default class Preferences extends React.Component {
                     {"Esperando Confirmação"}
                 </Text>
             </View>
-            <View style = {[style.container, {marginTop: em (5)}]}>
+            <View style = {[{marginTop: em (5)}]}>
               <Text style = {style.textTitle}>Quanto você quer pagar?</Text>
-              <View style = {[style.containerSlider, style.container]}>  
+              <View style = {[style.containerSlider]}>  
                 <MultisliderButton/>
               </View>
             </View>
@@ -62,7 +62,7 @@ export default class Preferences extends React.Component {
               <Calendar/>
             </View>
 
-            <View style = {[style.container, {marginTop: em (15)}]}>
+            <View style = {[style.container, {marginTop: em (10)}]}>
               <Text style = {style.textTitle}>Onde vai ser?</Text>
               <PickerButton/>
               <TouchableOpacity
@@ -110,21 +110,11 @@ const style = StyleSheet.create({
     fontFamily: 'Roboto',
     fontWeight: '500' 
   },
-  buttomArrowRight: {
-    flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-    marginRight: em (6),
-    paddingBottom: em (5),
-  }, 
   containerSlider: {
-    flex: 1,
+    marginTop: em (10),
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 0,
-    marginBottom: 0,
-    padding: 0,
   },
   nextButton: {
       position: 'absolute',

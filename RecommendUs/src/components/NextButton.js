@@ -41,7 +41,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    icon: {
-
-    },
+    icon: {},
 })

@@ -7,6 +7,8 @@ import  {  View,
 
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 
+import em from '../properties/responsive'
+
 export default class MultiSliderButton extends React.Component {
     state = {
         sliderOneChanging: false,
@@ -35,7 +37,7 @@ export default class MultiSliderButton extends React.Component {
 
     render() {
         return(
-            <View style = {style.containerSlider}>  
+            <View>  
                 <MultiSlider 
                     selectedStyle = {{backgroundColor: '#27AE60'}}
                     unselectedStyle = {{backgroundColor: '#6FCF97'}}
@@ -43,13 +45,12 @@ export default class MultiSliderButton extends React.Component {
                     values={this.state.sliderOneValue}
                     min={10}
                     max={200}
-                    sliderLength={380}
+                    sliderLength={em (80)}
                     onValuesChangeStart={this.sliderOneValuesChangeStart}
                     onValuesChange={this.sliderOneValuesChange}
                     onValuesChangeFinish={this.sliderOneValuesChangeFinish}
                 />
                 <Text style={style.textMultSlider}>{'R$ ' + this.state.sliderOneValue}</Text>
-            
             </View>
         )
     }
@@ -57,16 +58,15 @@ export default class MultiSliderButton extends React.Component {
 
 const style = StyleSheet.create({
     multSlider: {
-      height:30, 
-      width: 30, 
-      borderRadius: 15, 
+      height: em (8),
+      width: em (8),
+      borderRadius: em (4), 
       backgroundColor:'#27AE60', 
     },
     textMultSlider: {
-      marginTop: -30,
-      padding: 0,
+      marginTop: em (-10),
       fontFamily: 'Roboto',
-      fontSize: 30,
+      fontSize: em (9),
       color: '#27AE60',
       textAlign: 'center'
     },

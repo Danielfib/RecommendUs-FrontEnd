@@ -64,16 +64,12 @@ const style = StyleSheet.create({
       height: 32,
       width: '30%',
       marginRight: 10,
-      padding: 0
+      padding: 0,
     },
     pickerContainer: {
-      flex: 1,
       flexDirection: 'row',
-      //backgroundColor: 'green',
       justifyContent: 'flex-start',
-      alignItems: 'center',
       marginLeft: '10%',
-      //marginBottom: -10,
       padding: 0
     },
     pickerLineStatus: {
