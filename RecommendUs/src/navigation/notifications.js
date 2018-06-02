@@ -2,12 +2,12 @@ import {
     StackNavigator,
 } from 'react-navigation'
 
-import Preference2 from '../screens/app/home/preference2'
+import Notifications from '../screens/app/notifications'
 
 const NotificationNavigator = StackNavigator(
     {
-        prefereces2: {
-            screen: Preference2
+        notifications: {
+            screen: Notifications
         },
     },
     {

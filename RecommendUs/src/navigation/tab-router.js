@@ -1,6 +1,5 @@
 import {
     TabNavigator,
-    TabBarBottom,
 } from 'react-navigation'
 
 import HomeNavigator from './home'
@@ -20,16 +19,18 @@ const root = TabNavigator (
     // Configurações do TabNavigator
 
     tabBarPosition: 'bottom',
-    tabBarComponent: TabBarBottom,
     tabBarOptions: {
       showLabel: false,
       showIcon: true,
-      
-      activeTintColor: '#FF6145',
-      inactiveTintColor: 'gray',
+
+      indicatorStyle: {
+        backgroundColor: 'transparent',
+        borderBottomColor: '#FFFFFF',
+        borderBottomWidth: 2,
+      },
 
       style: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#A30000',
       },
     },
   }
