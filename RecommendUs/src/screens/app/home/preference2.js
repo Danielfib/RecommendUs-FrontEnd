@@ -64,7 +64,7 @@ class Preference2 extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
-                <TouchableOpacity>
+                <TouchableOpacity style={styles.nextButton}>
                     <NextButton />
                 </TouchableOpacity>
             </View>
@@ -118,5 +118,10 @@ const styles = StyleSheet.create({
     title: {
         fontSize: em (7.6),
         fontWeight: '500',
+    },
+    nextButton: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
     },
 })
