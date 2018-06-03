@@ -82,7 +82,7 @@ class Preference2 extends React.Component {
     }
 
     componentDidMount() {
-        /*axios.get(`${requests.getUrl()}/evento/1`)
+        axios.get(`${requests.getUrl()}/juntagrupo/1&2&3`)
         .then(res => {
           this.setState({
             friends: res.data.groupmembers,
@@ -90,7 +90,7 @@ class Preference2 extends React.Component {
         })
         .catch(err => {
           console.warn(err)
-        })*/
+        })
       }
     
     render() {
@@ -105,25 +105,28 @@ class Preference2 extends React.Component {
                 </Header>
                 <ScrollView>
                     <View style={styles.subContainer}>
-                        <View style={styles.friendsView}>
-                            <FlatList
-                                contentContainerStyle = {styles.friendsPhotos}
-                                data = {this.state.friends}
-                                horizontal = {true}
-                                keyExtractor = {(item, i) => item.id}
-                                renderItem = {
-                                    ({item}) =>
-                                        <ImageCircle
-                                            image={item.image}
-                                            confirmed={item.confirmed}
-                                            size={22}
-                                        />
-                                }
-                            />
-                            <Text style={styles.friendsText}>
-                                {"Esperando Confirmação"}
-                            </Text>
-                        </View>
+                        {
+                            this.state.friends &&
+                                <View style={style.friendsView}>
+                                <FlatList
+                                    contentContainerStyle = {style.friendsPhotos}
+                                    data = {this.state.friends}
+                                    horizontal = {true}
+                                    keyExtractor = {(item, i) => item.id}
+                                    renderItem = {
+                                        ({item}) =>
+                                            <ImageCircle
+                                                image={item.image}
+                                                confirmed={item.confirmed}
+                                                size={22}
+                                            />
+                                    }
+                                />
+                                <Text style={style.friendsText}>
+                                    {"Esperando Confirmação"}
+                                </Text>
+                                </View>
+                        }
                         <View style={styles.choices}>
                             <View style={styles.choice}>
                                 <Text style={styles.title}>
