@@ -46,7 +46,7 @@ class Preference2 extends React.Component {
             ambiente: [
                 {
                     name: 'Amigos',
-                    image: 'http://www.garuyo.com/sites/default/files/styles/large/public/images/2013/04/no-tener-amigos-es-tan-mala-como-el-alcoholismo_121945.jpg_28755.jp',
+                    image: 'http://www.garuyo.com/sites/default/files/styles/large/public/images/2013/04/no-tener-amigos-es-tan-mala-como-el-alcoholismo_121945.jpg_28755.jpg',
                 },
                 {
                     name: 'Trabalho',

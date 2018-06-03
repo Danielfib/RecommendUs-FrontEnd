@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import  {  View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import  {  View, Text, StyleSheet, TouchableOpacity, FlatList, } from 'react-native';
 
 import Calendar from '../../../components/calendar'
 import MultisliderButton from '../../../components/multislider'
@@ -29,7 +29,16 @@ export default class Preferences extends React.Component {
     super(props)
 
     this.state = {
-      friends: [],
+      friends: [
+        {
+          image: 'https://memegenerator.net/img/images/17056620.jpg',
+          confirmed: false,
+        },
+        {
+            image: 'https://memegenerator.net/img/images/17056620.jpg',
+            confirmed: true,
+        }
+      ],
     }
   }
 
@@ -63,12 +72,23 @@ export default class Preferences extends React.Component {
           </Header>
           <View style = {style.container}>
             <View style={style.friendsView}>
-                <View style={style.friendsPhotos}>
-                  <ImageCircle image={"https://memegenerator.net/img/images/17056620.jpg"} />
-                </View>
-                <Text style={style.friendsText}>
-                    {"Esperando Confirmação"}
-                </Text>
+              <FlatList
+                  contentContainerStyle = {style.friendsPhotos}
+                  data = {this.state.friends}
+                  horizontal = {true}
+                  keyExtractor = {(item, i) => item.id}
+                  renderItem = {
+                      ({item}) =>
+                          <ImageCircle
+                              image={item.image}
+                              confirmed={item.confirmed}
+                              size={22}
+                          />
+                  }
+              />
+              <Text style={style.friendsText}>
+                  {"Esperando Confirmação"}
+              </Text>
             </View>
             <View style = {[{marginTop: em (5)}]}>
               <Text style = {style.textTitle}>Quanto você quer pagar?</Text>
