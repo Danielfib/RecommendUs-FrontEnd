@@ -81,6 +81,30 @@ class Preference2 extends React.Component {
         }
     }
 
+    sendInfo() {
+        let data = {
+            users: [
+                {
+                    lat: '-8.055668',
+                    lon: '-34.951578'
+                },
+                {
+                    lat: '-8.049249',
+                    lon: '-34.951191'
+                },
+            ],
+            tags: 'Botecos Pub',
+            price: '15'
+        }
+        axios.post(`${requests.getUrl()}/preferencia`, data)
+        .then(res => {
+            console.warn(res)
+        })
+        .catch(err => {
+            console.warn(err)
+        })
+    }
+
     componentDidMount() {
         axios.get(`${requests.getUrl()}/juntagrupo/1&2&3`)
         .then(res => {
@@ -107,9 +131,9 @@ class Preference2 extends React.Component {
                     <View style={styles.subContainer}>
                         {
                             this.state.friends &&
-                                <View style={style.friendsView}>
+                                <View style={styles.friendsView}>
                                 <FlatList
-                                    contentContainerStyle = {style.friendsPhotos}
+                                    contentContainerStyle = {styles.friendsPhotos}
                                     data = {this.state.friends}
                                     horizontal = {true}
                                     keyExtractor = {(item, i) => item.id}
@@ -122,7 +146,7 @@ class Preference2 extends React.Component {
                                             />
                                     }
                                 />
-                                <Text style={style.friendsText}>
+                                <Text style={styles.friendsText}>
                                     {"Esperando Confirmação"}
                                 </Text>
                                 </View>
@@ -174,7 +198,7 @@ class Preference2 extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
-                <TouchableOpacity style={styles.nextButton}>
+                <TouchableOpacity style={styles.nextButton} onPress={() => this.sendInfo()}>
                     <NextButton />
                 </TouchableOpacity>
             </View>
