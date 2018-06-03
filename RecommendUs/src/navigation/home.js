@@ -11,10 +11,10 @@ const HomeNavigator = StackNavigator(
         home: {
             screen: Home
         },
-        prefereces: {
+        preferences: {
             screen: Preferences
         },
-        prefereces2: {
+        preferences2: {
             screen: Preference2
         },
     },

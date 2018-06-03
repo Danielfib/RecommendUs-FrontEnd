@@ -69,7 +69,7 @@ export default class Preferences extends React.Component {
               <PickerButton/>
               <TouchableOpacity
                 style={style.nextButton}
-                onPress={() => this.props.navigation.navigate('prefereces2', {})}
+                onPress={() => this.props.navigation.navigate('preferences2', {})}
               >
                   <NextButton />
               </TouchableOpacity>

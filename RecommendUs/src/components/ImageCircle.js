@@ -16,13 +16,27 @@ export default class ImageCircle extends React.Component {
 
         const confirmed = this.props.confirmed
         const image = this.props.image
+        const size = this.props.size
 
         return (
             <View style={styles.circle}>
-                <Image style={styles.photo} source={{uri: image}} />
+                <Image 
+                    style={
+                        [styles.photo, {
+                            height: em (size),
+                            width: em (size),
+                            borderRadius: em (size/2),
+                            }
+                        ]} source={{uri: image}} />
                     {
                         confirmed &&
-                        <View style={styles.photoView}>
+                        <View style={
+                            [styles.photoView, {
+                                height: em (size),
+                                width: em (size),
+                                borderRadius: em (size/2),
+                                }
+                            ]}>
                             <FontAwesome
                                 name={'check'}
                                 size={20}

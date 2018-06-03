@@ -8,9 +8,7 @@ import NotificationNavigator from './notifications'
 // Showcase de telas
 const root = TabNavigator (
   {
-    home: {
-      screen: HomeNavigator
-    },
+    
     notifications: {
       screen: NotificationNavigator
     },

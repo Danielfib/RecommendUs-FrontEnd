@@ -38,14 +38,16 @@ class Notifications extends React.Component {
         return (
             <View style={styles.container}>
                 <BarStatus/>
-                <ScrollView>
                     <View style={styles.subContainer}>
-                        <Text style={styles.title}>
-                            {"Ei! Olha quem te chamou:"}
-                        </Text>
-                        <NotificationCard />
+                        <View style={styles.viewTitle}>
+                            <Text style={styles.title}>
+                                {"Ei! Olha quem te chamou:"}
+                            </Text>
+                        </View>
+                        <ScrollView>
+                            <NotificationCard day={'SEX'} date={'18'}navigation={this.props.navigation}/>
+                        </ScrollView>
                     </View>
-                </ScrollView>
             </View>
         );
     }
@@ -59,10 +61,14 @@ const styles = StyleSheet.create({
     },
     subContainer: {
         flex: 1,
+        marginTop: em (4),
+    },
+    viewTitle: {
+        marginLeft: em (3),
     },
     title: {
-        color: '#000000',
-        fontSize: em (7),
+        color: 'red',
+        fontSize: em (4),
         fontWeight: '500',
     },
     choices: {
