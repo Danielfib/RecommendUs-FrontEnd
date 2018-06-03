@@ -43,7 +43,7 @@ export default class Preferences extends React.Component {
   }
 
   componentDidMount() {
-    /*axios.get(`${requests.getUrl()}/evento/1`)
+    axios.get(`${requests.getUrl()}/juntagrupo/1&2&3`)
     .then(res => {
       this.setState({
         friends: res.data.groupmembers,
@@ -51,7 +51,7 @@ export default class Preferences extends React.Component {
     })
     .catch(err => {
       console.warn(err)
-    })*/
+    })
   }
 
   static navigatinoOptions = {
@@ -71,25 +71,28 @@ export default class Preferences extends React.Component {
               </Text>
           </Header>
           <View style = {style.container}>
-            <View style={style.friendsView}>
-              <FlatList
-                  contentContainerStyle = {style.friendsPhotos}
-                  data = {this.state.friends}
-                  horizontal = {true}
-                  keyExtractor = {(item, i) => item.id}
-                  renderItem = {
-                      ({item}) =>
-                          <ImageCircle
-                              image={item.image}
-                              confirmed={item.confirmed}
-                              size={22}
-                          />
-                  }
-              />
-              <Text style={style.friendsText}>
-                  {"Esperando Confirmação"}
-              </Text>
-            </View>
+            {
+              this.state.friends &&
+                <View style={style.friendsView}>
+                  <FlatList
+                      contentContainerStyle = {style.friendsPhotos}
+                      data = {this.state.friends}
+                      horizontal = {true}
+                      keyExtractor = {(item, i) => item.id}
+                      renderItem = {
+                          ({item}) =>
+                              <ImageCircle
+                                  image={item.image}
+                                  confirmed={item.confirmed}
+                                  size={22}
+                              />
+                      }
+                  />
+                  <Text style={style.friendsText}>
+                      {"Esperando Confirmação"}
+                  </Text>
+                </View>
+            }
             <View style = {[{marginTop: em (5)}]}>
               <Text style = {style.textTitle}>Quanto você quer pagar?</Text>
               <View style = {[style.containerSlider]}>  
