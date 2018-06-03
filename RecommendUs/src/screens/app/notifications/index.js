@@ -66,11 +66,7 @@ const styles = StyleSheet.create({
     viewTitle: {
         marginLeft: em (3),
     },
-    title: {
-        color: 'red',
-        fontSize: em (4),
-        fontWeight: '500',
-    },
+    title: {},
     choices: {
         flex: 1,
         marginLeft: em (4.5),
