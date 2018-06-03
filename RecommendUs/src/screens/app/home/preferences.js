@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios'
 import  {  View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import Calendar from '../../../components/calendar'
@@ -10,6 +11,8 @@ import Header from '../../../components/Header'
 import CardChoose from '../../../components/CardChoose'
 import ImageCircle from '../../../components/ImageCircle'
 import NextButton from '../../../components/NextButton'
+
+import * as requests from '../../../actions/requests'
 
 import em from '../../../properties/responsive'
 
@@ -25,7 +28,21 @@ export default class Preferences extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      friends: [],
+    }
+  }
+
+  componentDidMount() {
+    axios.get(`${requests.getUrl()}/evento/1`)
+    .then(res => {
+      this.setState({
+        friends: res.data.groupmembers,
+      })
+    })
+    .catch(err => {
+      console.warn(err)
+    })
   }
 
   static navigatinoOptions = {

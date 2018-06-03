@@ -52,7 +52,7 @@ export default class CardChoose extends React.Component {
 const styles = StyleSheet.create({
     card: {
         marginTop: em (4),
-        marginRight: em (4),
+        marginRight: em (2),
     },
     icon: {
         position: 'absolute',
