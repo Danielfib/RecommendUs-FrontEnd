@@ -33,8 +33,33 @@ class Preference2 extends React.Component {
         super(props)
 
         this.state = {
-            friends: [],
+            friends: [
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: false,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                }
+            ],
             ambiente: [
+                {
+                    name: 'Amigos',
+                    image: 'http://www.garuyo.com/sites/default/files/styles/large/public/images/2013/04/no-tener-amigos-es-tan-mala-como-el-alcoholismo_121945.jpg_28755.jp',
+                },
+                {
+                    name: 'Trabalho',
+                    image: 'https://images.pexels.com/photos/567633/pexels-photo-567633.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+                },
+                {
+                    name: 'Familía',
+                    image: 'http://www.allfamilysites.com/news/gallery/how-to-find-a-good-restaurant-suitable-for-a-family-meal-pictures/How-to-find-a-good-restaurant-suitable-for-a-family-meal.jpg',
+                },
+                {
+                    name: 'Romântico',
+                    image: 'http://5b0988e595225.cdn.sohucs.com/images/20171223/7fd140e7a95540aabb4d497efb311745.jpeg',
+                }
             ],
             tags: [{
                     name: 'Açaí',
@@ -57,7 +82,7 @@ class Preference2 extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${requests.getUrl()}/evento/1`)
+        /*axios.get(`${requests.getUrl()}/evento/1`)
         .then(res => {
           this.setState({
             friends: res.data.groupmembers,
@@ -65,7 +90,7 @@ class Preference2 extends React.Component {
         })
         .catch(err => {
           console.warn(err)
-        })
+        })*/
       }
     
     render() {
@@ -81,8 +106,20 @@ class Preference2 extends React.Component {
                 <ScrollView>
                     <View style={styles.subContainer}>
                         <View style={styles.friendsView}>
-                            <View style={styles.friendsPhotos}>
-                            </View>
+                            <FlatList
+                                contentContainerStyle = {styles.friendsPhotos}
+                                data = {this.state.friends}
+                                horizontal = {true}
+                                keyExtractor = {(item, i) => item.id}
+                                renderItem = {
+                                    ({item}) =>
+                                        <ImageCircle
+                                            image={item.image}
+                                            confirmed={item.confirmed}
+                                            size={22}
+                                        />
+                                }
+                            />
                             <Text style={styles.friendsText}>
                                 {"Esperando Confirmação"}
                             </Text>
@@ -95,8 +132,9 @@ class Preference2 extends React.Component {
                                 <ScrollView>
                                     <View style={styles.restaurantView}>
                                         <FlatList
-                                            numColumns={3}
                                             data = {this.state.ambiente}
+                                            contentContainerStyle = {styles.restaurantView}
+                                            horizontal = {true}
                                             keyExtractor = {(item, i) => item.id}
                                             renderItem = {
                                                 ({item}) =>
@@ -177,7 +215,6 @@ const styles = StyleSheet.create({
     },
     restaurantView: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
     },
     foodView: {
         flex: 2,

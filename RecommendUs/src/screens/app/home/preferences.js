@@ -34,7 +34,7 @@ export default class Preferences extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`${requests.getUrl()}/evento/1`)
+    /*axios.get(`${requests.getUrl()}/evento/1`)
     .then(res => {
       this.setState({
         friends: res.data.groupmembers,
@@ -42,7 +42,7 @@ export default class Preferences extends React.Component {
     })
     .catch(err => {
       console.warn(err)
-    })
+    })*/
   }
 
   static navigatinoOptions = {
