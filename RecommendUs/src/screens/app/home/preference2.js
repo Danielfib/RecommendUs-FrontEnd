@@ -17,6 +17,7 @@ import ImageCircle from '../../../components/ImageCircle'
 import NextButton from '../../../components/NextButton'
 
 import * as requests from '../../../actions/requests'
+import * as listPhotos from '../../../components/listPhotos'
 
 import em from '../../../properties/responsive'
 
@@ -59,7 +60,7 @@ class Preference2 extends React.Component {
                 {
                     name: 'Romântico',
                     image: 'http://5b0988e595225.cdn.sohucs.com/images/20171223/7fd140e7a95540aabb4d497efb311745.jpeg',
-                }
+                },
             ],
             tags: [{
                     name: 'Açaí',
@@ -106,19 +107,22 @@ class Preference2 extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${requests.getUrl()}/juntagrupo/1&2&3`)
-        .then(res => {
-          this.setState({
-            friends: res.data.groupmembers,
-          })
-        })
-        .catch(err => {
-          console.warn(err)
-        })
+        // axios.get(`${requests.getUrl()}/juntagrupo/1&2&3`)
+        // .then(res => {
+        //   this.setState({
+        //     friends: res.data.groupmembers,
+        //   })
+        // })
+        // .catch(err => {
+        //   console.warn(err)
+        // })
       }
     
     render() {
         // Tamanho dos cards: 21 para o clima e 30 para os tipos de comida
+        
+        let confirmed = false
+        
         return (
             <View style={styles.container}>
                 <BarStatus/>
@@ -132,20 +136,9 @@ class Preference2 extends React.Component {
                         {
                             this.state.friends &&
                                 <View style={styles.friendsView}>
-                                <FlatList
-                                    contentContainerStyle = {styles.friendsPhotos}
-                                    data = {this.state.friends}
-                                    horizontal = {true}
-                                    keyExtractor = {(item, i) => item.id}
-                                    renderItem = {
-                                        ({item}) =>
-                                            <ImageCircle
-                                                image={item.image}
-                                                confirmed={item.confirmed}
-                                                size={22}
-                                            />
-                                    }
-                                />
+                                <View style={styles.friendsPhotos}>
+                                    {listPhotos.renderFriends(this.state.friends, 22)}
+                                </View>
                                 <Text style={styles.friendsText}>
                                     {"Esperando Confirmação"}
                                 </Text>
@@ -160,8 +153,7 @@ class Preference2 extends React.Component {
                                     <View style={styles.restaurantView}>
                                         <FlatList
                                             data = {this.state.ambiente}
-                                            contentContainerStyle = {styles.restaurantView}
-                                            horizontal = {true}
+                                            horizontal
                                             keyExtractor = {(item, i) => item.id}
                                             renderItem = {
                                                 ({item}) =>
