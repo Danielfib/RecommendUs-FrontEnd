@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {
     View,
     Image,
@@ -10,32 +9,25 @@ import em from '../properties/responsive'
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
-export default class ImageCircle extends React.Component {
-    
-    render() {
-
-        const confirmed = this.props.confirmed
-        const image = this.props.imag
-        const size = this.props.size
-        const id = this.props.id
-
-        return (
-            <View key={id} style={styles.circle}>
+export function renderFriends(friends, size) {
+    let listFriends = friends.map(friend => {
+      return (
+        <View key={friend.name} style={styles.circle}>
                 <Image 
                     style={
                         [{
                             height: em (size),
                             width: em (size),
-                            borderRadius: em (size/2),
+                            borderRadius: em (size / 2),
                         }
-                        ]} source={{uri: image}} />
+                        ]} source={{uri: friend.image}} />
                     {
-                        confirmed &&
+                        friend.confirmed &&
                         <View style={
                             [styles.photoView, {
                                 height: em (size),
                                 width: em (size),
-                                borderRadius: em (size/2),
+                                borderRadius: em (size / 2),
                                 }
                             ]}>
                             <FontAwesome
@@ -46,8 +38,9 @@ export default class ImageCircle extends React.Component {
                         </View>
                     }
             </View>
-        );
-    }
+      )
+    })
+    return listFriends
 }
 
 const styles = StyleSheet.create({

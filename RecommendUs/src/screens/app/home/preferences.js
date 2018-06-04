@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import  {  View, Text, StyleSheet, TouchableOpacity, FlatList, } from 'react-native';
+import  {  View, Text, StyleSheet, TouchableOpacity, FlatList,} from 'react-native';
 
 import Calendar from '../../../components/calendar'
 import MultisliderButton from '../../../components/multislider'
@@ -13,6 +13,7 @@ import ImageCircle from '../../../components/ImageCircle'
 import NextButton from '../../../components/NextButton'
 
 import * as requests from '../../../actions/requests'
+import * as listPhotos from '../../../components/listPhotos'
 
 import em from '../../../properties/responsive'
 
@@ -31,27 +32,29 @@ export default class Preferences extends React.Component {
     this.state = {
       friends: [
         {
+          name: 'Daniel',
           image: 'https://memegenerator.net/img/images/17056620.jpg',
           confirmed: false,
         },
         {
-            image: 'https://memegenerator.net/img/images/17056620.jpg',
-            confirmed: true,
+          name: 'Guila',
+          image: 'https://memegenerator.net/img/images/17056620.jpg',
+          confirmed: true,
         }
       ],
     }
   }
 
   componentDidMount() {
-    axios.get(`${requests.getUrl()}/juntagrupo/1&2&3`)
-    .then(res => {
-      this.setState({
-        friends: res.data.groupmembers,
-      })
-    })
-    .catch(err => {
-      console.warn(err)
-    })
+    // axios.get(`${requests.getUrl()}/juntagrupo/1&2&3`)
+    // .then(res => {
+    //   this.setState({
+    //     friends: res.data.groupmembers,
+    //   })
+    // })
+    // .catch(err => {
+    //   console.warn(err)
+    // })
   }
 
   static navigatinoOptions = {
@@ -74,20 +77,9 @@ export default class Preferences extends React.Component {
             {
               this.state.friends &&
                 <View style={style.friendsView}>
-                  <FlatList
-                      contentContainerStyle = {style.friendsPhotos}
-                      data = {this.state.friends}
-                      horizontal = {true}
-                      keyExtractor = {(item, i) => item.id}
-                      renderItem = {
-                          ({item}) =>
-                              <ImageCircle
-                                  image={item.image}
-                                  confirmed={item.confirmed}
-                                  size={22}
-                              />
-                      }
-                  />
+                  <View style={style.friendsPhotos}>
+                    {listPhotos.renderFriends(this.state.friends, 22)}
+                  </View>
                   <Text style={style.friendsText}>
                       {"Esperando Confirmação"}
                   </Text>
@@ -137,8 +129,8 @@ const style = StyleSheet.create({
     marginTop: em (3),
   },
   friendsPhotos: {
-      flexDirection: 'row',
-      marginBottom: em (3),
+    flexDirection: 'row',
+    marginBottom: em (3),
   },
   friendsText: {
       color: '#A30000',

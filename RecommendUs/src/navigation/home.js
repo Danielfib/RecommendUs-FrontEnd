@@ -8,9 +8,9 @@ import Preference2 from '../screens/app/home/preference2'
 
 const HomeNavigator = StackNavigator(
     {
-        home: {
-            screen: Home
-        },
+        // home: {
+        //     screen: Home
+        // },
         preferences: {
             screen: Preferences
         },
