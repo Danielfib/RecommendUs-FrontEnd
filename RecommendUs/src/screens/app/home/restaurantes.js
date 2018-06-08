@@ -19,12 +19,23 @@ export default class ListRestaurant extends React.Component {
 
     /* Checar o dados do json */
     renderRestaurantList() {
-        let listResponse
+        let listResponse = [
+            {
+                nome: 'Pizzaria Atlântico',
+                expertise: 'Churrascaria, Pizzaria, Regional',
+                url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png'
+            },
+            {
+                nome: 'Brazzetus',
+                expertise: 'Pizzaria, Regional, Sushi',
+                url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png'
+            },
+        ]
 
-        axios.get('url')
-        .then((response)=>{
-            listResponse = response //nome expertise url_image
-        })
+        // axios.get('url')
+        // .then((response)=>{
+        //     listResponse = response //nome expertise url_image
+        // })
 
         //let objectRest = [{r:'Restaurante1', t:'tags', img: 'url'}, {r:'Restaurante2', t:'tags', img: 'url'}, {r:'Restaurante3', t:'tags', img: 'url'}, {r:'Restaurante4', t:'tags', img: 'url'}]   
         let listRestaurant = listResponse.map((restaurantes) => {
@@ -36,8 +47,9 @@ export default class ListRestaurant extends React.Component {
                         <TouchableOpacity>
                             <Text style = {styles.votar}>Votar</Text>
                         </TouchableOpacity>
-                        <Image source={{uri:restaurantes.url_image}}/>
                     </View>
+                    <Image style={styles.image} source={{uri: restaurantes.url_image}}/>
+                    <View style = {styles.imageView}></View>
                 </View>
             )
         })
@@ -63,9 +75,7 @@ export default class ListRestaurant extends React.Component {
                     </View>
                     <View style={styles.listRestaurantView}>
                         <ScrollView>
-                            {this.renderRestaurantList()}
-                            <View style={styles.restaurantView}> 
-                            </View>                                       
+                            {this.renderRestaurantList()}                                      
                         </ScrollView>
                     </View>
                 </View>   
@@ -102,24 +112,22 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     listRestaurantView: {
+        flex: 1,
         alignItems: 'center',
-        marginTop: em(3),
-        height: '90%',
-        backgroundColor: 'red', 
+        marginTop: em (3),
         backgroundColor: '#F5F5F5',
     },
     restaurantView: {
         justifyContent: 'center',
-        flexDirection: 'column',
-        width: em(95),
-        height: em(25),
-        backgroundColor: '#F5F5F5',
+        width: em (95),
+        height: em (28),
+        backgroundColor: '#FFFFFF',
         marginTop: em(4),
         shadowOffset: {width:0, height:0},
         shadowColor: '#DDD',
         shadowOpacity: 1.0,
         elevation: 8,
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     textList: {
         fontFamily: 'Roboto',
@@ -135,11 +143,25 @@ const styles = StyleSheet.create({
     votar: {
         color: '#6FCF97',
         fontWeight: 'bold',
-        marginTop: em(4)
+        marginLeft: em (2),
+        marginTop: em(5)
     },
     textContainer: {
-        marginLeft: em(2),
-        marginRight: em(24)
-    }
-
+        position: 'absolute',
+        left: em (4),
+        top: em (3),
+    },
+    imageView: {
+        position: 'absolute',
+        width: em (23),
+        height: em (28),
+        right: 0,
+        backgroundColor: 'rgba(44, 35, 35, .5)',
+    },
+    image: {
+        position: 'absolute',
+        width: em (23),
+        height: em (28),
+        right: 0,
+    },
 })
