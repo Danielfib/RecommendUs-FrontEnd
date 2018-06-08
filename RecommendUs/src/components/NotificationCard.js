@@ -96,11 +96,15 @@ export default class NotificationCard extends React.Component {
 const styles = StyleSheet.create({
     shape: {
         alignSelf: 'center',
-        backgroundColor: '#E7E7E7',
+        backgroundColor: '#FFFFFF',
         flexDirection: 'row',
         marginTop: em (5),
         width: em (94),
         borderRadius: em (3),
+        shadowOffset: {width:0, height:0},
+        shadowColor: '#DDD',
+        shadowOpacity: 1.0,
+        elevation: 8,
     },
     calendar: {
         width: em (16),
