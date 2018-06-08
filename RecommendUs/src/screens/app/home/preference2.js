@@ -145,28 +145,6 @@ class Preference2 extends React.Component {
                                 </View>
                         }
                         <View style={styles.choices}>
-                            <View style={styles.choice}>
-                                <Text style={styles.title}>
-                                    {"Qual é a ocasião?"}
-                                </Text>
-                                <ScrollView>
-                                    <View style={styles.restaurantView}>
-                                        <FlatList
-                                            data = {this.state.ambiente}
-                                            horizontal
-                                            keyExtractor = {(item, i) => item.id}
-                                            renderItem = {
-                                                ({item}) =>
-                                                    <CardChoose 
-                                                        name={item.name}
-                                                        image={item.image}
-                                                        size={21}
-                                                    />
-                                            }
-                                        />
-                                    </View>
-                                </ScrollView>
-                            </View>
                             <View style={[styles.choice, {flex: 2,}]}>
                                 <Text style={styles.title}>
                                     {"O que você quer comer?"}
@@ -230,7 +208,8 @@ const styles = StyleSheet.create({
         marginLeft: em (3.5),
     },
     choice: {
-        marginVertical: em (4),
+        marginTop: em (4),
+        marginBottom: em (26),
     },
     restaurantView: {
         flexDirection: 'row',

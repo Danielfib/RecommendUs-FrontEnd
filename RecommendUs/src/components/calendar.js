@@ -56,7 +56,7 @@ const style = StyleSheet.create({
     paddingVertical: 25,
   },
   containerScroll: {
-    marginLeft: '10%' 
+    marginLeft: '10%',
   },
   calendarShapeView: {
     width: 88,

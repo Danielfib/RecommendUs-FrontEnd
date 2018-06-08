@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import  {  View, Text, StyleSheet, TouchableOpacity, FlatList,} from 'react-native';
+import  {  View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView} from 'react-native';
 
 import Calendar from '../../../components/calendar'
 import MultisliderButton from '../../../components/multislider'

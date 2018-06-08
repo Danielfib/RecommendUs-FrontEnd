@@ -70,7 +70,7 @@ const style = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'flex-start',
       marginLeft: '10%',
-      padding: 0
+      padding: 0,
     },
     pickerLineStatus: {
       height: 2,
