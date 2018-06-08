@@ -39,7 +39,23 @@ export default class ListRestaurant extends React.Component {
                 {
                     image: 'https://memegenerator.net/img/images/17056620.jpg',
                     confirmed: true,
-                }
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
             ],
         }
     }
@@ -93,21 +109,21 @@ export default class ListRestaurant extends React.Component {
                         {"Restaurantes"}
                     </Text>
                 </Header>
-                <View style={styles.subContainer}>
-                    <View style={styles.friendsView}>
-                        <View style={styles.friendsPhotos}>
-                            {listPhotos.renderFriends(this.state.friends, 22)}
+                <ScrollView>
+                    <View style={styles.subContainer}>
+                        <View style={styles.friendsView}>
+                            <View style={styles.friendsPhotos}>
+                                {listPhotos.renderFriends(this.state.friends, 22)}
+                            </View>
+                            <Text style={styles.friendsText}>
+                                {"Esperando Confirmação"}
+                            </Text>
                         </View>
-                        <Text style={styles.friendsText}>
-                            {"Esperando Confirmação"}
-                        </Text>
+                        <View style={styles.listRestaurantView}>
+                            {this.renderRestaurantList()}
+                        </View>
                     </View>
-                    <View style={styles.listRestaurantView}>
-                        <ScrollView>
-                            {this.renderRestaurantList()}                                      
-                        </ScrollView>
-                    </View>
-                </View>   
+                </ScrollView>
             </View>
         )
     }
@@ -126,6 +142,7 @@ const styles = StyleSheet.create({
     },
     subContainer: {
         flex: 1,
+        marginBottom: em (5),
     },
     friendsView: {
         alignItems: 'center',
@@ -133,6 +150,7 @@ const styles = StyleSheet.create({
     },
     friendsPhotos: {
         flexDirection: 'row',
+        marginLeft: em (10),
         marginBottom: em (3),
     },
     friendsText: {
@@ -144,6 +162,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         marginTop: em (3),
+        paddingVertical: em (2),
         backgroundColor: '#F5F5F5',
     },
     restaurantView: {
@@ -151,7 +170,7 @@ const styles = StyleSheet.create({
         width: em (95),
         height: em (28),
         backgroundColor: '#FFFFFF',
-        marginTop: em(4),
+        marginVertical: em(2),
         shadowOffset: {width:0, height:0},
         shadowColor: '#DDD',
         shadowOpacity: 1.0,

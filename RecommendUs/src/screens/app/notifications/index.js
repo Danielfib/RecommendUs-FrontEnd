@@ -4,6 +4,7 @@ import {
     View,
     Text,
     TouchableOpacity,
+    ScrollView,
     StyleSheet,
 } from 'react-native'
 
@@ -37,6 +38,7 @@ class Notifications extends React.Component {
         return (
             <View style={styles.container}>
                 <BarStatus/>
+                <ScrollView>
                     <View style={styles.subContainer}>
                         <View style={styles.viewTitle}>
                             <Text style={styles.title}>
@@ -45,6 +47,7 @@ class Notifications extends React.Component {
                         </View>
                         <NotificationCard day={'SEX'} date={'18'}navigation={this.props.navigation}/>
                     </View>
+                </ScrollView>
             </View>
         );
     }
@@ -59,6 +62,7 @@ const styles = StyleSheet.create({
     subContainer: {
         flex: 1,
         marginTop: em (4),
+        marginBottom: em (5),
     },
     viewTitle: {
         marginLeft: em (3),
