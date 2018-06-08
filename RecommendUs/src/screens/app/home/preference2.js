@@ -44,24 +44,6 @@ class Preference2 extends React.Component {
                     confirmed: true,
                 }
             ],
-            ambiente: [
-                {
-                    name: 'Amigos',
-                    image: 'http://www.garuyo.com/sites/default/files/styles/large/public/images/2013/04/no-tener-amigos-es-tan-mala-como-el-alcoholismo_121945.jpg_28755.jpg',
-                },
-                {
-                    name: 'Trabalho',
-                    image: 'https://images.pexels.com/photos/567633/pexels-photo-567633.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-                },
-                {
-                    name: 'Familía',
-                    image: 'http://www.allfamilysites.com/news/gallery/how-to-find-a-good-restaurant-suitable-for-a-family-meal-pictures/How-to-find-a-good-restaurant-suitable-for-a-family-meal.jpg',
-                },
-                {
-                    name: 'Romântico',
-                    image: 'http://5b0988e595225.cdn.sohucs.com/images/20171223/7fd140e7a95540aabb4d497efb311745.jpeg',
-                },
-            ],
             tags: [{
                     name: 'Açaí',
                     image: 'https://img.stpu.com.br/?img=https://s3.amazonaws.com/pu-mgr/default/a0RG000000sOHSbMAO/5820cf6de4b0c8177ff320fc.jpg&w=620&h=400',
@@ -78,7 +60,8 @@ class Preference2 extends React.Component {
                     name: 'Café',
                     image: 'https://images.pexels.com/photos/296888/pexels-photo-296888.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
                 },
-            ]
+            ],
+            choices: [],
         }
     }
 
@@ -117,6 +100,15 @@ class Preference2 extends React.Component {
         // .catch(err => {
         //   console.warn(err)
         // })
+      }
+
+      selectOption(name) {
+        let idx = this.state.choices.indexOf(name)
+        if(idx > -1)
+            this.state.choices.splice(idx, 1)
+        else
+            this.state.choices.push(name)
+        console.warn(this.state.choices)
       }
     
     render() {
@@ -157,11 +149,13 @@ class Preference2 extends React.Component {
                                         keyExtractor = {(item, i) => item.id}
                                         renderItem = {
                                             ({item}) =>
-                                                <CardChoose 
-                                                    name={item.name}
-                                                    image={item.image}
-                                                    size={30}
-                                                />
+                                                <TouchableOpacity onPress={() => this.selectOption(item.name)}>
+                                                    <CardChoose 
+                                                        name={item.name}
+                                                        image={item.image}
+                                                        size={30}
+                                                    />
+                                                </TouchableOpacity>
                                         }
                                     />
                                 </View>

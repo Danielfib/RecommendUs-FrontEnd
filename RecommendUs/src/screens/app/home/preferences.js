@@ -97,7 +97,7 @@ export default class Preferences extends React.Component {
             </View>
 
             <View style = {[style.container, {marginTop: em (10)}]}>
-              <Text style = {style.textTitle}>Onde vai ser?</Text>
+              <Text style = {style.textTitle}>De onde você sair?</Text>
               <PickerButton/>
               <TouchableOpacity
                 style={style.nextButton}
