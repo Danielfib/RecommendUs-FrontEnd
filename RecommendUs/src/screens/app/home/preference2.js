@@ -104,6 +104,7 @@ class Preference2 extends React.Component {
         .catch(err => {
             console.warn(err)
         })
+        this.props.navigation.navigate('restaurants')
     }
 
     componentDidMount() {
