@@ -13,9 +13,36 @@ import axios from 'axios'
 import BarStatus from '../../../components/StatusBar'
 import Header from '../../../components/Header'
 
+import * as requests from '../../../actions/requests'
+import * as listPhotos from '../../../components/listPhotos'
+
 import em from '../../../properties/responsive'
 
 export default class ListRestaurant extends React.Component {
+
+    static navigationOptions = {
+        header: null,
+        
+        tabBarVisible: false,
+        swipeEnabled: false,
+    }
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            friends: [
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: false,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                }
+            ],
+        }
+    }
 
     /* Checar o dados do json */
     renderRestaurantList() {
@@ -61,14 +88,16 @@ export default class ListRestaurant extends React.Component {
         return(
             <View style={styles.container}>
                 <BarStatus/>
-                <Header>
+                <Header navigation={this.props.navigation}>
                     <Text style={styles.titleHeader}>
                         {"Restaurantes"}
                     </Text>
                 </Header>
                 <View style={styles.subContainer}>
                     <View style={styles.friendsView}>
-                        <View style={styles.friendsPhotos}></View>
+                        <View style={styles.friendsPhotos}>
+                            {listPhotos.renderFriends(this.state.friends, 22)}
+                        </View>
                         <Text style={styles.friendsText}>
                             {"Esperando Confirmação"}
                         </Text>
