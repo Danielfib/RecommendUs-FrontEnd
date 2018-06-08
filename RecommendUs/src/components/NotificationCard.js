@@ -5,6 +5,7 @@ import {
     Image,
     TouchableOpacity,
     Text,
+    ScrollView,
     StyleSheet,
 } from 'react-native'
 
@@ -27,6 +28,18 @@ export default class NotificationCard extends React.Component {
                 {
                     image: 'https://memegenerator.net/img/images/17056620.jpg',
                     confirmed: false,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
                 },
                 {
                     image: 'https://memegenerator.net/img/images/17056620.jpg',
@@ -58,7 +71,9 @@ export default class NotificationCard extends React.Component {
                     </View>
                 </View>
                 <View style={styles.friendsView}>
-                    {listPhotos.renderFriends(this.state.friends, 12)}
+                    <ScrollView contentContainerStyle={styles.scrollView} horizontal>
+                        {listPhotos.renderFriends(this.state.friends, 14)}
+                    </ScrollView>
                 </View>
                 <TouchableOpacity style={styles.notButton}>
                     <Text style={styles.textButton}>
@@ -84,7 +99,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#E7E7E7',
         flexDirection: 'row',
         marginTop: em (5),
-        width: em (90),
+        width: em (94),
         borderRadius: em (3),
     },
     calendar: {
@@ -109,16 +124,18 @@ const styles = StyleSheet.create({
         height: em (0.3),
     },
     friendsView: {
-        marginLeft: em (4),
-        width: em (20),
+        marginLeft: em (2),
+        width: em (26),
         justifyContent: 'center',
         alignSelf: 'center',
         flexDirection: 'row',
-        flexWrap: 'wrap',
+    },
+    scrollView: {
+        paddingLeft: em (4),
     },
     notButton: {
         backgroundColor: '#EB5757',
-        marginLeft: em (1),
+        marginLeft: em (2),
         paddingHorizontal: em (2),
         height: em (11),
         borderRadius: em (2),

@@ -3,7 +3,6 @@ import React from 'react'
 import {
     View,
     Text,
-    ScrollView,
     TouchableOpacity,
     StyleSheet,
 } from 'react-native'
@@ -44,9 +43,7 @@ class Notifications extends React.Component {
                                 {"Ei! Olha quem te chamou:"}
                             </Text>
                         </View>
-                        <ScrollView>
-                            <NotificationCard day={'SEX'} date={'18'}navigation={this.props.navigation}/>
-                        </ScrollView>
+                        <NotificationCard day={'SEX'} date={'18'}navigation={this.props.navigation}/>
                     </View>
             </View>
         );
