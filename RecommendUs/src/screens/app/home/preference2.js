@@ -102,7 +102,7 @@ class Preference2 extends React.Component {
         // })
       }
 
-      selectOption(name) {
+      selectOption = (name) => {
         let idx = this.state.choices.indexOf(name)
         if(idx > -1)
             this.state.choices.splice(idx, 1)
@@ -149,13 +149,12 @@ class Preference2 extends React.Component {
                                         keyExtractor = {(item, i) => item.id}
                                         renderItem = {
                                             ({item}) =>
-                                                <TouchableOpacity onPress={() => this.selectOption(item.name)}>
-                                                    <CardChoose 
-                                                        name={item.name}
-                                                        image={item.image}
-                                                        size={30}
-                                                    />
-                                                </TouchableOpacity>
+                                                <CardChoose
+                                                    function={this.selectOption}
+                                                    name={item.name}
+                                                    image={item.image}
+                                                    size={30}
+                                                />
                                         }
                                     />
                                 </View>

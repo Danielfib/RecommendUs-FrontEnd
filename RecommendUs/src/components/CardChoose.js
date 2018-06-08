@@ -27,10 +27,17 @@ export default class CardChoose extends React.Component {
         const name = this.props.name
         const image = this.props.image
         const size = this.props.size
+        const func = this.props.function
 
         return (
             <View style={styles.card}>
-                <Image style={[styles.img, {width: em (size), height: em (size),}]} source={{uri: image}} />
+                <TouchableOpacity onPress={() => {
+                    this.setState({
+                        selected: !this.state.selected
+                    })
+                    func(name)
+                }}>
+                    <Image style={[styles.img, {width: em (size), height: em (size),}]} source={{uri: image}} />
                     <View style={[styles.cardButton,
                         {
                             backgroundColor: this.state.selected ?
@@ -52,6 +59,7 @@ export default class CardChoose extends React.Component {
                             </Text>
                         </View>
                     </View>
+                </TouchableOpacity>
             </View>
         );
     }
