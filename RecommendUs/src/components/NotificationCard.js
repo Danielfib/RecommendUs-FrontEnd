@@ -10,11 +10,31 @@ import {
 
 import ImageCircle from './ImageCircle'
 
+import * as requests from '../actions/requests'
+import * as listPhotos from './listPhotos'
+
 import em from '../properties/responsive'
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 export default class NotificationCard extends React.Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            friends: [
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: false,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                }
+            ],
+        }
+    }
     
     render() {
 
@@ -38,8 +58,7 @@ export default class NotificationCard extends React.Component {
                     </View>
                 </View>
                 <View style={styles.friendsView}>
-                    <ImageCircle size={12} confirmed={true} image={image} />
-                    <ImageCircle size={12} image={image} />
+                    {listPhotos.renderFriends(this.state.friends, 12)}
                 </View>
                 <TouchableOpacity style={styles.notButton}>
                     <Text style={styles.textButton}>

@@ -129,12 +129,12 @@ class Preference2 extends React.Component {
                         {
                             this.state.friends &&
                                 <View style={styles.friendsView}>
-                                <View style={styles.friendsPhotos}>
-                                    {listPhotos.renderFriends(this.state.friends, 22)}
-                                </View>
-                                <Text style={styles.friendsText}>
-                                    {"Esperando Confirmação"}
-                                </Text>
+                                    <View style={styles.friendsPhotos}>
+                                        {listPhotos.renderFriends(this.state.friends, 22)}
+                                    </View>
+                                    <Text style={styles.friendsText}>
+                                        {"Esperando Confirmação"}
+                                    </Text>
                                 </View>
                         }
                         <View style={styles.choices}>
