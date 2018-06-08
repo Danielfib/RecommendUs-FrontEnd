@@ -67,7 +67,7 @@ class Preference2 extends React.Component {
                     image: 'https://img.stpu.com.br/?img=https://s3.amazonaws.com/pu-mgr/default/a0RG000000sOHSbMAO/5820cf6de4b0c8177ff320fc.jpg&w=620&h=400',
                 },
                 {
-                    name: 'Contemporanea',
+                    name: 'Contemporânea',
                     image: 'http://saopauloparainiciantes.com.br/wp-content/uploads/images//DSC03161-575x431.jpg',
                 },
                 {
