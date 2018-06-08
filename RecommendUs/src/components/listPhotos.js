@@ -2,6 +2,7 @@ import React from 'react'
 import {
     View,
     Image,
+    ScrollView,
     StyleSheet,
 } from 'react-native'
 
@@ -40,10 +41,22 @@ export function renderFriends(friends, size) {
             </View>
       )
     })
-    return listFriends
+    return (
+        <ScrollView horizontal>
+            <View style={styles.friendsPhotos}>
+                {listFriends}
+            </View>
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
+    friendsPhotos: {
+        flexDirection: 'row',
+        marginHorizontal: em (8),
+        marginRight: em (4),
+        marginBottom: em (3),
+    },
     circle: {
         marginLeft: em (-4),
     },

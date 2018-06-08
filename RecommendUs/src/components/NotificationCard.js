@@ -27,24 +27,16 @@ export default class NotificationCard extends React.Component {
             friends: [
                 {
                     image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
                     confirmed: false,
                 },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                }
             ],
         }
     }
@@ -128,14 +120,13 @@ const styles = StyleSheet.create({
         height: em (0.3),
     },
     friendsView: {
-        marginLeft: em (2),
-        width: em (26),
+        width: em (27),
+        paddingTop: em (2),
         justifyContent: 'center',
         alignSelf: 'center',
         flexDirection: 'row',
     },
     scrollView: {
-        paddingLeft: em (4),
     },
     notButton: {
         backgroundColor: '#EB5757',

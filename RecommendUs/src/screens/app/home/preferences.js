@@ -77,9 +77,7 @@ export default class Preferences extends React.Component {
             {
               this.state.friends &&
                 <View style={style.friendsView}>
-                  <View style={style.friendsPhotos}>
-                    {listPhotos.renderFriends(this.state.friends, 22)}
-                  </View>
+                  {listPhotos.renderFriends(this.state.friends, 22)}
                   <Text style={style.friendsText}>
                       {"Esperando Confirmação"}
                   </Text>

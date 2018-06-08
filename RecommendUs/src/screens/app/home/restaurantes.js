@@ -112,9 +112,7 @@ export default class ListRestaurant extends React.Component {
                 <ScrollView>
                     <View style={styles.subContainer}>
                         <View style={styles.friendsView}>
-                            <View style={styles.friendsPhotos}>
-                                {listPhotos.renderFriends(this.state.friends, 22)}
-                            </View>
+                            {listPhotos.renderFriends(this.state.friends, 22)}
                             <Text style={styles.friendsText}>
                                 {"Esperando Confirmação"}
                             </Text>
@@ -147,11 +145,6 @@ const styles = StyleSheet.create({
     friendsView: {
         alignItems: 'center',
         marginTop: em (3),
-    },
-    friendsPhotos: {
-        flexDirection: 'row',
-        marginLeft: em (10),
-        marginBottom: em (3),
     },
     friendsText: {
         color: '#A30000',
