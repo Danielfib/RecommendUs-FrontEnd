@@ -17,7 +17,6 @@ const root = TabNavigator (
   },
   {
     // Configurações do TabNavigator
-
     tabBarPosition: 'bottom',
     tabBarOptions: {
       showLabel: false,

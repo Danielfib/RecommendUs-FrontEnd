@@ -4,11 +4,15 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
+    Text,
 } from 'react-native'
 
 import {
     Constants,
 } from 'expo'
+
+import BarStatus from '../../../components/StatusBar'
+import Header from '../../../components/Header'
 
 import em from '../../../properties/responsive'
 

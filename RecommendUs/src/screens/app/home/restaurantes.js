@@ -56,12 +56,14 @@ export default class ListRestaurant extends React.Component {
             {
                 nome: 'Pizzaria Atlântico',
                 expertise: 'Churrascaria, Pizzaria, Regional',
-                url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png'
+                url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
+                parther: true,
             },
             {
                 nome: 'Brazzetus',
                 expertise: 'Pizzaria, Regional, Sushi',
-                url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png'
+                url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
+                parther: false,
             },
         ]
 
@@ -72,19 +74,34 @@ export default class ListRestaurant extends React.Component {
 
         //let objectRest = [{r:'Restaurante1', t:'tags', img: 'url'}, {r:'Restaurante2', t:'tags', img: 'url'}, {r:'Restaurante3', t:'tags', img: 'url'}, {r:'Restaurante4', t:'tags', img: 'url'}]   
         let listRestaurant = listResponse.map((restaurantes) => {
-            return(
-                <View key={restaurantes.nome} style={styles.restaurantView}> 
-                    <View style={styles.textContainer}>
-                        <Text style={styles.textList}>{restaurantes.nome}</Text>
-                        <Text style={styles.subtextList}>{restaurantes.expertise}</Text>
-                        <TouchableOpacity>
-                            <Text style = {styles.votar}>Votar</Text>
-                        </TouchableOpacity>
+            if(!restaurantes.parther)
+                return (
+                    <View key={restaurantes.nome} style={styles.restaurantView}> 
+                        <View style={styles.textContainer}>
+                            <Text style={styles.textList}>{restaurantes.nome}</Text>
+                            <Text style={styles.subtextList}>{restaurantes.expertise}</Text>
+                            <TouchableOpacity>
+                                <Text style = {styles.votar}>Votar</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <Image style={styles.image} source={{uri: restaurantes.url_image}}/>
+                        <View style = {styles.imageView}></View>
                     </View>
-                    <Image style={styles.image} source={{uri: restaurantes.url_image}}/>
-                    <View style = {styles.imageView}></View>
-                </View>
-            )
+                )
+            else
+                return (
+                    <View key={restaurantes.nome} style={[styles.restaurantView, {height: em (33)}]}> 
+                        <View style={{backgroundColor: '#A30000'}}>
+                            <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurantes.nome}</Text>
+                            <Text style={styles.subtextList}>{restaurantes.expertise}</Text>
+                            <TouchableOpacity>
+                                <Text style = {styles.votar}>Votar</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <Image style={styles.image} source={{uri: restaurantes.url_image}}/>
+                        <View style = {styles.imageView}></View>
+                    </View>
+                )
         })
 
         return listRestaurant
@@ -190,7 +207,6 @@ const styles = StyleSheet.create({
         marginTop: em(5)
     },
     textContainer: {
-        position: 'absolute',
         left: em (4),
         top: em (3),
     },
