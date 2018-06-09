@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Draggable from "../../../components/Draggable.js";
 import BarStatus from "../../../components/StatusBar.js";
 import Header from '../../../components/Header.js';
+import NextButton from '../../../components/NextButton.js';
 
 import em from '../../../properties/responsive';
 
@@ -16,7 +17,7 @@ export default class CreateGroup extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <BarStatus/>
 
         <Header navigation={this.props.navigation}>
@@ -38,12 +39,19 @@ export default class CreateGroup extends Component {
             <Draggable />
           </View>
         </View>
+
+        <TouchableOpacity style={styles.nextButton}>
+          <NextButton />
+        </TouchableOpacity>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   mainContainer: {
     flex: 1
   },
@@ -61,6 +69,11 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '500',
     fontSize: em (7.6),
+  },
+  nextButton: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
   },
   text: {
     marginTop: 50,
