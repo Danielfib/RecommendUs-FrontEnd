@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import Draggable from "../../../components/Draggable.js";
 import BarStatus from "../../../components/StatusBar.js";
+import Header from '../../../components/Header.js';
+
+import em from '../../../properties/responsive';
 
 export default class CreateGroup extends Component {
   //so that tab navigator doesnt appear
@@ -15,6 +18,12 @@ export default class CreateGroup extends Component {
     return (
       <View>
         <BarStatus/>
+
+        <Header navigation={this.props.navigation}>
+          <Text style={styles.titleHeader}>
+              {"Crie seu Grupo!"}
+          </Text>
+        </Header>
 
         <View style={styles.mainContainer}>
           <View style={styles.dropZone}>
@@ -47,6 +56,11 @@ const styles = StyleSheet.create({
   dropZone: {
     height: 200,
     backgroundColor: "#A6A6A6"
+  },
+  titleHeader: {
+    color: '#FFFFFF',
+    fontWeight: '500',
+    fontSize: em (7.6),
   },
   text: {
     marginTop: 25,
