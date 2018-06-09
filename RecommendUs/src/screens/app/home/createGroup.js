@@ -4,6 +4,7 @@ import Draggable from "../../../components/Draggable.js";
 import BarStatus from "../../../components/StatusBar.js";
 import Header from '../../../components/Header.js';
 import NextButton from '../../../components/NextButton.js';
+import SearchButton from '../../../components/SeachButton.js';
 
 import em from '../../../properties/responsive';
 
@@ -40,8 +41,13 @@ export default class CreateGroup extends Component {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.nextButton}>
+      
+        <TouchableOpacity style={styles.nextButton} underlayColor='#ff7043'>
           <NextButton />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.searchButton}>
+          <SearchButton />
         </TouchableOpacity>
       </View>
     );
@@ -70,10 +76,15 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: em (7.6),
   },
-  nextButton: {
+  searchButton: {
     position: 'absolute',
     bottom: 0,
+    left: 0,
+  },
+  nextButton: {    
+    position: 'absolute',
     right: 0,
+    bottom: 0,
   },
   text: {
     marginTop: 50,
