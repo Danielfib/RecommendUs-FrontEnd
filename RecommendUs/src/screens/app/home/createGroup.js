@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },  
   dropZone: {
-    height: 200,
+    height: 150,
     backgroundColor: "#A6A6A6"
   },
   titleHeader: {
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     fontSize: em (7.6),
   },
   text: {
-    marginTop: 25,
+    marginTop: 50,
     marginLeft: 5,
     marginRight: 5,
     textAlign: "center",
