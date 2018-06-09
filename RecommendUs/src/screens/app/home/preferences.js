@@ -1,6 +1,13 @@
 import React from 'react';
 import axios from 'axios'
-import  {  View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  ScrollView,
+} from 'react-native'
 
 import Calendar from '../../../components/calendar'
 import MultisliderButton from '../../../components/multislider'
@@ -14,6 +21,8 @@ import NextButton from '../../../components/NextButton'
 
 import * as requests from '../../../actions/requests'
 import * as listPhotos from '../../../components/listPhotos'
+
+import * as Progress from 'react-native-progress'
 
 import em from '../../../properties/responsive'
 
@@ -80,7 +89,19 @@ export default class Preferences extends React.Component {
                   {listPhotos.renderFriends(this.state.friends, 22)}
                   <Text style={style.friendsText}>
                       {"Esperando Confirmação"}
-                  </Text>
+                  </Text>                 
+                  <View style={{marginTop: em (5),}}>
+                    <Progress.Bar
+                      progress={0.3}
+                      color={'#A30000'}
+                      unfilledColor={'#CCCCCC'}
+                      borderColor={'transparent'}
+                      borderWidth={0}
+                      width={em (94)}
+                      height={em (0.5)}
+                      borderRadius={0}
+                    />
+                  </View>
                 </View>
             }
             <View style = {[{marginTop: em (5)}]}>

@@ -16,6 +16,8 @@ import Header from '../../../components/Header'
 import * as requests from '../../../actions/requests'
 import * as listPhotos from '../../../components/listPhotos'
 
+import * as Progress from 'react-native-progress'
+
 import em from '../../../properties/responsive'
 
 export default class ListRestaurant extends React.Component {
@@ -34,23 +36,11 @@ export default class ListRestaurant extends React.Component {
             friends: [
                 {
                     image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
                     confirmed: false,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
                 },
                 {
                     image: 'https://memegenerator.net/img/images/17056620.jpg',
@@ -116,6 +106,18 @@ export default class ListRestaurant extends React.Component {
                             <Text style={styles.friendsText}>
                                 {"Esperando Confirmação"}
                             </Text>
+                            <View style={{marginTop: em (5),}}>
+                                <Progress.Bar
+                                progress={0.9}
+                                color={'#A30000'}
+                                unfilledColor={'#CCCCCC'}
+                                borderColor={'transparent'}
+                                borderWidth={0}
+                                width={em (94)}
+                                height={em (0.5)}
+                                borderRadius={0}
+                                />
+                            </View>
                         </View>
                         <View style={styles.listRestaurantView}>
                             {this.renderRestaurantList()}
