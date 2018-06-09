@@ -42,7 +42,7 @@ export default class CreateGroup extends Component {
         </View>
 
       
-        <TouchableOpacity style={styles.nextButton} underlayColor='#ff7043'>
+        <TouchableOpacity style={styles.nextButton} onPress={() => this.props.navigation.navigate('preferences')}>
           <NextButton />
         </TouchableOpacity>
 
