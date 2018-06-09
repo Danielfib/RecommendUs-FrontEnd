@@ -39,6 +39,11 @@ class Draggable extends Component {
                 showDraggable: false
               })
             );
+          } else {
+            Animated.spring(
+              this.state.pan,
+              {toValue:{x:0, y:0}}
+            ).start();
           } 
         }
       });
