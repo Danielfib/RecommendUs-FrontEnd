@@ -50,18 +50,22 @@ export default class ListRestaurant extends React.Component {
         }
     }
 
+    vote(restaurante) {
+        console.warn(restaurante)
+    }
+
     /* Checar o dados do json */
     renderRestaurantList() {
         let listResponse = [
             {
-                nome: 'Pizzaria Atlântico',
+                name: 'Pizzaria Atlântico',
                 expertise: 'Churrascaria, Pizzaria, Regional',
                 address: 'Rua Conselheiro Portela, 374',
                 url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
                 parther: true,
             },
             {
-                nome: 'Brazzetus',
+                name: 'Brazzetus',
                 expertise: 'Pizzaria, Regional, Sushi',
                 url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
                 parther: false,
@@ -77,11 +81,11 @@ export default class ListRestaurant extends React.Component {
         let listRestaurant = listResponse.map((restaurantes) => {
             if(!restaurantes.parther)
                 return (
-                    <View key={restaurantes.nome} style={styles.restaurantView}> 
+                    <View key={restaurantes.name} style={styles.restaurantView}> 
                         <View style={styles.textContainer}>
-                            <Text style={styles.textList}>{restaurantes.nome}</Text>
+                            <Text style={styles.textList}>{restaurantes.name}</Text>
                             <Text style={styles.subtextList}>{restaurantes.expertise}</Text>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.vote(restaurantes)}>
                                 <Text style = {styles.votar}>Votar</Text>
                             </TouchableOpacity>
                         </View>
@@ -91,10 +95,10 @@ export default class ListRestaurant extends React.Component {
                 )
             else
                 return (
-                    <View key={restaurantes.nome} style={[styles.restaurantView, {flexDirection: 'column', height: em (36)}]}> 
+                    <View key={restaurantes.name} style={[styles.restaurantView, {flexDirection: 'column', height: em (36)}]}> 
                         <View style={{flexDirection: 'column',}}>
                             <View style={{padding: em (3), height: em (23), backgroundColor: '#A30000'}}>
-                                <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurantes.nome}</Text>
+                                <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurantes.name}</Text>
                                 <Text style={styles.subtextList}>{restaurantes.expertise}</Text>
                                 <Text style={styles.subtextList}>{restaurantes.address}</Text>
                             </View>
@@ -102,7 +106,7 @@ export default class ListRestaurant extends React.Component {
                             <View style = {[styles.imageView, {height: em (23),}]}></View>
                         </View>
                         <View style={{flex: 1,}}>
-                            <TouchableOpacity style={styles.partherButton}>
+                            <TouchableOpacity onPress={() => this.vote(restaurantes)} style={styles.partherButton}>
                                 <Text style={styles.partherButtonText}>
                                     Votar
                                 </Text>
