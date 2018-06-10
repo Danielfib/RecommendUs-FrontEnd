@@ -56,6 +56,7 @@ export default class ListRestaurant extends React.Component {
             {
                 nome: 'Pizzaria Atlântico',
                 expertise: 'Churrascaria, Pizzaria, Regional',
+                address: 'Rua Conselheiro Portela, 374',
                 url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
                 parther: true,
             },
@@ -90,16 +91,32 @@ export default class ListRestaurant extends React.Component {
                 )
             else
                 return (
-                    <View key={restaurantes.nome} style={[styles.restaurantView, {height: em (33)}]}> 
-                        <View style={{backgroundColor: '#A30000'}}>
-                            <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurantes.nome}</Text>
-                            <Text style={styles.subtextList}>{restaurantes.expertise}</Text>
-                            <TouchableOpacity>
-                                <Text style = {styles.votar}>Votar</Text>
-                            </TouchableOpacity>
+                    <View key={restaurantes.nome} style={[styles.restaurantView, {flexDirection: 'column', height: em (36)}]}> 
+                        <View style={{flexDirection: 'column',}}>
+                            <View style={{padding: em (3), height: em (23), backgroundColor: '#A30000'}}>
+                                <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurantes.nome}</Text>
+                                <Text style={styles.subtextList}>{restaurantes.expertise}</Text>
+                                <Text style={styles.subtextList}>{restaurantes.address}</Text>
+                            </View>
+                            <Image style={[styles.image, {height: em (23),}]} source={{uri: restaurantes.url_image}}/>
+                            <View style = {[styles.imageView, {height: em (23),}]}></View>
                         </View>
-                        <Image style={styles.image} source={{uri: restaurantes.url_image}}/>
-                        <View style = {styles.imageView}></View>
+                        <View style={{flex: 1,}}>
+                            <TouchableOpacity style={styles.partherButton}>
+                                <Text style={styles.partherButtonText}>
+                                    Votar
+                                </Text>
+                            </TouchableOpacity>
+                            <View style={styles.viewDiscount}>
+                                <Text style={styles.valueDiscount}>
+                                    {"20"}
+                                </Text>
+                                <Image style={styles.imagePercent} source={require('../../../assets/Discont.png')} />
+                                <Text style={styles.daysDicount} >
+                                    {"QUA~SEX"}
+                                </Text>
+                            </View>
+                        </View>
                     </View>
                 )
         })
@@ -190,12 +207,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     textList: {
-        fontFamily: 'Roboto',
         fontSize: em(6),
         fontWeight: 'bold'
     },
     subtextList: {
-        fontFamily: 'Roboto',
         fontSize: em(3),
         color: '#A6A6A6',
         fontWeight: 'bold'
@@ -204,9 +219,51 @@ const styles = StyleSheet.create({
         color: '#6FCF97',
         fontWeight: 'bold',
         marginLeft: em (2),
-        marginTop: em(5)
+        marginTop: em(5),
+    },
+    partherButton: {
+        flex: 1,
+        backgroundColor: '#27AE60',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: em (2),
+        marginLeft: em (10),
+        width: em (20),
+        paddingVertical: em (2),
+        borderRadius: em (5),
+    },
+    partherButtonText: {
+        alignSelf: 'center',
+        color: '#FFFFFF',
+        fontSize: em (5),
+        fontWeight: '500',
+    },
+    viewDiscount: {
+        flexDirection: 'row',
+        position: 'absolute',
+        right: em (5),
+        top: em (1),
+    },
+    valueDiscount: {
+        color: '#A30000',
+        fontSize: em (7),
+        fontStyle: 'italic',
+    },
+    imagePercent: {
+        width: em (6.5),
+        height: em (6.5),
+        marginLeft: em (1),
+        marginTop: em (2),
+    },
+    daysDicount: {
+        color: '#8B8A8A',
+        fontWeight: '500',
+        fontSize: em (4),
+        marginLeft: em (2),
+        marginTop: em (2),
     },
     textContainer: {
+        position: 'absolute',
         left: em (4),
         top: em (3),
     },
