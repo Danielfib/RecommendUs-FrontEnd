@@ -30,7 +30,33 @@ class Notifications extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {}
+        this.state = {
+            notifications: [
+                {
+                    friends: [],
+                    day: 'SEX',
+                    date: '18',
+                },
+                {
+                    friends: [],
+                    day: 'SEX',
+                    date: '18',
+                },
+            ],
+        }
+    }
+    
+    renderCardsNotification() {
+        let cards = this.state.notifications.map((notification) => {
+            return (
+                <NotificationCard
+                    day={notification.day}
+                    date={notification.date}
+                    navigation={this.props.navigation}
+                />
+            )
+        })
+        return cards
     }
     
     render() {
@@ -45,7 +71,7 @@ class Notifications extends React.Component {
                                 {"Ei! Olha quem te chamou:"}
                             </Text>
                         </View>
-                        <NotificationCard day={'SEX'} date={'18'}navigation={this.props.navigation}/>
+                        {this.renderCardsNotification()}
                     </View>
                 </ScrollView>
             </View>
