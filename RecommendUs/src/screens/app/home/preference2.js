@@ -82,14 +82,13 @@ class Preference2 extends React.Component {
             tags: 'Botecos Pub',
             price: '15'
         }
-        axios.post(`${requests.getUrl()}/preferencia`, data)
+        axios.post(`${requests.getUrl()}/api/preferencia`, data)
         .then(res => {
-            console.warn(res)
+            this.props.navigation.navigate('restaurants', {restaurants: res.data})
         })
         .catch(err => {
             console.warn(err)
         })
-        this.props.navigation.navigate('restaurants')
     }
 
     componentDidMount() {
