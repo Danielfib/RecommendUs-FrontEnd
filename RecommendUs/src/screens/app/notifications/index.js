@@ -8,8 +8,6 @@ import {
     StyleSheet,
 } from 'react-native'
 
-import BarStatus from '../../../components/StatusBar'
-import Header from '../../../components/Header'
 import CardChoose from '../../../components/CardChoose'
 import ImageCircle from '../../../components/ImageCircle'
 import NextButton from '../../../components/NextButton'
@@ -63,7 +61,6 @@ class Notifications extends React.Component {
         // Tamanho dos cards: 21 para o clima e 30 para os tipos de comida
         return (
             <View style={styles.container}>
-                <BarStatus/>
                 <ScrollView>
                     <View style={styles.subContainer}>
                         <View style={styles.viewTitle}>

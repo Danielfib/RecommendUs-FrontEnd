@@ -8,17 +8,15 @@ import {
 
 import em from '../../properties/responsive'
 
-import Root from '../../navigation/tab-router'
 import BarStatus from '../../components/StatusBar'
-
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Root from '../../navigation/tab-router'
 
 export default class TabHeader extends React.Component {
     
     render() {
 
         return (
-            <View>
+            <View style={styles.container}>
                 <BarStatus />
                 <Root />
             </View>
@@ -26,4 +24,8 @@ export default class TabHeader extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+})

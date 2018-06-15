@@ -14,9 +14,6 @@ const MainNavigator = StackNavigator(
         tabHeader: {
             screen: TabHeader
         },
-        tab: {
-            screen: TabRouter
-        },
     },
     {
         headerMode: 'none',
