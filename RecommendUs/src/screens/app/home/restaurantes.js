@@ -135,7 +135,6 @@ export default class ListRestaurant extends React.Component {
     render() {
         return(
             <View style={styles.container}>
-                <BarStatus/>
                 <Header navigation={this.props.navigation}>
                     <Text style={styles.titleHeader}>
                         {"Restaurantes"}
