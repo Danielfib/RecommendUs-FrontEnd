@@ -68,6 +68,7 @@ class Preference2 extends React.Component {
     }
 
     sendInfo() {
+        //this.props.navigation.navigate('restaurants'/*, {restaurants: res.data}*/)
         let data = {
             users: [
                 {

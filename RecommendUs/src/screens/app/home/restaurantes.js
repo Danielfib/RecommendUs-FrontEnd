@@ -47,7 +47,7 @@ export default class ListRestaurant extends React.Component {
                     confirmed: true,
                 },
             ],
-            listRestaurant: this.props.navigation.state.params.restaurants,
+            listRestaurant: /*this.props.navigation.state.params.restaurants*/[],
         }
     }
 
@@ -58,7 +58,7 @@ export default class ListRestaurant extends React.Component {
     /* Checar o dados do json */
     renderRestaurantList() {
 
-        console.warn(this.state.listRestaurant.name[4])
+        //console.warn(this.state.listRestaurant.name[4])
 
         let listResponse = [
             {

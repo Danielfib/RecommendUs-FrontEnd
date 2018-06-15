@@ -9,9 +9,9 @@ import {
   ScrollView,
 } from 'react-native'
 
-import Calendar from '../../../components/calendar'
-import MultisliderButton from '../../../components/multislider'
-import PickerButton from '../../../components/pickerButton'
+import Calendar from '../../../components/Calendar'
+import MultisliderButton from '../../../components/MultiSlider'
+import PickerButton from '../../../components/PickerButton'
 
 import BarStatus from '../../../components/StatusBar'
 import Header from '../../../components/Header'
@@ -83,48 +83,53 @@ export default class Preferences extends React.Component {
               </Text>
           </Header>
           <View style = {style.container}>
-            {
-              this.state.friends &&
-                <View style={style.friendsView}>
-                  {listPhotos.renderFriends(this.state.friends, 22)}
-                  <Text style={style.friendsText}>
-                      {"Esperando Confirmação"}
-                  </Text>                 
-                  <View style={{marginTop: em (5),}}>
-                    <Progress.Bar
-                      progress={0.3}
-                      color={'#A30000'}
-                      unfilledColor={'#CCCCCC'}
-                      borderColor={'transparent'}
-                      borderWidth={0}
-                      width={em (94)}
-                      height={em (0.5)}
-                      borderRadius={0}
-                    />
+            <ScrollView>
+              {
+                this.state.friends &&
+                  <View style={style.friendsView}>
+                    {listPhotos.renderFriends(this.state.friends, 22)}
+                    <Text style={style.friendsText}>
+                        {"Esperando Confirmação"}
+                    </Text>                 
+                    <View style={{marginTop: em (5),}}>
+                      <Progress.Bar
+                        progress={0.3}
+                        color={'#A30000'}
+                        unfilledColor={'#CCCCCC'}
+                        borderColor={'transparent'}
+                        borderWidth={0}
+                        width={em (94)}
+                        height={em (0.5)}
+                        borderRadius={0}
+                      />
+                    </View>
                   </View>
+              }
+              <View style = {[{marginTop: em (4)}]}>
+                <Text style = {style.textTitle}>Quanto você quer pagar?</Text>
+                <View style = {[style.containerSlider]}>  
+                  <MultisliderButton/>
                 </View>
-            }
-            <View style = {[{marginTop: em (5)}]}>
-              <Text style = {style.textTitle}>Quanto você quer pagar?</Text>
-              <View style = {[style.containerSlider]}>  
-                <MultisliderButton/>
               </View>
-            </View>
-            <View style = {style.container}>
-              <Text style = {style.textTitle}>Quando vai ser?</Text>
-              <Calendar/>
-            </View>
-
-            <View style = {[style.container, {marginTop: em (10)}]}>
-              <Text style = {style.textTitle}>De onde você sair?</Text>
-              <PickerButton/>
-              <TouchableOpacity
+              <View style = {style.container}>
+                <Text style = {style.textTitle}>Quando vai ser?</Text>
+                <Calendar/>
+              </View>
+              <View style = {[style.container, {marginBottom: em (28),}]}>
+                <Text style = {style.textTitle}>De onde você vai sair?</Text>
+                <View style = {style.pickerContainer}>
+                  <PickerButton defaultOption='Estado' data = {["Pernambuco", 'Rondonia', 'Maranhão']}/>
+                  <PickerButton defaultOption='Cidade' data = {["Recife", 'Jaboatão', 'Olinda']}/>
+                  <PickerButton defaultOption='Bairro' data = {["Piedade", 'Candeias', 'Boa Viagem']}/>
+                </View>
+              </View>
+            </ScrollView>
+            <TouchableOpacity
                 style={style.nextButton}
                 onPress={() => this.props.navigation.navigate('preferences2', {})}
               >
-                  <NextButton />
-              </TouchableOpacity>
-            </View>
+                <NextButton />
+            </TouchableOpacity>
           </View>
         </View>
       );
@@ -174,6 +179,13 @@ const style = StyleSheet.create({
       bottom: 0,
       right: 0,
   },
+  pickerContainer: {
+    marginLeft: em(6),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: em(2),
+    marginRight: em(1),
+  }
 })
 
 

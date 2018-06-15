@@ -9,17 +9,14 @@ import ListRestaurant from '../screens/app/home/restaurantes'
 
 const HomeNavigator = StackNavigator(
     {
-        // home: {
-        //     screen: Home
-        // },
-        // preferences: {
-        //     screen: Preferences
-        // },
-        // preferences2: {
-        //     screen: Preference2
-        // },
-        restaurant: {
-            screen: ListRestaurant
+        home: {
+            screen: Home
+        },
+        preferences: {
+            screen: Preferences
+        },
+        preferences2: {
+            screen: Preference2
         },
         restaurants: {
             screen: ListRestaurant

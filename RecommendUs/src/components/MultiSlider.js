@@ -58,15 +58,15 @@ export default class MultiSliderButton extends React.Component {
 
 const style = StyleSheet.create({
     multSlider: {
-      height: em (8),
-      width: em (8),
+      height: em (6),
+      width: em (6),
       borderRadius: em (4), 
       backgroundColor:'#27AE60', 
     },
     textMultSlider: {
-      marginTop: em (-10),
+      marginTop: em (-8),
       fontFamily: 'Roboto',
-      fontSize: em (9),
+      fontSize: em (7),
       color: '#27AE60',
       textAlign: 'center'
     },
