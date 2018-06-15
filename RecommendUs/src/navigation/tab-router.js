@@ -6,7 +6,7 @@ import HomeNavigator from './home'
 import NotificationNavigator from './notifications'
 
 // Showcase de telas
-const root = TabNavigator (
+export default Root = TabNavigator (
   {
     home: {
       screen: HomeNavigator
@@ -17,7 +17,7 @@ const root = TabNavigator (
   },
   {
     // Configurações do TabNavigator
-    tabBarPosition: 'bottom',
+    tabBarPosition: 'top',
     tabBarOptions: {
       showLabel: false,
       showIcon: true,
@@ -34,5 +34,3 @@ const root = TabNavigator (
     },
   }
 )
-
-export default root
