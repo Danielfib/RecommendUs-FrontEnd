@@ -9,16 +9,22 @@ import {
 import em from '../../properties/responsive'
 
 import BarStatus from '../../components/StatusBar'
-import Root from '../../navigation/tab-router'
+import Header from '../../components/Header'
+import MyTab from '../../navigation/tab-router'
 
-export default class TabHeader extends React.Component {
-    
+export default class TabHome extends React.Component {
+  
     render() {
 
         return (
             <View style={styles.container}>
-                <BarStatus />
-                <Root />
+                <BarStatus/>
+                <Text>Header</Text>
+                <MyTab
+                    screenProps = {{
+                        navigate: this.props.navigation.navigate
+                    }}
+                />
             </View>
         );
     }

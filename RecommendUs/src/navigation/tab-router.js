@@ -2,16 +2,16 @@ import {
     TabNavigator,
 } from 'react-navigation'
 
-import HomeNavigator from './home'
-import NotificationNavigator from './notifications'
+import Home from '../screens/app/home'
+import Notifications from '../screens/app/notifications'
 
 // Showcase de telas
-const Root = TabNavigator ({
+const MyTab = TabNavigator ({
     home: {
-      screen: HomeNavigator
+      screen: Home
     },
     notifications: {
-      screen: NotificationNavigator
+      screen: Notifications
     },
   },
   {
@@ -26,12 +26,11 @@ const Root = TabNavigator ({
         borderBottomColor: '#FFFFFF',
         borderBottomWidth: 2,
       },
-
       style: {
         backgroundColor: '#A30000',
       },
     },
-  }
-)
+  },
+);
 
-export default Root
+export default MyTab

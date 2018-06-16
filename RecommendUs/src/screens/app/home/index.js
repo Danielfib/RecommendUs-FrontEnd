@@ -27,10 +27,13 @@ export default class Home extends React.Component {
     }
 
     render() {
+
+        console.log(this.props.screenProps)
+
         return (
             <View style={styles.header}>
                 <View style={styles.arrowBox}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('preferences')}>
+                    <TouchableOpacity onPress={() => this.props.screenProps.navigate('preferences')}>
                         <FontAwesome name={'home'} size={30} color={'#FFFFFF'}/>
                     </TouchableOpacity>
                 </View>

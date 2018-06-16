@@ -120,6 +120,7 @@ class Preference2 extends React.Component {
         
         return (
             <View style={styles.container}>
+                <BarStatus/>
                 <Header navigation={this.props.navigation}>
                     <Text style={styles.titleHeader}>
                         {"Preferências"}

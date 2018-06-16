@@ -50,7 +50,7 @@ class Notifications extends React.Component {
                 <NotificationCard
                     day={notification.day}
                     date={notification.date}
-                    navigation={this.props.navigation}
+                    navigation={this.props.screenProps}
                 />
             )
         })
