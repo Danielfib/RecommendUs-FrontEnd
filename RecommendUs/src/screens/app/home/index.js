@@ -2,23 +2,28 @@ import React from 'react'
 
 import {
     View,
-    StyleSheet,
-    TouchableOpacity,
     Text,
+    Image,
+    TouchableOpacity,
+    StyleSheet,
 } from 'react-native'
-
-import {
-    Constants,
-} from 'expo'
-
-import BarStatus from '../../../components/StatusBar'
-import Header from '../../../components/Header'
 
 import em from '../../../properties/responsive'
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 export default class Home extends React.Component {
+
+    state = {
+        meetings: [
+            {
+                id: '',
+                restaurant: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
+                month: 'MAR',
+                day: '15',
+            }
+        ],
+    }
     
     static navigationOptions = {
         tabBarIcon: ({ focused, tintColor }) => {
@@ -26,19 +31,59 @@ export default class Home extends React.Component {
         }
     }
 
-    render() {
-
-        console.log(this.props.screenProps)
-
-        return (
-            <View style={styles.header}>
-                <View style={styles.arrowBox}>
-                    <TouchableOpacity onPress={() => this.props.screenProps.navigate('preferences')}>
-                        <FontAwesome name={'home'} size={30} color={'#FFFFFF'}/>
+    renderMeetings() {
+        let list = this.state.meetings.map((meeting) => {
+            return (
+                <View key={meeting.id} style={styles.card}>
+                    <TouchableOpacity>
+                        <Image style={styles.image} source={{uri: meeting.restaurant}}/>
+                        <View style={styles.calendar}>
+                            <View>
+                                <Text style={[styles.text, {fontSize: em (5),}]}>
+                                    {
+                                        meeting.month
+                                    }
+                                </Text>
+                            </View>
+                            <View style={styles.line}/>
+                            <View>
+                                <Text style={[styles.text, {fontSize: em (15),}]}>
+                                    {
+                                        meeting.day
+                                    }
+                                </Text>
+                            </View>
+                        </View>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.content}>
-                    {this.props.children}
+            )
+        })
+
+        return list
+    }
+
+    render() {
+
+        return (
+            <View style={styles.container}>
+                <View style={styles.subContainer}>
+                    <View style={styles.buttonGroup}>
+                        <TouchableOpacity onPress={() => this.props.screenProps.navigate('preferences')}>
+                            <Image source = {require('../../../assets/buttonGroup.png')} />
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <Text>
+                            {
+                                "Suas próximas saídas:"
+                            }
+                        </Text>
+                        <View style={styles.cards}>
+                            {
+                                this.renderMeetings()
+                            }
+                        </View>
+                    </View>
                 </View>
             </View>
         );
@@ -46,20 +91,29 @@ export default class Home extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    header: {
-        flexDirection: 'row',
-        height: em (15),
-        backgroundColor: '#A30000',
+    container: {},
+    subContainer: {},
+    buttonGroup: {},
+    cards: {},
+    card: {},
+    image: {
+        width: em (26),
+        height: em (28),
+        borderRadius: em (4.5),
     },
-    arrowBox: {
-        alignSelf: 'center',
-        marginLeft: em (3),
+    calendar: {
+        position: 'absolute',
+        backgroundColor: 'rgba(0, 0, 0, .3)',
+        width: em (26),
+        height: em (28),
+        borderRadius: em (4.5),
     },
-    content: {
-        flex: 1,
-        marginRight: em (9),
-        alignItems: 'center',
-        alignSelf: 'center',
-        justifyContent: 'center',
+    text: {
+        color: '#FFFFFF',
+    },
+    line: {
+        backgroundColor: '#FFFFFF',
+        width: em (26),
+        height: em (0.2),
     },
 })
