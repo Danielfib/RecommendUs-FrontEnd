@@ -5,6 +5,7 @@ import {
     Text,
     Image,
     TouchableOpacity,
+    ScrollView,
     StyleSheet,
 } from 'react-native'
 
@@ -21,7 +22,22 @@ export default class Home extends React.Component {
                 restaurant: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
                 month: 'MAR',
                 day: '15',
-            }
+            },{
+                id: '',
+                restaurant: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
+                month: 'MAR',
+                day: '15',
+            },{
+                id: '',
+                restaurant: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
+                month: 'MAR',
+                day: '15',
+            },{
+                id: '',
+                restaurant: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
+                month: 'MAR',
+                day: '15',
+            },
         ],
     }
     
@@ -38,7 +54,7 @@ export default class Home extends React.Component {
                     <TouchableOpacity>
                         <Image style={styles.image} source={{uri: meeting.restaurant}}/>
                         <View style={styles.calendar}>
-                            <View>
+                            <View style={[styles.dateView, {marginTop: em (2),}]}>
                                 <Text style={[styles.text, {fontSize: em (5),}]}>
                                     {
                                         meeting.month
@@ -46,8 +62,8 @@ export default class Home extends React.Component {
                                 </Text>
                             </View>
                             <View style={styles.line}/>
-                            <View>
-                                <Text style={[styles.text, {fontSize: em (15),}]}>
+                            <View style={styles.dateView}>
+                                <Text style={[styles.text, {fontSize: em (13),}]}>
                                     {
                                         meeting.day
                                     }
@@ -66,36 +82,61 @@ export default class Home extends React.Component {
 
         return (
             <View style={styles.container}>
-                <View style={styles.subContainer}>
-                    <View style={styles.buttonGroup}>
-                        <TouchableOpacity onPress={() => this.props.screenProps.navigate('preferences')}>
-                            <Image source = {require('../../../assets/buttonGroup.png')} />
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <Text>
-                            {
-                                "Suas próximas saídas:"
-                            }
-                        </Text>
-                        <View style={styles.cards}>
-                            {
-                                this.renderMeetings()
-                            }
+                <ScrollView>
+                    <View style={styles.subContainer}>
+                        <View style={styles.buttonGroup}>
+                            <TouchableOpacity onPress={() => this.props.screenProps.navigate('preferences')}>
+                                <Image source = {require('../../../assets/buttonGroup.png')} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.cardsView}>
+                            <Text style={styles.title}>
+                                {
+                                    "Suas próximas saídas:"
+                                }
+                            </Text>
+                            <View style={styles.cards}>
+                                {
+                                    this.renderMeetings()
+                                }
+                            </View>
                         </View>
                     </View>
-                </View>
+                </ScrollView>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {},
-    subContainer: {},
-    buttonGroup: {},
-    cards: {},
-    card: {},
+    container: {
+        flex: 2,
+    },
+    subContainer: {
+        flex: 2,
+    },
+    buttonGroup: {
+        marginTop: em (5),
+        alignSelf: 'center',
+    },
+    cardsView: {
+        marginTop: em (6),
+        marginLeft: em (6),
+    },
+    title: {
+        fontSize: em (5),
+        fontWeight: '500',
+    },
+    cards: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: em (2),
+        marginLeft: em (3),
+    },
+    card: {
+        marginBottom: em (5),
+        marginRight: em (3),
+    },
     image: {
         width: em (26),
         height: em (28),
@@ -103,13 +144,16 @@ const styles = StyleSheet.create({
     },
     calendar: {
         position: 'absolute',
-        backgroundColor: 'rgba(0, 0, 0, .3)',
+        backgroundColor: 'rgba(0, 0, 0, .4)',
         width: em (26),
         height: em (28),
         borderRadius: em (4.5),
     },
     text: {
         color: '#FFFFFF',
+    },
+    dateView: {
+        alignSelf: 'center',
     },
     line: {
         backgroundColor: '#FFFFFF',
