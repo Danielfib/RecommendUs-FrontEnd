@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
         borderRadius: em (3),
         shadowOffset: {width:0, height:0},
         shadowColor: '#DDD',
-        shadowOpacity: 1.0,
-        elevation: 8,
+        shadowOpacity: 0.8,
+        elevation: 6,
     },
     calendar: {
         width: em (16),
