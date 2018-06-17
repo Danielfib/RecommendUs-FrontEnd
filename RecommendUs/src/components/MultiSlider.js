@@ -44,8 +44,9 @@ export default class MultiSliderButton extends React.Component {
                     markerStyle = {style.multSlider}
                     values={this.state.sliderOneValue}
                     min={10}
-                    max={200}
+                    max={150}
                     sliderLength={em (80)}
+                    step={5}
                     onValuesChangeStart={this.sliderOneValuesChangeStart}
                     onValuesChange={this.sliderOneValuesChange}
                     onValuesChangeFinish={this.sliderOneValuesChangeFinish}

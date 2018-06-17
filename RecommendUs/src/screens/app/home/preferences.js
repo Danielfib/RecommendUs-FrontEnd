@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
+  Image
 } from 'react-native'
 
 import Calendar from '../../../components/Calendar'
@@ -51,7 +52,15 @@ export default class Preferences extends React.Component {
           confirmed: true,
         }
       ],
+
+      pressed: false,
     }
+  }
+
+  pressedBestDaysButton(){
+    this.setState({
+      pressed: !(this.state.pressed)
+    }) 
   }
 
   componentDidMount() {
@@ -112,23 +121,27 @@ export default class Preferences extends React.Component {
                 </View>
               </View>
               <View style = {style.container}>
-                <Text style = {style.textTitle}>Quando vai ser?</Text>
+                <View style={style.titleAndButton}>
+                  <Text style = {style.textTitle}>Quando vai ser?</Text>
+                  <TouchableOpacity style={[style.buttonBestDays, (this.state.pressed)?{backgroundColor: '#A30000'}:{}]}
+                    onPress={()=>this.pressedBestDaysButton()}  
+                  >
+                    <Text style={[style.textButton, (this.state.pressed)?{color: '#FFF'}:{}]}> Melhores Dias </Text>
+                  </TouchableOpacity>
+                </View>
                 <Calendar/>
               </View>
               <View style = {[style.container, {marginBottom: em (28),}]}>
-                <Text style = {style.textTitle}>De onde você vai sair?</Text>
+                <Text style = {style.textTitle}>Onde você vai estar?</Text>
                 <View style = {style.pickerContainer}>
-                  <PickerButton defaultOption='Estado' data = {["Pernambuco", 'Rondonia', 'Maranhão']}/>
-                  <PickerButton defaultOption='Cidade' data = {["Recife", 'Jaboatão', 'Olinda']}/>
-                  <PickerButton defaultOption='Bairro' data = {["Piedade", 'Candeias', 'Boa Viagem']}/>
+                  <PickerButton gpsButton={true} dimensions = {{height: em(6.5), width: em(80)}} defaultOption='Seu Local' data = {["Recife", 'Olinda', 'Jaboatão']}/>
                 </View>
               </View>
             </ScrollView>
             <TouchableOpacity
                 style={style.nextButton}
-                onPress={() => this.props.navigation.navigate('preferences2', {})}
-              >
-                <NextButton />
+                onPress={() => this.props.navigation.navigate('preferences2', {})}>
+              <NextButton />
             </TouchableOpacity>
           </View>
         </View>
@@ -180,11 +193,34 @@ const style = StyleSheet.create({
       right: 0,
   },
   pickerContainer: {
-    marginLeft: em(6),
+    marginLeft: em(0),
     flexDirection: 'row',
-    justifyContent: 'space-between',
     marginTop: em(2),
-    marginRight: em(1),
+    marginRight: em(0),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleAndButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginRight: em(8),
+    alignItems: 'center',
+  },
+  buttonBestDays: {
+    width: em(22),
+    height: em(6),
+    borderColor: '#A30000',
+    borderWidth: em(0.35),
+    borderRadius: em(6),
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: em(1)
+  },
+  textButton: {
+    color: '#A30000',
+    fontWeight: 'bold',
+    fontSize: em(2.8)
   }
 })
 

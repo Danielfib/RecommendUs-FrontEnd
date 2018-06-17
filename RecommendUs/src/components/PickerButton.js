@@ -3,7 +3,8 @@ import  {  View,
           Text,  
           StyleSheet, 
           Picker,
-          FlatList
+          Image,
+          TouchableOpacity
 } from 'react-native';
 
 import em from '../properties/responsive'
@@ -12,8 +13,15 @@ export default class PickerButton extends React.Component {
     state = {
         defaultOption: this.props.defaultOption,
         options: this.props.defaultOption, 
-        data: this.props.data
+        data: this.props.data,
+        gpsButton: true
     };
+
+    pressedGpsButton() {
+      this.setState({
+        gpsActive: !(this.state.gpsActive)
+      })
+    }
 
     renderPickerItem() {
       let items = new Array()
@@ -25,38 +33,79 @@ export default class PickerButton extends React.Component {
 
       pickerItems = items.map((name) => {
         return(
-          <Picker.Item key={name} label={name} value={name} />
+          <Picker.Item key={name} label={name} value={name} color={'#A30000'}/>
         )
       })
 
       return pickerItems
     }
 
-    render() {
+    render() { 
+      if(this.props.gpsButton == true) {
         return(
-          <View style={style.picker}>
-            <Picker
-              style={{height: em(6.5), width: em(32.5)}}
-              selectedValue={this.state.options}
-              onValueChange={(name) => this.setState({options: name})}>
-              <Picker.Item label={this.state.defaultOption} value={this.state.defaultOption} />
-              {this.renderPickerItem()}
-            </Picker>
-            <View style={[style.pickerLineStatus, (this.state.options == this.state.defaultOption)?{backgroundColor:'#B7B7B7'}:{backgroundColor:'#A30000'}]}></View>   
+          <View style={style.container}>
+            <TouchableOpacity onPress={()=>this.pressedGpsButton()}>
+                <Image source={require('../assets/gps_fixed.png')} style={{marginRight:em(.5)}}/>
+            </TouchableOpacity>
+            <View style={style.picker}>
+              <Picker
+                prompt="Selecione o local"
+                itemStyle={{color: 'black'}}
+                style={this.props.dimensions}
+                selectedValue={this.state.options}
+                onValueChange={(name) => this.setState({options: name})}>
+                <Picker.Item color={'#A30000'} key={this.state.defaultOption} label={(this.state.gpsActive)?this.state.defaultOption:"Selecione seu Local"} value={this.state.gpsActive || this.state.defaultOption}/>
+                {this.renderPickerItem()}
+              </Picker>
+              <View style={[style.pickerLineStatus, 
+                ((this.state.options != this.state.defaultOption) || this.state.gpsActive)?{backgroundColor:'#A30000'}:{backgroundColor:'#B7B7B7'}]}>
+              </View>
+              
+            </View>
           </View>    
-        )
+          )
+      }
+
+      else {
+        return(
+          <View style={style.container}>
+            <View style={style.picker}>
+              <Picker
+                prompt="Selecione o local"
+                itemStyle={{color: 'black'}}
+                style={this.props.dimensions}
+                selectedValue={this.state.options}
+                onValueChange={(name) => this.setState({options: name})}>
+                <Picker.Item key={this.state.defaultOption} label={this.state.defaultOption} value={this.state.defaultOption}/>
+                {this.renderPickerItem()}
+              </Picker>
+              <View style={[style.pickerLineStatus, 
+                ((this.state.options != this.state.defaultOption))?{backgroundColor:'#A30000'}:{backgroundColor:'#B7B7B7'}]}>
+              </View>
+              
+            </View>
+          </View>    
+          )
+      }
+
     }
 }
 
 const style = StyleSheet.create({
   picker: {
     backgroundColor: '#ECECEC',
-    height: em(7),
-    width: em(30),
-    padding: 0
+    padding: 0,
+    marginLeft: em(2.5)
   },
   pickerLineStatus: {
-    height: em(0.5),
+    height: em(0.8),
     width: '100%',
   },
+  itemStyle: {
+    color: 'green'
+  },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  }
 })

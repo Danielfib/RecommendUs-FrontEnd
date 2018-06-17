@@ -16,10 +16,16 @@ export default class Calendar extends React.Component {
       this.state = { pressed: false, day : -1}
     }
 
-    onPress(d) {
+    onPress(selectedDay) {
+      let condition = true 
+
+      if(selectedDay == this.state.day) {
+        condition = !this.state.pressed
+      }
+      
       this.setState({
-        pressed: !this.state.pressed,
-        day: d
+        pressed: condition,
+        day: selectedDay
       })
     }
 
@@ -89,7 +95,7 @@ const style = StyleSheet.create({
     marginBottom: 8, 
     paddingTop:4,
     paddingBottom:4,
-    elevation: 8,
+    elevation: 4,
     flex: 1,
   },
   textCalendarName: {
@@ -104,7 +110,6 @@ const style = StyleSheet.create({
     color: '#000',
     textAlign: 'center',
     fontFamily: 'Roboto',
-    //fontWeight: '100'
   },
   calendarMiddleLine: {
     width: '100%',
