@@ -45,7 +45,7 @@ export default class PickerButton extends React.Component {
         return(
           <View style={style.container}>
             <TouchableOpacity onPress={()=>this.pressedGpsButton()}>
-                <Image source={require('../assets/gps_fixed.png')} style={{marginRight:em(.5)}}/>
+                <Image source={require('../assets/logo.png')} style={{marginRight:em(.5)}}/>
             </TouchableOpacity>
             <View style={style.picker}>
               <Picker

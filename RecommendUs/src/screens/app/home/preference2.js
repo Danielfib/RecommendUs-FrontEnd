@@ -73,18 +73,20 @@ class Preference2 extends React.Component {
             users: [
                 {
                     lat: '-8.055668',
-                    lon: '-34.951578'
-                },
-                {
-                    lat: '-8.049249',
-                    lon: '-34.951191'
+                    lon: '-34.951578',
+                    tags: [
+                        'Botecos',
+                        'Pub',
+                    ],
+                    price: '15',
                 },
             ],
-            tags: 'Botecos Pub',
-            price: '15'
+            groupId: '1',
         }
-        axios.post(`${requests.getUrl()}/api/preferencia`, data)
+
+        axios.post(`${requests.getUrl()}/preferencia`, data)
         .then(res => {
+            console.log(res.data)
             this.props.navigation.navigate('restaurants', {restaurants: res.data})
         })
         .catch(err => {

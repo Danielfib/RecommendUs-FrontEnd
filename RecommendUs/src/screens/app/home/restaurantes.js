@@ -47,7 +47,7 @@ export default class ListRestaurant extends React.Component {
                     confirmed: true,
                 },
             ],
-            listRestaurant: /*this.props.navigation.state.params.restaurants*/[],
+            listResponse: this.props.navigation.state.params.restaurants,
         }
     }
 
@@ -76,41 +76,47 @@ export default class ListRestaurant extends React.Component {
             },
         ]
 
+        let url_image = 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png'
+
         // axios.get('url')
         // .then((response)=>{
         //     listResponse = response //nome expertise url_image
         // })
 
         //let objectRest = [{r:'Restaurante1', t:'tags', img: 'url'}, {r:'Restaurante2', t:'tags', img: 'url'}, {r:'Restaurante3', t:'tags', img: 'url'}, {r:'Restaurante4', t:'tags', img: 'url'}]   
-        let listRestaurant = listResponse.map((restaurantes) => {
-            if(!restaurantes.parther)
+        let listRestaurant = this.state.listResponse.map((restaurant) => {
+            if(/*!restaurant.parther*/false)
                 return (
-                    <View key={restaurantes.name} style={styles.restaurantView}> 
+                    <View key={restaurant._id} style={styles.restaurantView}> 
                         <View style={styles.textContainer}>
-                            <Text style={styles.textList}>{restaurantes.name}</Text>
-                            <Text style={styles.subtextList}>{restaurantes.expertise}</Text>
-                            <TouchableOpacity onPress={() => this.vote(restaurantes)}>
+                            <Text style={styles.textList}>{restaurant.name}</Text>
+                            <Text style={styles.subtextList}>{restaurant.expertise}</Text>
+                            <TouchableOpacity onPress={() => this.vote(restaurant)}>
                                 <Text style = {styles.votar}>Votar</Text>
                             </TouchableOpacity>
                         </View>
-                        <Image style={styles.image} source={{uri: restaurantes.url_image}}/>
+                        <Image style={styles.image} source={{uri: url_image}}/>
                         <View style = {styles.imageView}></View>
                     </View>
                 )
             else
                 return (
-                    <View key={restaurantes.name} style={[styles.restaurantView, {flexDirection: 'column', height: em (36)}]}> 
+                    <View key={restaurant._id} style={[styles.restaurantView, {flexDirection: 'column', height: em (38)}]}> 
                         <View style={{flexDirection: 'column',}}>
-                            <View style={{padding: em (3), height: em (23), backgroundColor: '#A30000'}}>
-                                <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurantes.name}</Text>
-                                <Text style={styles.subtextList}>{restaurantes.expertise}</Text>
-                                <Text style={styles.subtextList}>{restaurantes.address}</Text>
+                            <View style={{padding: em (3), height: em (25), backgroundColor: '#A30000'}}>
+                                <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurant.name}</Text>
+                                <Text style={styles.subtextList}>{restaurant.expertise}</Text>
+                                <Text style={styles.subtextList}>
+                                    {
+                                        `${restaurant["address/street/0"]}, ${restaurant["address/neighborhood"]}, ${restaurant["address/city"]}`
+                                    }
+                                </Text>
                             </View>
-                            <Image style={[styles.image, {height: em (23),}]} source={{uri: restaurantes.url_image}}/>
-                            <View style = {[styles.imageView, {height: em (23),}]}></View>
+                            <Image style={[styles.image, {height: em (25),}]} source={{uri: url_image}}/>
+                            <View style = {[styles.imageView, {height: em (25),}]}></View>
                         </View>
                         <View style={{flex: 1,}}>
-                            <TouchableOpacity onPress={() => this.vote(restaurantes)} style={styles.partherButton}>
+                            <TouchableOpacity onPress={() => this.vote(restaurant)} style={styles.partherButton}>
                                 <Text style={styles.partherButtonText}>
                                     Votar
                                 </Text>
@@ -219,6 +225,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     subtextList: {
+        width: em (65),
         fontSize: em(3),
         color: '#A6A6A6',
         fontWeight: 'bold'

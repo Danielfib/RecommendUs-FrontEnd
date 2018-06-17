@@ -1,4 +1,4 @@
-const url = `http://192.168.140.101:3000`;
+const url = `https://radiant-depths-66237.herokuapp.com`;
 
 export function getUrl() {
     return url
