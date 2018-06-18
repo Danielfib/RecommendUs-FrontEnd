@@ -27,6 +27,13 @@ export default class Calendar extends React.Component {
         pressed: condition,
         day: selectedDay
       })
+
+      //Return value to parent 
+      if(condition) {
+        this.props.callback(selectedDay)
+      } else {
+        this.props.callback(-1)
+      }
     }
 
     renderCalendar() {

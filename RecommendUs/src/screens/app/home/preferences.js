@@ -53,7 +53,10 @@ export default class Preferences extends React.Component {
         }
       ],
 
-      pressed: false,
+      pressed: false,           //  To know if the melhores dias is setted 
+      multisliderValue: [15],   //  To capture the multislider return
+      calendarValue: -1,        //  To capture the calendar return
+      pickerValue: 'Seu Local'  //  To capture the picker value return
     }
   }
 
@@ -61,6 +64,18 @@ export default class Preferences extends React.Component {
     this.setState({
       pressed: !(this.state.pressed)
     }) 
+  }
+
+  getMultisliderReponse(multisliderValue) {
+    this.setState({multisliderValue})
+  }
+
+  getCalendarReponse(calendarValue) {
+    this.setState({calendarValue})
+  }
+
+  getPickerButtonResponse(pickerValue) {
+    this.setState({pickerValue})
   }
 
   componentDidMount() {
@@ -117,7 +132,8 @@ export default class Preferences extends React.Component {
               <View style = {[{marginTop: em (4)}]}>
                 <Text style = {style.textTitle}>Quanto você quer pagar?</Text>
                 <View style = {[style.containerSlider]}>  
-                  <MultisliderButton/>
+                  <MultisliderButton value = {this.state.multisliderValue} callback={this.getMultisliderReponse.bind(this)}/>
+                  {console.warn(this.state.multisliderValue)}
                 </View>
               </View>
               <View style = {style.container}>
@@ -129,19 +145,29 @@ export default class Preferences extends React.Component {
                     <Text style={[style.textButton, (this.state.pressed)?{color: '#FFF'}:{}]}> Melhores Dias </Text>
                   </TouchableOpacity>
                 </View>
-                <Calendar/>
+                <Calendar callback={this.getCalendarReponse.bind(this)}/>
+                {console.warn(this.state.calendarValue)}
+                
               </View>
               <View style = {[style.container, {marginBottom: em (28),}]}>
                 <Text style = {style.textTitle}>Onde você vai estar?</Text>
                 <View style = {style.pickerContainer}>
-                  <PickerButton gpsButton={true} dimensions = {{height: em(6.5), width: em(80)}} defaultOption='Seu Local' data = {["Recife", 'Olinda', 'Jaboatão']}/>
+                  <PickerButton gpsButton={true} dimensions = {{height: em(6.5), width: em(80)}} defaultOption={this.state.pickerValue} data = {["Recife", 'Olinda', 'Jaboatão']}
+                    callback = {this.getPickerButtonResponse.bind(this)}
+                  />
+                  {console.warn(this.state.pickerValue)}
                 </View>
               </View>
             </ScrollView>
             <TouchableOpacity
                 style={style.nextButton}
-                onPress={() => this.props.navigation.navigate('preferences2', {})}>
-              <NextButton />
+                onPress={() => this.props.navigation.navigate('preferences2', {
+                  sugestions: this.state.pressed,
+                  price: this.state.multisliderValue,
+                  day: this.state.calendarValue,
+                  place: this.state.pickerValue
+                })}>
+                <NextButton />
             </TouchableOpacity>
           </View>
         </View>

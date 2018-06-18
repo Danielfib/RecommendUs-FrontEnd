@@ -53,14 +53,16 @@ export default class PickerButton extends React.Component {
                 itemStyle={{color: 'black'}}
                 style={this.props.dimensions}
                 selectedValue={this.state.options}
-                onValueChange={(name) => this.setState({options: name})}>
+                onValueChange={(name) => {
+                  this.setState({options: name})
+                  this.props.callback(name)
+                }}>
                 <Picker.Item color={'#A30000'} key={this.state.defaultOption} label={(this.state.gpsActive)?this.state.defaultOption:"Selecione seu Local"} value={this.state.gpsActive || this.state.defaultOption}/>
                 {this.renderPickerItem()}
               </Picker>
               <View style={[style.pickerLineStatus, 
                 ((this.state.options != this.state.defaultOption) || this.state.gpsActive)?{backgroundColor:'#A30000'}:{backgroundColor:'#B7B7B7'}]}>
               </View>
-              
             </View>
           </View>    
           )

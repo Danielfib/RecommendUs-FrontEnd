@@ -12,7 +12,7 @@ import em from '../properties/responsive'
 export default class MultiSliderButton extends React.Component {
     state = {
         sliderOneChanging: false,
-        sliderOneValue: [30],
+        sliderOneValue: this.props.value,
     };
     
     sliderOneValuesChangeStart = () => {
@@ -20,15 +20,16 @@ export default class MultiSliderButton extends React.Component {
             sliderOneChanging: true,
         });
     }
-
+    
     sliderOneValuesChange = (values) => {
         let newValues = [0];
         newValues[0] = values[0];
+        this.props.callback(newValues)
         this.setState({
             sliderOneValue: newValues,
         });
     }
-
+    
     sliderOneValuesChangeFinish = () => {
         this.setState({
             sliderOneChanging: false,
