@@ -74,10 +74,7 @@ class Preference2 extends React.Component {
                 {
                     lat: '-8.055668',
                     lon: '-34.951578',
-                    tags: [
-                        'Botecos',
-                        'Pub',
-                    ],
+                    tags: this.state.choices,
                     price: '15',
                 },
             ],
@@ -112,7 +109,6 @@ class Preference2 extends React.Component {
             this.state.choices.splice(idx, 1)
         else
             this.state.choices.push(name)
-        console.warn(this.state.choices)
       }
     
     render() {
