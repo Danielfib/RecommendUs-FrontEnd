@@ -53,7 +53,7 @@ export default class Preferences extends React.Component {
         }
       ],
 
-      pressed: false,           //  To know if the melhores dias is setted 
+      pressed: false,           //  To know if the sugeridos is setted 
       multisliderValue: [15],   //  To capture the multislider return
       calendarValue: -1,        //  To capture the calendar return
       pickerValue: 'Seu Local'  //  To capture the picker value return
@@ -142,7 +142,7 @@ export default class Preferences extends React.Component {
                   <TouchableOpacity style={[style.buttonBestDays, (this.state.pressed)?{backgroundColor: '#A30000'}:{}]}
                     onPress={()=>this.pressedBestDaysButton()}  
                   >
-                    <Text style={[style.textButton, (this.state.pressed)?{color: '#FFF'}:{}]}> Melhores Dias </Text>
+                    <Text style={[style.textButton, (this.state.pressed)?{color: '#FFF'}:{}]}> Sugeridos </Text>
                   </TouchableOpacity>
                 </View>
                 <Calendar callback={this.getCalendarReponse.bind(this)}/>
@@ -160,13 +160,13 @@ export default class Preferences extends React.Component {
               </View>
             </ScrollView>
             <TouchableOpacity
-                style={style.nextButton}
-                onPress={() => this.props.navigation.navigate('preferences2', {
-                  sugestions: this.state.pressed,
-                  price: this.state.multisliderValue,
-                  day: this.state.calendarValue,
-                  place: this.state.pickerValue
-                })}>
+              style={style.nextButton}
+              onPress={() => this.props.navigation.navigate('preferences2', {
+                sugestions: this.state.pressed,
+                price: this.state.multisliderValue[0],
+                day: this.state.calendarValue,
+                place: this.state.pickerValue,
+            })}>
                 <NextButton />
             </TouchableOpacity>
           </View>

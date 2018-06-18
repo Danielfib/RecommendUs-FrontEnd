@@ -75,7 +75,7 @@ class Preference2 extends React.Component {
                     lat: '-8.055668',
                     lon: '-34.951578',
                     tags: this.state.choices,
-                    price: '15',
+                    price: this.props.navigation.state.params.price,
                 },
             ],
             groupId: '1',
