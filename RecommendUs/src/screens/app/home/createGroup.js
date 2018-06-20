@@ -42,14 +42,14 @@ export default class CreateGroup extends Component {
 
         <Header navigation={this.props.navigation}>
           <Text style={styles.titleHeader}>
-              {"Crie seu Grupo!"}
+              {"Crie seu Grupo"}
           </Text>
         </Header>
 
 
         <View style={styles.mainContainer}>
           <View style={styles.dropZone}>
-            <Text style={styles.text}>Drop your friends here!</Text>
+            <Text style={styles.textDz}>Arraste seus amigos para cá para reunuir sua galera!</Text>
             <View>
             {
               newArray
@@ -120,5 +120,13 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 25,
     fontWeight: "bold"
+  },
+  textDz: {
+    marginTop: 50,
+    marginLeft: 10,
+    marginRight: 10,
+    textAlign: "center",
+    color: "#ddd",
+    fontSize: 23
   }
 });
