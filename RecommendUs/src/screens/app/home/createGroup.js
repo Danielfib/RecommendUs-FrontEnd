@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native";
 import Draggable from "../../../components/Draggable.js";
 import BarStatus from "../../../components/StatusBar.js";
 import Header from '../../../components/Header.js';
@@ -9,6 +9,12 @@ import SearchButton from '../../../components/SeachButton.js';
 import em from '../../../properties/responsive';
 
 export default class CreateGroup extends Component {
+  constructor(){
+    super();
+    this.state = { arrayAmigosDz: []}
+    this.index = 0;
+  }
+  
   //so that tab navigator doesnt appear
   static navigationOptions = {
     header: null,  
@@ -16,7 +22,20 @@ export default class CreateGroup extends Component {
     swipeEnabled: false,
   }
 
+  addMore = () => {
+    console.log("opa");
+    //let newlyAddedValue = { index: this.index }
+    //this.setState({arrayAmigosDz: [ ...this.state.arrayAmigosDz, newlyAddedValue]});
+    //this.index = this.index + 1;
+  }
+
   render() {
+    let newArray = this.state.arrayAmigosDz.map((item, key) =>{
+      return(
+        <Text style={{size: 60}}>oi { item.index }</Text>
+      );
+    });
+
     return (
       <View style={styles.container}>
         <BarStatus/>
@@ -27,17 +46,24 @@ export default class CreateGroup extends Component {
           </Text>
         </Header>
 
+
         <View style={styles.mainContainer}>
           <View style={styles.dropZone}>
             <Text style={styles.text}>Drop your friends here!</Text>
+            <View>
+            {
+              newArray
+            }
+            </View>
           </View>
+
           <View style={styles.ballContainer} />
           <View style={styles.row}>
-            <Draggable />
-            <Draggable />
-            <Draggable />
-            <Draggable />
-            <Draggable />
+            <Draggable addMore={this.addMore}/>
+            <Draggable addMore={this.addMore}/>
+            <Draggable addMore={this.addMore}/>
+            <Draggable addMore={this.addMore}/>
+            <Draggable addMore={this.addMore}/>
           </View>
         </View>
 

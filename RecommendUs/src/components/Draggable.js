@@ -39,6 +39,9 @@ export default class Draggable extends Component {
                 showDraggable: false
               })
             );
+
+            //trying to add to DZ
+            this.props.addMore();
           } else {
             Animated.spring(
               this.state.pan,
