@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 import {
     View,
@@ -13,32 +14,12 @@ import em from '../../../properties/responsive'
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
+import * as requests from '../../../actions/requests'
+
 export default class Home extends React.Component {
 
     state = {
-        meetings: [
-            {
-                id: '',
-                restaurant: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
-                month: 'MAR',
-                day: '15',
-            },{
-                id: '',
-                restaurant: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
-                month: 'MAR',
-                day: '15',
-            },{
-                id: '',
-                restaurant: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
-                month: 'MAR',
-                day: '15',
-            },{
-                id: '',
-                restaurant: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
-                month: 'MAR',
-                day: '15',
-            },
-        ],
+        meetings: [],
     }
     
     static navigationOptions = {
@@ -47,17 +28,51 @@ export default class Home extends React.Component {
         }
     }
 
+    componentDidMount() {
+        axios.get(`${requests.getUrl()}/eventoPessoa/1`)
+        .then(res => {
+            this.setState({
+                meetings: res.data,
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
     renderMeetings() {
+
+        let image = 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png'
+        
+        let months = {
+            '01': 'JAN',
+            '02': 'FEB',
+            '03': 'MAR',
+            '04': 'APR',
+            '05': 'MAY',
+            '06': 'JUN',
+            '07': 'JUL',
+            '08': 'AUG',
+            '09': 'SEP',
+            '10': 'OCT',
+            '11': 'NOV',
+            '12': 'DEC'
+        };
+
         let list = this.state.meetings.map((meeting) => {
+
+            let month = months[meeting.groupdate.substring(5, 7)];
+            let day = meeting.groupdate.substring(8, 10);
+
             return (
                 <View key={meeting.id} style={styles.card}>
                     <TouchableOpacity>
-                        <Image style={styles.image} source={{uri: meeting.restaurant}}/>
+                        <Image style={styles.image} source={{uri: image}}/>
                         <View style={styles.calendar}>
                             <View style={[styles.dateView, {marginTop: em (2),}]}>
                                 <Text style={[styles.text, {fontSize: em (5),}]}>
                                     {
-                                        meeting.month
+                                        month
                                     }
                                 </Text>
                             </View>
@@ -65,7 +80,7 @@ export default class Home extends React.Component {
                             <View style={styles.dateView}>
                                 <Text style={[styles.text, {fontSize: em (13),}]}>
                                     {
-                                        meeting.day
+                                        day
                                     }
                                 </Text>
                             </View>
