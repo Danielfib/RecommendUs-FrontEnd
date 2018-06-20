@@ -23,10 +23,12 @@ export default class CreateGroup extends Component {
   }
 
   addMore = () => {
-    console.log("opa");
-    //let newlyAddedValue = { index: this.index }
-    //this.setState({arrayAmigosDz: [ ...this.state.arrayAmigosDz, newlyAddedValue]});
-    //this.index = this.index + 1;
+    //console.log("opa");
+    let newlyAddedValue = { index: this.index }
+    this.setState({arrayAmigosDz: [ ...this.state.arrayAmigosDz, newlyAddedValue]});
+    this.index = this.index + 1;
+    console.log("------------------------------------");
+    console.log(this.state.arrayAmigosDz);
   }
 
   render() {
@@ -48,25 +50,25 @@ export default class CreateGroup extends Component {
 
 
         <View style={styles.mainContainer}>
-          <View style={styles.dropZone}>
+          <ScrollView horizontal style={styles.dropZone}>
             <Text style={styles.textDz}>Arraste seus amigos para cá para reunuir sua galera!</Text>
             <View>
             {
               newArray
             }
             </View>
-          </View>
+          </ScrollView>
 
-          <View style={styles.ballContainer} />
-          <View style={styles.row}>
-            <Draggable addMore={this.addMore}/>
-            <Draggable addMore={this.addMore}/>
-            <Draggable addMore={this.addMore}/>
-            <Draggable addMore={this.addMore}/>
-            <Draggable addMore={this.addMore}/>
+          <View style={styles.ballContainer}>
+            <View style={styles.row}>
+              <Draggable addMore={this.addMore}/>
+              <Draggable addMore={this.addMore}/>
+              <Draggable addMore={this.addMore}/>
+              <Draggable addMore={this.addMore}/>
+              <Draggable addMore={this.addMore}/>
+            </View>
           </View>
         </View>
-
       
         <TouchableOpacity style={styles.nextButton} onPress={() => this.props.navigation.navigate('preferences')}>
           <NextButton />
@@ -88,13 +90,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   ballContainer: {
-    height:200
+    flex:3
   },
   row: {
-    flexDirection: "row"
+    flexDirection: "row",
+    marginTop: 20
   },  
   dropZone: {
-    height: 150,
+    flex: 1,
     backgroundColor: "#A6A6A6"
   },
   titleHeader: {
