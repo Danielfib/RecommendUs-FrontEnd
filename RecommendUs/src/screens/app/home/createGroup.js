@@ -34,7 +34,9 @@ export default class CreateGroup extends Component {
   render() {
     let newArray = this.state.arrayAmigosDz.map((item, key) =>{
       return(
-        <Text>oiiiiiiiiiiiiiiiiiiiii { item.index } </Text>
+        <TouchableOpacity>
+          <Text>oi</Text>
+        </TouchableOpacity>
       );
     });
 
@@ -102,6 +104,7 @@ const styles = StyleSheet.create({
   },
   dZTextContainer: {
     position: 'absolute',
+    opacity: 0.7
   },
   row: {
     flexDirection: "row",
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
   dropZone: {
     //position: 'absolute',
     flex: 1,
-    opacity:0.7
+    //opacity:0.9
   },
   titleHeader: {
     color: '#FFFFFF',
@@ -137,7 +140,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   textDz: {
-    marginTop: 50,
+    marginTop: 35,
     marginLeft: 10,
     marginRight: 10,
     textAlign: "center",
