@@ -34,7 +34,7 @@ export default class CreateGroup extends Component {
   render() {
     let newArray = this.state.arrayAmigosDz.map((item, key) =>{
       return(
-        <Text style={{size: 60}}>oi { item.index }</Text>
+        <Text>oiiiiiiiiiiiiiiiiiiiii { item.index } </Text>
       );
     });
 
@@ -50,14 +50,18 @@ export default class CreateGroup extends Component {
 
 
         <View style={styles.mainContainer}>
-          <ScrollView horizontal style={styles.dropZone}>
-            <Text style={styles.textDz}>Arraste seus amigos para cá para reunuir sua galera!</Text>
-            <View>
-            {
-              newArray
-            }
+          <View style={styles.dzContainer}>
+            <View style={styles.dZTextContainer}>
+              <Text style={styles.textDz}>Arraste seus amigos para cá para reunuir sua galera!</Text>
             </View>
-          </ScrollView>
+            <ScrollView horizontal style={styles.dropZone}>
+              <View style={styles.row}>
+              {
+                newArray
+              }
+              </View>
+            </ScrollView>
+          </View>
 
           <View style={styles.ballContainer}>
             <View style={styles.row}>
@@ -89,16 +93,24 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1
   },
+  dzContainer: {
+    flex: 1,
+    backgroundColor: "#A6A6A6",
+  },
   ballContainer: {
     flex:3
+  },
+  dZTextContainer: {
+    position: 'absolute',
   },
   row: {
     flexDirection: "row",
     marginTop: 20
   },  
   dropZone: {
+    //position: 'absolute',
     flex: 1,
-    backgroundColor: "#A6A6A6"
+    opacity:0.7
   },
   titleHeader: {
     color: '#FFFFFF',
@@ -129,7 +141,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     textAlign: "center",
-    color: "#ddd",
+    color: "#fff",
     fontSize: 23
   }
 });
