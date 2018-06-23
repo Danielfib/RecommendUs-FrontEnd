@@ -2,8 +2,7 @@ import {
     StackNavigator,
 } from 'react-navigation'
 
-//import Login from 'screens/login/login'
-import TabRouter from './tab-router'
+import Login from '../screens/app/login/login'
 import TabHome from '../screens/app/tabHome'
 import Group from '../screens/app/home/group'
 import Preferences from '../screens/app/home/preferences'
@@ -12,9 +11,9 @@ import ListRestaurant from '../screens/app/home/restaurantes'
 
 const MainNavigator = StackNavigator(
     {
-        /*login: {
+        login: {
             screen: Login
-        },*/
+        },
         tabHome: {
             screen: TabHome
         },

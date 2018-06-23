@@ -100,7 +100,7 @@ export default class Home extends React.Component {
                 <ScrollView>
                     <View style={styles.subContainer}>
                         <View style={styles.buttonGroup}>
-                            <TouchableOpacity onPress={() => this.props.screenProps.navigate('preferences')}>
+                            <TouchableOpacity onPress={() => this.props.screenProps.navigate('group')}>
                                 <Image source = {require('../../../assets/buttonGroup.png')} />
                             </TouchableOpacity>
                         </View>
