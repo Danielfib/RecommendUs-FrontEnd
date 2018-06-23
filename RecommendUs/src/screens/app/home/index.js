@@ -59,13 +59,13 @@ export default class Home extends React.Component {
             '12': 'DEC'
         };
 
-        let list = this.state.meetings.map((meeting) => {
+        let list = this.state.meetings.map((meeting, index) => {
 
             let month = months[meeting.groupdate.substring(5, 7)];
             let day = meeting.groupdate.substring(8, 10);
 
             return (
-                <View key={meeting.id} style={styles.card}>
+                <View key={index} style={styles.card}>
                     <TouchableOpacity>
                         <Image style={styles.image} source={{uri: image}}/>
                         <View style={styles.calendar}>

@@ -146,7 +146,6 @@ export default class Preferences extends React.Component {
                   </TouchableOpacity>
                 </View>
                 <Calendar callback={this.getCalendarReponse.bind(this)}/>
-                {console.warn(this.state.calendarValue)}
                 
               </View>
               <View style = {[style.container, {marginBottom: em (28),}]}>
@@ -155,7 +154,7 @@ export default class Preferences extends React.Component {
                   <PickerButton gpsButton={true} dimensions = {{height: em(6.5), width: em(80)}} defaultOption={this.state.pickerValue} data = {["Recife", 'Olinda', 'Jaboatão']}
                     callback = {this.getPickerButtonResponse.bind(this)}
                   />
-                  {console.warn(this.state.pickerValue)}
+                  
                 </View>
               </View>
             </ScrollView>

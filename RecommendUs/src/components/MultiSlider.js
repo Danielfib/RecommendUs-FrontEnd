@@ -24,13 +24,14 @@ export default class MultiSliderButton extends React.Component {
     sliderOneValuesChange = (values) => {
         let newValues = [0];
         newValues[0] = values[0];
-        this.props.callback(newValues)
+        
         this.setState({
             sliderOneValue: newValues,
         });
     }
     
     sliderOneValuesChangeFinish = () => {
+        this.props.callback(this.state.sliderOneValue)
         this.setState({
             sliderOneChanging: false,
         });
