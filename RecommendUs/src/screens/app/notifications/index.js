@@ -45,9 +45,10 @@ class Notifications extends React.Component {
     }
     
     renderCardsNotification() {
-        let cards = this.state.notifications.map((notification) => {
+        let cards = this.state.notifications.map((notification, index) => {
             return (
                 <NotificationCard
+                    key={index}
                     day={notification.day}
                     date={notification.date}
                     navigation={this.props.screenProps}

@@ -11,9 +11,9 @@ import em from '../properties/responsive'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 export function renderFriends(friends, size) {
-    let listFriends = friends.map(friend => {
+    let listFriends = friends.map((friend, index) => {
       return (
-        <View key={friend.name} style={styles.circle}>
+        <View key={index} style={styles.circle}>
                 <Image 
                     style={
                         [{
