@@ -55,14 +55,7 @@ export default class Draggable extends Component {
       });
     } else {
       this.panResponder = PanResponder.create({
-        onStartShouldSetPanResponder: (e, gesture) => true,
-        onPanResponderGrant: (e, gesture) => {
-          this.state.pan.setOffset({
-            x: this._val.x,
-            y:this._val.y
-          })
-          this.state.pan.setValue({ x:0, y:0})
-        }
+        //se clicar, volta para a parte inicial
       });
     }
   }
