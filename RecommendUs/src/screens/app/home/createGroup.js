@@ -35,9 +35,9 @@ export default class CreateGroup extends Component {
     let newArray = this.state.arrayAmigosDz.map((item, key) =>{
       return(
         <View style={styles.circleContainerDZ}>
-          <TouchableOpacity style={styles.circle}>
-            {/*<Text>oiiiiiiiiiiiiiiiii {item.index} </Text>*/}
-          </TouchableOpacity>
+          <Draggable
+            isOnDz = {true}
+          />
         </View>
       );
     });
