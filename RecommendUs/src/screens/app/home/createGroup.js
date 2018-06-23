@@ -34,9 +34,11 @@ export default class CreateGroup extends Component {
   render() {
     let newArray = this.state.arrayAmigosDz.map((item, key) =>{
       return(
-        <TouchableOpacity>
-          <Text>oi</Text>
-        </TouchableOpacity>
+        <View style={styles.circleContainerDZ}>
+          <TouchableOpacity style={styles.circle}>
+            {/*<Text>oiiiiiiiiiiiiiiiii {item.index} </Text>*/}
+          </TouchableOpacity>
+        </View>
       );
     });
 
@@ -88,6 +90,7 @@ export default class CreateGroup extends Component {
   }
 }
 
+let CIRCLE_RADIUS = 30;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -146,5 +149,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#fff",
     fontSize: 23
+  },
+  circle: {
+    backgroundColor: "#A30000",
+    width: CIRCLE_RADIUS * 2,
+    height: CIRCLE_RADIUS * 2,
+    borderRadius: CIRCLE_RADIUS
+  },
+  circleContainerDZ: {
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 10,
+    flex: 1
   }
 });
