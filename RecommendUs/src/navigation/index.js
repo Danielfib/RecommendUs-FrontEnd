@@ -30,6 +30,7 @@ const MainNavigator = StackNavigator(
         restaurants: {
             screen: ListRestaurant
         },
+        
     },
     {
         headerMode: 'none',

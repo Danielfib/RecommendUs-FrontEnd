@@ -22,7 +22,8 @@ export default class Info extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            pressed: false
+            pressed: false,
+            discount: true
         }
     }
 
@@ -43,73 +44,95 @@ export default class Info extends React.Component {
 
         return jsxTags
     }
+
+    renderPlates() {
+        plates = [1, 2, 3, 4, 5, 6, 7]
+
+        let jsxPlates = plates.map((plate) => {
+            return(
+                <View style={[style.shapePlate, (plate==plates[0])?{marginLeft:em(12)}:{}]} key={plate}>
+                </View>
+            )
+        })  
+
+        return jsxPlates
+    }
     
     render() {
+        
+        const discountIcon = (this.state.discount)? require('../../../assets/Discont.png') : {}
         
         return(
             <View style={style.container}>
                 <Image source={require('../../../assets/taverna.png')} style={style.backgroundImage}/>
                 <View style={style.detailsView}>
-                    <Text style={style.restaurantName}>Taverna Burgbeer</Text>
-                    <View style={style.subcontainer}>
-                        <View style={style.discontAndStars}>
-                            <View style={style.starContainer}>
-                                <StartRating 
-                                    disabled={true} 
-                                    maxStars={5} 
-                                    rating={4} 
-                                    starSize={em(4)}
-                                    iconSet={'Ionicons'}
-                                    emptyStar={'ios-star-outline'}
-                                    halfStar={'ios-star-half'}
-                                    fullStar={'ios-star'}
-                                >
-                            
-                                </StartRating>
+                    <TouchableOpacity>
+                        <Text style={style.restaurantName}>Taverna Burgbeer</Text>
+                        <View style={style.subcontainer}>
+                            <View style={style.discontAndStars}>
+                                <View style={style.starContainer}>
+                                    <StartRating 
+                                        disabled={true} 
+                                        maxStars={5} 
+                                        rating={4} 
+                                        starSize={em(4)}
+                                        iconSet={'Ionicons'}
+                                        emptyStar={'ios-star-outline'}
+                                        halfStar={'ios-star-half'}
+                                        fullStar={'ios-star'}
+                                    >
+                                    </StartRating>
+                                </View>
+                                <Image source={discountIcon} style={style.discontStyle}/>
                             </View>
-                            <Image source={require('../../../assets/Discont.png')} style={style.discontStyle}/>
+                            <Btn 
+                                onPress={() => { 
+                                    this.state.pressed = true   
+                                    //console.warn(this.state.pressed)
+                                    return this.btn.success()
+                                }}
+                                onSecondaryPress={() => {
+                                    this.state.pressed = false 
+                                    //console.warn(this.state.pressed)
+                                    return this.btn.reset()
+                                }}
+                                ref={ref => (this.btn = ref)}
+                                successIcon="check"
+                                backgroundColor="#27AE60"
+                                noBorder= {true}
+                                maxWidth={em(20)}
+                                renderLabel ={<Text style={style.labelButton}>Votar</Text>}
+                                successForegroundColor= '#FFF'
+                            />
                         </View>
-                        <Btn 
-                            onPress={() => { 
-                                this.state.pressed = true   
-                                //console.warn(this.state.pressed)
-                                return this.btn.success()
-                            }}
-                            onSecondaryPress={() => {
-                                this.state.pressed = false 
-                                //console.warn(this.state.pressed)
-                                return this.btn.reset()
-                            }}
-                            ref={ref => (this.btn = ref)}
-                            successIcon="check"
-                            backgroundColor="#27AE60"
-                            noBorder= {true}
-                            maxWidth={em(20)}
-                            renderLabel ={<Text style={style.labelButton}>Votar</Text>}
-                            successForegroundColor= '#FFF'
-                        />
-                    </View>
+                    </TouchableOpacity>
                     <View style={style.ScrollViewStyle}>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                             {this.renderTags()} 
                         </ScrollView>
                     </View>
                     <View style={style.infoContainer}>
-                        <Text>Informações</Text>
+                        <Text style={style.textTitleInfo}>Informações</Text>
                         <View style={style.infoStyle}>
-                            <Text>$$$</Text>
-                            <Text>12h~18h</Text>
-                            <Text>  Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-                                    ut aliquip ex ea commodo consequat.
+                            <Text style={style.priceStyle}>$$$</Text>
+                            <Text style={style.timeStyle}>12h~18h</Text>
+                            <Text style={style.descriptionStyle}>  
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
+                                ut aliquip ex ea commodo consequat.
                             </Text>
                         </View>
                     </View>
-
-                    <View style={style.pratosStyle}>
-                        <Text>Pratos</Text>
+                    <View style={style.plateViewStyle}>
+                        <Text style={style.textTitlePlates}>Pratos</Text>
+                        <View>
+                            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                {this.renderPlates()}
+                            </ScrollView>
+                        </View>
                     </View>
+                    
                 </View>
             </View>   
         )
@@ -184,11 +207,38 @@ const style = StyleSheet.create({
         color: '#A30000'
     },
     ScrollViewStyle: {
-        marginTop: em(3),
+        marginTop: em(2),
     },
-
     infoContainer: {
-
+        marginTop: em(1.5),
+        marginLeft: em(4),
+        marginRight: em(4),
+        //backgroundColor: 'green',
+    },
+    textTitleInfo: {
+        fontSize: em(3.5),
+        fontWeight: '600',
+        marginBottom: em(1.5),
+        marginTop: em(1.5)
+    }, 
+    textTitlePlates: {
+        fontSize: em(3.5),
+        fontWeight: '600',
+        marginTop: em(1.5),
+        marginLeft: em(4)
+    },
+    priceStyle:{
+        marginBottom: em(1.5)
+    },
+    timeStyle:{
+        marginBottom: em(1.5)
+    },
+    shapePlate: {
+        backgroundColor: 'gray',
+        width: em(15),
+        height: em(15),
+        borderRadius: em(20),
+        margin: em(3)
     }
 })
   
