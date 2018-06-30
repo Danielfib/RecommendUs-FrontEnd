@@ -7,12 +7,16 @@ import NextButton from '../../../components/NextButton.js';
 import SearchButton from '../../../components/SeachButton.js';
 
 import em from '../../../properties/responsive';
+import { format } from "url";
 
 export default class CreateGroup extends Component {
   constructor(){
     super();
-    this.state = { arrayAmigosDz: []}
+    //this.state = { arrayAmigosDz: []}
     this.index = 0;
+    this.state = { amigosCompDz: []} //array de newlyAddesValues emcima, é mapeado pra ser renderizado
+    this.amigosIniciaisData = ['1', '2', '3', '4', '5'];
+    this.amigosIniciais = this.amigosIniciaisData.map((type)=><Draggable key={type} id={type} addMore={this.addMore}/>);
   }
   
   //so that tab navigator doesnt appear
@@ -22,22 +26,62 @@ export default class CreateGroup extends Component {
     swipeEnabled: false,
   }
 
-  addMore = () => {
+  addMore = (chave) => {
+    //nao esta adicionando ao array arrayAmigosDz
+    console.log("chave:" + chave);
     //console.log("opa");
-    let newlyAddedValue = { index: this.index }
-    this.setState({arrayAmigosDz: [ ...this.state.arrayAmigosDz, newlyAddedValue]});
-    this.index = this.index + 1;
-    console.log("------------------------------------");
+    //let newlyAddedValue = { index: chave }
+    //this.setState({arrayAmigosDz: [ ...this.state.arrayAmigosDz, newlyAddedValue]});
+    //this.index = this.index + 1;
+
+    //this.amigosCompDz = this.state.arrayAmigosDz.map((type) => <TouchableOpacity key={chave}/>);
+    let newlyAddedValue = { index: chave }
+    this.setState({amigosCompDz: [ ...this.state.amigosCompDz, newlyAddedValue]});
+
+    /*
+    this.state.amigosCompDz.push(
+      newlyAddedValue      
+    );
+    */
+    //console.log("------------------------------------");
+    //console.log(this.state.arrayAmigosDz);
+    console.log("---------------------------------1");
+    console.log(this.state.amigosCompDz);
+    /*
     console.log(this.state.arrayAmigosDz);
+    console.log("---------------------------------1");
+    console.log(this.amigosCompDz);
+    console.log("---------------------------------2");
+    console.log(this.amigosIniciaisData);
+    console.log("---------------------------------3");
+    console.log(this.amigosIniciais);
+    console.log("---------------------------------4");
+    */
+  }
+
+  removeFromDz = () => {
+    //clicou na bolinha emcima e ela volta para baixo
+    //adicionar de volta em amigosIniciais
+    //remover de amigosCompDz
   }
 
   render() {
+    //arrayAmigosDz    
+/*
     let newArray = this.state.arrayAmigosDz.map((item, key) =>{
       return(
         <View style={styles.circleContainerDZ}>
-          <Draggable
-            isOnDz = {true}
-          />
+          <TouchableOpacity onPress={this.removeFromDz()} style={styles.circle}>
+
+          </TouchableOpacity>
+        </View>
+      );
+    });
+*/
+    let renderArray = this.state.amigosCompDz.map((item, map) =>{
+      return(
+        <View style={styles.circleContainerDZ}>
+          <TouchableOpacity style={styles.circle} key={item.index} onPress={this.removeFromDz()}/>
         </View>
       );
     });
@@ -61,7 +105,9 @@ export default class CreateGroup extends Component {
             <ScrollView horizontal style={styles.dropZone}>
               <View style={styles.row}>
               {
-                newArray
+                //ERRO ATUAL:
+                //por algum motivo, esse array n esta sendo renderizado
+                renderArray
               }
               </View>
             </ScrollView>
@@ -69,11 +115,7 @@ export default class CreateGroup extends Component {
 
           <View style={styles.ballContainer}>
             <View style={styles.row}>
-              <Draggable addMore={this.addMore}/>
-              <Draggable addMore={this.addMore}/>
-              <Draggable addMore={this.addMore}/>
-              <Draggable addMore={this.addMore}/>
-              <Draggable addMore={this.addMore}/>
+              {this.amigosIniciais}
             </View>
           </View>
         </View>
@@ -86,7 +128,7 @@ export default class CreateGroup extends Component {
           <SearchButton />
         </TouchableOpacity>
       </View>
-    );
+    );    
   }
 }
 
@@ -111,7 +153,8 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    marginTop: 20
+    marginTop: 20,
+    //backgroundColor: 'black'
   },  
   dropZone: {
     //position: 'absolute',
