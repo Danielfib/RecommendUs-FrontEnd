@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, Button } from "react-native";
 import Draggable from "../../../components/Draggable.js";
 import BarStatus from "../../../components/StatusBar.js";
 import Header from '../../../components/Header.js';
@@ -17,6 +17,7 @@ export default class CreateGroup extends Component {
     this.state = { amigosCompDz: []} //array de newlyAddesValues emcima, é mapeado pra ser renderizado
     this.amigosIniciaisData = ['1', '2', '3', '4', '5'];
     this.amigosIniciais = this.amigosIniciaisData.map((type)=><Draggable key={type} id={type} addMore={this.addMore}/>);
+    this.renderArray = [];
   }
   
   //so that tab navigator doesnt appear
@@ -46,7 +47,7 @@ export default class CreateGroup extends Component {
     //console.log("------------------------------------");
     //console.log(this.state.arrayAmigosDz);
     console.log("---------------------------------1");
-    console.log(this.state.amigosCompDz);
+    //console.log(this.state.amigosCompDz);
     /*
     console.log(this.state.arrayAmigosDz);
     console.log("---------------------------------1");
@@ -57,34 +58,35 @@ export default class CreateGroup extends Component {
     console.log(this.amigosIniciais);
     console.log("---------------------------------4");
     */
+   this.renderArray.push(
+    <View style={styles.circleContainerDZ}>
+      <TouchableOpacity style={styles.circle} onPress={console.log("oi")/*this.removeFromDz()*/}/>
+    </View>
+   );
+
+   //console.log(this.renderArray);
   }
 
-  removeFromDz = () => {
+  removeFromDz = (removeKey) => {
+    //console.log("oi");
     //clicou na bolinha emcima e ela volta para baixo
     //adicionar de volta em amigosIniciais
     //remover de amigosCompDz
   }
 
   render() {
-    //arrayAmigosDz    
-/*
-    let newArray = this.state.arrayAmigosDz.map((item, key) =>{
+    console.log("tests");
+    //error: onPress not being called
+    //possible soluction: try some other thing instead of map?
+    /*
+    this.renderArray = this.state.amigosCompDz.map((item, map) =>{
       return(
-        <View style={styles.circleContainerDZ}>
-          <TouchableOpacity onPress={this.removeFromDz()} style={styles.circle}>
-
-          </TouchableOpacity>
+        <View style={styles.circleContainerDZ} key={item.index}>
+          <TouchableOpacity style={styles.circle} onPress={console.log("oi")}/>
         </View>
       );
     });
-*/
-    let renderArray = this.state.amigosCompDz.map((item, map) =>{
-      return(
-        <View style={styles.circleContainerDZ}>
-          <TouchableOpacity style={styles.circle} key={item.index} onPress={this.removeFromDz()}/>
-        </View>
-      );
-    });
+    */
 
     return (
       <View style={styles.container}>
@@ -107,7 +109,7 @@ export default class CreateGroup extends Component {
               {
                 //ERRO ATUAL:
                 //por algum motivo, esse array n esta sendo renderizado
-                renderArray
+                this.renderArray
               }
               </View>
             </ScrollView>

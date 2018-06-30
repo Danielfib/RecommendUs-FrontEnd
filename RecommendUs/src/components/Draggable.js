@@ -22,7 +22,7 @@ export default class Draggable extends Component {
         onPanResponderGrant: (e, gesture) => {
           this.state.pan.setOffset({
             x: this._val.x,
-            y:this._val.y
+            y: this._val.y
           })
           this.state.pan.setValue({ x:0, y:0})
         },
@@ -31,6 +31,10 @@ export default class Draggable extends Component {
           null, { dx: this.state.pan.x, dy: this.state.pan.y }
         ]),
         onPanResponderRelease: (e, gesture) => {
+          //problema 1: entra aqui sem poder, pq quando clica, por algum motivo
+          //gesture x e y comeca em 0
+          //console.log("ALTURA " + gesture.moveY);
+          //console.log("ALTURA1 " + gesture.locationY);
           if (this.isDropArea(gesture)) {
             Animated.timing(this.state.opacity, {
               toValue: 0,
@@ -55,7 +59,10 @@ export default class Draggable extends Component {
   }
 
   isDropArea(gesture) {
-    return gesture.moveY < 200;
+    if(gesture.moveY < 200 && gesture.moveY != 0){
+      //o gesture.moveY sendo 0 quer dizer que foi um clique
+      return true;
+    }
   }
 
   render() {
