@@ -31,10 +31,6 @@ export default class Draggable extends Component {
           null, { dx: this.state.pan.x, dy: this.state.pan.y }
         ]),
         onPanResponderRelease: (e, gesture) => {
-          //problema 1: entra aqui sem poder, pq quando clica, por algum motivo
-          //gesture x e y comeca em 0
-          //console.log("ALTURA " + gesture.moveY);
-          //console.log("ALTURA1 " + gesture.locationY);
           if (this.isDropArea(gesture)) {
             Animated.timing(this.state.opacity, {
               toValue: 0,
@@ -45,7 +41,7 @@ export default class Draggable extends Component {
               })
             );
 
-            //trying to add to DZ
+            //adding to DZ
             this.props.addMore(this.props.id);
           } else {
             Animated.spring(

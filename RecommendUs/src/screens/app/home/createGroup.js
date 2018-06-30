@@ -12,9 +12,8 @@ import { format } from "url";
 export default class CreateGroup extends Component {
   constructor(){
     super();
-    //this.state = { arrayAmigosDz: []}
     this.index = 0;
-    this.state = { amigosCompDz: []} //array de newlyAddesValues emcima, é mapeado pra ser renderizado
+    this.state = { amigosCompDz: []} //array de newlyAddesValues emcima, é mapeado pra ser renderizado em renderArray
     this.amigosIniciaisData = ['1', '2', '3', '4', '5'];
     this.amigosIniciais = this.amigosIniciaisData.map((type)=><Draggable key={type} id={type} addMore={this.addMore}/>);
     this.renderArray = [];
@@ -28,36 +27,14 @@ export default class CreateGroup extends Component {
   }
 
   addMore = (chave) => {
-    //nao esta adicionando ao array arrayAmigosDz
+    
     console.log("chave:" + chave);
-    //console.log("opa");
-    //let newlyAddedValue = { index: chave }
-    //this.setState({arrayAmigosDz: [ ...this.state.arrayAmigosDz, newlyAddedValue]});
-    //this.index = this.index + 1;
 
-    //this.amigosCompDz = this.state.arrayAmigosDz.map((type) => <TouchableOpacity key={chave}/>);
     let newlyAddedValue = { index: chave }
     this.setState({amigosCompDz: [ ...this.state.amigosCompDz, newlyAddedValue]});
 
-    /*
-    this.state.amigosCompDz.push(
-      newlyAddedValue      
-    );
-    */
-    //console.log("------------------------------------");
-    //console.log(this.state.arrayAmigosDz);
-    console.log("---------------------------------1");
-    //console.log(this.state.amigosCompDz);
-    /*
-    console.log(this.state.arrayAmigosDz);
-    console.log("---------------------------------1");
-    console.log(this.amigosCompDz);
-    console.log("---------------------------------2");
-    console.log(this.amigosIniciaisData);
-    console.log("---------------------------------3");
-    console.log(this.amigosIniciais);
-    console.log("---------------------------------4");
-    */
+    console.log("---------------------------------");
+    
    this.renderArray.push(
     <View style={styles.circleContainerDZ}>
       <TouchableOpacity style={styles.circle} onPress={console.log("oi")/*this.removeFromDz()*/}/>
@@ -68,7 +45,17 @@ export default class CreateGroup extends Component {
   }
 
   removeFromDz = (removeKey) => {
-    //console.log("oi");
+    /*
+    Explicacao do erro atual:
+    O array renderArray contem os TouchacbleHighlights, que deveriam chamar essa funcao.
+    Mas por algum motivo, ela é chamada quando damos o push no array, e não no OnPress.
+
+    Atualmente, array está sendo preenchido com pushes.
+    Antes, ele estava sendo preencido no map, dentro do render (comentado lá).
+    Ambos os métodos estão dando esse mesmo erro.
+    */
+
+    //Depois de resolver o erro, fazer:
     //clicou na bolinha emcima e ela volta para baixo
     //adicionar de volta em amigosIniciais
     //remover de amigosCompDz
@@ -78,6 +65,7 @@ export default class CreateGroup extends Component {
     console.log("tests");
     //error: onPress not being called
     //possible soluction: try some other thing instead of map?
+    
     /*
     this.renderArray = this.state.amigosCompDz.map((item, map) =>{
       return(
@@ -107,8 +95,6 @@ export default class CreateGroup extends Component {
             <ScrollView horizontal style={styles.dropZone}>
               <View style={styles.row}>
               {
-                //ERRO ATUAL:
-                //por algum motivo, esse array n esta sendo renderizado
                 this.renderArray
               }
               </View>
