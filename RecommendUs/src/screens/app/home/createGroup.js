@@ -40,34 +40,20 @@ export default class CreateGroup extends Component {
       <TouchableOpacity style={styles.circle} onPress={ _ => this.removeFromDz(chave)}/>
     </View>
    );
-
-   //console.log(this.renderArray);
   }
 
   removeFromDz = (removeKey) => {
     console.log("entrou com a chave: " + removeKey);
-    /*
-    Explicacao do erro atual:
-    O array renderArray contem os TouchacbleHighlights, que deveriam chamar essa funcao.
-    Mas por algum motivo, ela é chamada quando damos o push no array, e não no OnPress.
 
-    Atualmente, array está sendo preenchido com pushes.
-    Antes, ele estava sendo preencido no map, dentro do render (comentado lá).
-    Ambos os métodos estão dando esse mesmo erro.
-    */
-
-    //Depois de resolver o erro, fazer:
+    //Erro resolvido, agora:
     //clicou na bolinha emcima e ela volta para baixo
     //adicionar de volta em amigosIniciais
     //remover de amigosCompDz
   }
 
   render() {
-    console.log("tests");
-    //error: onPress not being called
-    //possible soluction: try some other thing instead of map?
-    
-    /*
+    console.log("tests");    
+    /* Antes o array estava sendo mantido assim:
     this.renderArray = this.state.amigosCompDz.map((item, map) =>{
       return(
         <View style={styles.circleContainerDZ} key={item.index}>
