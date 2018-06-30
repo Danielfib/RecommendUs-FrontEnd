@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 import {
     View,
@@ -14,6 +15,8 @@ import NextButton from '../../../components/NextButton'
 import NotificationCard from '../../../components/NotificationCard'
 
 import em from '../../../properties/responsive'
+
+import * as requests from '../../../actions/requests'
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
@@ -56,6 +59,16 @@ class Notifications extends React.Component {
             )
         })
         return cards
+    }
+
+    componentDidMount() {
+        axios.get(`${requests.getIP()}/groups/invites`)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
     
     render() {
