@@ -30,6 +30,7 @@
     "react-native-slider-button": "^0.1.1",
     "react-native-star-rating": "^1.0.9",
     "react-native-vector-icons": "^4.6.0",
-    "react-navigation": "^1.0.0-beta.11"
+    "react-navigation": "^1.0.0-beta.11",
+    "rn-sliding-up-panel": "^1.2.1"
   }
 }

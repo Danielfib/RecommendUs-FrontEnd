@@ -16,13 +16,15 @@ import {
 import em from "../../../properties/responsive";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Btn from "react-native-micro-animated-button";
+import SlidingUpPanel from 'rn-sliding-up-panel'
 
 export default class Info extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       pressed: false,
-      discount: true
+      discount: true,
+      visible: true 
     };
   }
 
@@ -86,76 +88,77 @@ export default class Info extends React.Component {
           source={require("../../../assets/taverna.png")}
           style={style.backgroundImage}
         />
-
-        <View style={style.detailsView}>
-          <TouchableOpacity>
-            <Text style={style.restaurantName}>Taverna Burgbeer</Text>
-            <View style={style.subcontainer}>
-              <View style={style.discontAndStars}>
-                <View style={style.starContainer}>
-                  <StartRating
-                    disabled={true}
-                    maxStars={5}
-                    rating={4}
-                    starSize={em(4)}
-                    iconSet={"Ionicons"}
-                    emptyStar={"ios-star-outline"}
-                    halfStar={"ios-star-half"}
-                    fullStar={"ios-star"}
-                  />
+        <SlidingUpPanel  showBackdrop={false} visible={this.state.visible} draggableRange={{top:em(400), bottom:em(200)}} height= {em(400)}>
+          <View style={style.detailsView}>
+            <TouchableOpacity onPress={()=>{this.setState({visible:!this.state.visible})}}>
+              <Text style={style.restaurantName}>Taverna Burgbeer</Text>
+              <View style={style.subcontainer}>
+                <View style={style.discontAndStars}>
+                  <View style={style.starContainer}>
+                    <StartRating
+                      disabled={true}
+                      maxStars={5}
+                      rating={4}
+                      starSize={em(4)}
+                      iconSet={"Ionicons"}
+                      emptyStar={"ios-star-outline"}
+                      halfStar={"ios-star-half"}
+                      fullStar={"ios-star"}
+                    />
+                  </View>
+                  <Image source={discountIcon} style={style.discontStyle} />
                 </View>
-                <Image source={discountIcon} style={style.discontStyle} />
+                <Btn
+                  onPress={() => {
+                    this.state.pressed = true;
+                    //console.warn(this.state.pressed)
+                    return this.btn.success();
+                  }}
+                  onSecondaryPress={() => {
+                    this.state.pressed = false;
+                    //console.warn(this.state.pressed)
+                    return this.btn.reset();
+                  }}
+                  ref={ref => (this.btn = ref)}
+                  successIcon="check"
+                  backgroundColor="#27AE60"
+                  noBorder={true}
+                  maxWidth={em(20)}
+                  renderLabel={<Text style={style.labelButton}>Votar</Text>}
+                  successForegroundColor="#FFF"
+                />
               </View>
-              <Btn
-                onPress={() => {
-                  this.state.pressed = true;
-                  //console.warn(this.state.pressed)
-                  return this.btn.success();
-                }}
-                onSecondaryPress={() => {
-                  this.state.pressed = false;
-                  //console.warn(this.state.pressed)
-                  return this.btn.reset();
-                }}
-                ref={ref => (this.btn = ref)}
-                successIcon="check"
-                backgroundColor="#27AE60"
-                noBorder={true}
-                maxWidth={em(20)}
-                renderLabel={<Text style={style.labelButton}>Votar</Text>}
-                successForegroundColor="#FFF"
-              />
-            </View>
-          </TouchableOpacity>
-          <ScrollView>
-            <View style={style.ScrollViewStyle}>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {this.renderTags()}
-              </ScrollView>
-            </View>
-            <View style={style.infoContainer}>
-              <Text style={style.textTitleInfo}>Informações</Text>
-              <View style={style.infoStyle}>
-                <Text style={style.priceStyle}>$$$</Text>
-                <Text style={style.timeStyle}>12h~18h</Text>
-                <Text style={style.descriptionStyle}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </Text>
-              </View>
-            </View>
-            <View style={style.plateViewStyle}>
-              <Text style={style.textTitlePlates}>Pratos</Text>
-              <View>
+            </TouchableOpacity>
+            <ScrollView>
+              <View style={style.ScrollViewStyle}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                  {this.renderPlates()}
+                  {this.renderTags()}
                 </ScrollView>
               </View>
-            </View>
-          </ScrollView>
-        </View>
+              <View style={style.infoContainer}>
+                <Text style={style.textTitleInfo}>Informações</Text>
+                <View style={style.infoStyle}>
+                  <Text style={style.priceStyle}>$$$</Text>
+                  <Text style={style.timeStyle}>12h~18h</Text>
+                  <Text style={style.descriptionStyle}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                    laboris nisi ut aliquip ex ea commodo consequat.
+                  </Text>
+                </View>
+              </View>
+              <View style={style.plateViewStyle}>
+                <Text style={style.textTitlePlates}>Pratos</Text>
+                <View>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    {this.renderPlates()}
+                  </ScrollView>
+                </View>
+              </View>
+            </ScrollView>
+          </View>
+        </SlidingUpPanel>
       </View>
     );
   }
@@ -175,7 +178,7 @@ const style = StyleSheet.create({
   detailsView: {
     backgroundColor: "#FFF",
     width: em(100),
-    height: "60%",
+    //height: "25%",
     position: "absolute",
     bottom: 0,
     borderTopLeftRadius: em(12),
