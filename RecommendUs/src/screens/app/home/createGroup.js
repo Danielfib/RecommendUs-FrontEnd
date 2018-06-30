@@ -36,8 +36,8 @@ export default class CreateGroup extends Component {
     console.log("---------------------------------");
     
    this.renderArray.push(
-    <View style={styles.circleContainerDZ}>
-      <TouchableOpacity style={styles.circle} onPress={console.log("oi")/*this.removeFromDz()*/}/>
+    <View style={styles.circleContainerDZ} key={chave}>
+      <TouchableOpacity style={styles.circle} onPress={ _ => this.removeFromDz(chave)}/>
     </View>
    );
 
@@ -45,6 +45,7 @@ export default class CreateGroup extends Component {
   }
 
   removeFromDz = (removeKey) => {
+    console.log("entrou com a chave: " + removeKey);
     /*
     Explicacao do erro atual:
     O array renderArray contem os TouchacbleHighlights, que deveriam chamar essa funcao.
