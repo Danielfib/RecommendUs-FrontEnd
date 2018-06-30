@@ -26,26 +26,6 @@ class Group extends React.Component {
 
         this.state = {}
     }
-
-    createGroup() {
-
-        let date = new Date()
-
-        let data = {
-            groupname: 'Copa do Mundo, é Hexa meu irmão!',
-            groupdate: date,
-            groupmembers: ["1"],
-        }
-
-        axios.post(`${requests.getUrl()}/create-group`, data)
-        .then(res => {
-            console.warn("Suc create group: ", res)
-            this.props.navigation.navigate('preferences')
-        })
-        .catch(err => {
-            console.warn("Err create group: ", err)
-        })
-    } 
     
     render() {
         // Tamanho dos cards: 21 para o clima e 30 para os tipos de comida
@@ -57,7 +37,7 @@ class Group extends React.Component {
                         "Nois"
                     }
                 </Text>
-                <TouchableOpacity style={styles.nextButton} onPress={() => this.createGroup()}>
+                <TouchableOpacity style={styles.nextButton} onPress={() => this.props.navigation.navigate('preferences')}>
                     <NextButton />
                 </TouchableOpacity>
             </View>
