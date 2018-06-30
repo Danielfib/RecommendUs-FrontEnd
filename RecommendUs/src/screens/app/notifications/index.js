@@ -58,12 +58,29 @@ class Notifications extends React.Component {
             let DAY = notification.groupdate.substring(8, 10);
             let month = months[notification.groupdate.substring(5, 7)];
 
+            let friends = [
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: false,
+                },
+            ]
+
             return (
                 <NotificationCard
-                    key={index}
-                    day={DAY}
-                    date={month}
-                    navigation={this.props.screenProps}
+                    key = {index}
+                    group = {notification}
+                    day = {DAY}
+                    date = {month}
+                    navigation = {this.props.screenProps}
+                    friends = {friends}
                 />
             )
         })
@@ -73,7 +90,6 @@ class Notifications extends React.Component {
     componentDidMount() {
         axios.get(`${requests.getUrl()}/groups/invites`)
         .then(res => {
-            console.warn(res.data)
             this.setState({
                 notifications: res.data
             })

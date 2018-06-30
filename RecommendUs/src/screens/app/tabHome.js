@@ -81,5 +81,6 @@ const styles = StyleSheet.create({
         fontSize: em (6),
         fontWeight: '500',
         marginLeft: em (3),
+        marginTop: em (2),
     },
 })
