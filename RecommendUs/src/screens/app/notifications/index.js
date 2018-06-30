@@ -32,28 +32,37 @@ class Notifications extends React.Component {
         super(props)
 
         this.state = {
-            notifications: [
-                {
-                    friends: [],
-                    day: 'SEX',
-                    date: '18',
-                },
-                {
-                    friends: [],
-                    day: 'SEX',
-                    date: '18',
-                },
-            ],
+            notifications: [],
         }
     }
     
     renderCardsNotification() {
+
+        let months = {
+            '01': 'JAN',
+            '02': 'FEB',
+            '03': 'MAR',
+            '04': 'APR',
+            '05': 'MAY',
+            '06': 'JUN',
+            '07': 'JUL',
+            '08': 'AUG',
+            '09': 'SEP',
+            '10': 'OCT',
+            '11': 'NOV',
+            '12': 'DEC'
+        };
+
         let cards = this.state.notifications.map((notification, index) => {
+            
+            let DAY = notification.groupdate.substring(8, 10);
+            let month = months[notification.groupdate.substring(5, 7)];
+
             return (
                 <NotificationCard
                     key={index}
-                    day={notification.day}
-                    date={notification.date}
+                    day={DAY}
+                    date={month}
                     navigation={this.props.screenProps}
                 />
             )
@@ -62,9 +71,12 @@ class Notifications extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${requests.getIP()}/groups/invites`)
+        axios.get(`${requests.getUrl()}/groups/invites`)
         .then(res => {
-            console.log(res)
+            console.warn(res.data)
+            this.setState({
+                notifications: res.data
+            })
         })
         .catch(err => {
             console.log(err)

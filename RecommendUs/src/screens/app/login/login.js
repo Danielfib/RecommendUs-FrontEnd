@@ -34,7 +34,8 @@ class Login extends React.Component {
 
         axios.post(`${requests.getUrl()}/login`, data)
         .then(res => {
-            console.log("Suc Log In: ", res)
+            console.log("Suc Log In: ", res.data)
+            requests.setUser(res.data)
         })
         .catch(err => {
             console.log("Err Log In: ", err)

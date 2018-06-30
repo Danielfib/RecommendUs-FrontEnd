@@ -29,7 +29,7 @@ export default class Home extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${requests.getUrl()}/eventoPessoa/1`)
+        axios.get(`${requests.getUrl()}/eventoPessoa/2`)
         .then(res => {
             this.setState({
                 meetings: res.data,
