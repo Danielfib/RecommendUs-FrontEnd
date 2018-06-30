@@ -14,7 +14,7 @@ export default class CreateGroup extends Component {
     super();
     this.index = 0;
     this.state = { amigosCompDz: []} //array de newlyAddesValues emcima, é mapeado pra ser renderizado em renderArray
-    this.amigosIniciaisData = ['1', '2', '3', '4', '5'];
+    this.amigosIniciaisData = ['0', '1', '2', '3', '4'];
     this.amigosIniciais = this.amigosIniciaisData.map((type)=><Draggable key={type} id={type} addMore={this.addMore}/>);
     this.renderArray = [];
   }
@@ -45,6 +45,13 @@ export default class CreateGroup extends Component {
   removeFromDz = (removeKey) => {
     console.log("entrou com a chave: " + removeKey);
 
+    //console.log(this.amigosIniciais[removeKey]);
+    //console.log(this.renderArray[removeKey]);
+    
+    console.log(this.amigosIniciais[removeKey]);
+    //ERRO ATUAL: n consigo fazer o draggable reaparecer embaixo
+    //this.amigosIniciais[removeKey].changeDraggableState(true);
+    
     //Erro resolvido, agora:
     //clicou na bolinha emcima e ela volta para baixo
     //adicionar de volta em amigosIniciais
