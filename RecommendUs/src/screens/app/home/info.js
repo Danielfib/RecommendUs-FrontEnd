@@ -24,7 +24,8 @@ export default class Info extends React.Component {
     this.state = {
       pressed: false,
       discount: true,
-      visible: true 
+      visible: true,
+      allowDragging: false 
     };
   }
 
@@ -88,9 +89,15 @@ export default class Info extends React.Component {
           source={require("../../../assets/taverna.png")}
           style={style.backgroundImage}
         />
-        <SlidingUpPanel  showBackdrop={false} visible={this.state.visible} draggableRange={{top:em(400), bottom:em(200)}} height= {em(400)}>
+        <SlidingUpPanel 
+          onDragEnd={()=>{this.setState({allowDragging:false})}} 
+          allowDragging={this.state.allowDragging} 
+          allowMomentum={false} showBackdrop={false} 
+          visible={this.state.visible} 
+          draggableRange={{top:em(400), bottom:em(342)}} height= {em(400)}>
+          
           <View style={style.detailsView}>
-            <TouchableOpacity onPress={()=>{this.setState({visible:!this.state.visible})}}>
+            <TouchableOpacity onPressIn={()=>{this.setState({allowDragging:true})}}>
               <Text style={style.restaurantName}>Taverna Burgbeer</Text>
               <View style={style.subcontainer}>
                 <View style={style.discontAndStars}>
@@ -130,7 +137,7 @@ export default class Info extends React.Component {
               </View>
             </TouchableOpacity>
             <ScrollView>
-              <View style={style.ScrollViewStyle}>
+              <View style={style.ScrollViewStyleTags}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                   {this.renderTags()}
                 </ScrollView>
@@ -223,7 +230,7 @@ const style = StyleSheet.create({
     marginLeft: em(3),
     borderColor: "#A30000",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   tagNameStyle: {
     fontWeight: "bold",
@@ -231,8 +238,8 @@ const style = StyleSheet.create({
     padding: em(0.5),
     color: "#A30000"
   },
-  ScrollViewStyle: {
-    marginTop: em(2)
+  ScrollViewStyleTags: {
+    marginTop: em(4)
   },
   infoContainer: {
     marginTop: em(1.5),
