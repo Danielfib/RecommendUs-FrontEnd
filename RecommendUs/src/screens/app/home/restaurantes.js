@@ -58,32 +58,8 @@ export default class ListRestaurant extends React.Component {
     /* Checar o dados do json */
     renderRestaurantList() {
 
-        //console.warn(this.state.listRestaurant.name[4])
-
-        let listResponse = [
-            {
-                name: 'Pizzaria Atlântico',
-                expertise: 'Churrascaria, Pizzaria, Regional',
-                address: 'Rua Conselheiro Portela, 374',
-                url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
-                parther: true,
-            },
-            {
-                name: 'Brazzetus',
-                expertise: 'Pizzaria, Regional, Sushi',
-                url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
-                parther: false,
-            },
-        ]
-
         let url_image = 'https://radiant-depths-66237.herokuapp.com/uploads/usuarios/mufasa.png'
 
-        // axios.get('url')
-        // .then((response)=>{
-        //     listResponse = response //nome expertise url_image
-        // })
-
-        //let objectRest = [{r:'Restaurante1', t:'tags', img: 'url'}, {r:'Restaurante2', t:'tags', img: 'url'}, {r:'Restaurante3', t:'tags', img: 'url'}, {r:'Restaurante4', t:'tags', img: 'url'}]   
         let listRestaurant = this.state.listResponse.map((restaurant) => {
             if(/*!restaurant.parther*/true)
                 return (

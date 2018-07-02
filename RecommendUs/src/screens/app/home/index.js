@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import cron from 'node-cron'
 
 import {
     View,
@@ -39,6 +40,18 @@ export default class Home extends React.Component {
             console.log(err)
         })
     }
+
+    backgroundJob = cron.schedule('*/30 * * * * *', () => {
+        axios.get(`${requests.getUrl()}/eventoPessoa/2`)
+        .then(res => {
+            this.setState({
+                meetings: res.data,
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    });
 
     renderMeetings() {
 
@@ -94,6 +107,8 @@ export default class Home extends React.Component {
     }
 
     render() {
+
+        this.backgroundJob.start();
 
         return (
             <View style={styles.container}>

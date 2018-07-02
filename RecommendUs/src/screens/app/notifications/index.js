@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import cron from 'node-cron'
 
 import {
     View,
@@ -98,8 +99,23 @@ class Notifications extends React.Component {
             console.log(err)
         })
     }
+
+    backgroundJob = cron.schedule('*/30 * * * * *', () => {
+        axios.get(`${requests.getUrl()}/groups/invites`)
+        .then(res => {
+            this.setState({
+                notifications: res.data
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    });
     
     render() {
+
+        this.backgroundJob.start();
+
         // Tamanho dos cards: 21 para o clima e 30 para os tipos de comida
         return (
             <View style={styles.container}>
