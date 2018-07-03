@@ -13,9 +13,11 @@ export default class CreateGroup extends Component {
   constructor(){
     super();
     this.index = 0;
-    this.state = { amigosCompDz: []} //array de newlyAddesValues emcima, é mapeado pra ser renderizado em renderArray
+    this.state = {teste : 0}
     this.amigosIniciaisData = ['0', '1', '2', '3', '4'];
-    this.amigosIniciais = this.amigosIniciaisData.map((type)=><Draggable key={type} id={type} addMore={this.addMore}/>);
+    this.amigosIniciais = this.amigosIniciaisData.map((type)=>
+      <Draggable key={type} id={type} addMore={this.addMore}/>
+    );
     this.renderArray = [];
   }
   
@@ -27,49 +29,59 @@ export default class CreateGroup extends Component {
   }
 
   addMore = (chave) => {
-    
-    console.log("chave:" + chave);
+    //console.log("--------------addMore-------------------");
+      
+    this.renderArray.push(
+      <View style={styles.circleContainerDZ} key={chave}>
+        <TouchableOpacity style={styles.circle} onPress={ _ => this.addBack(chave)}>
+          <Text style={styles.debugText}>
+            {chave}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
 
-    let newlyAddedValue = { index: chave }
-    this.setState({amigosCompDz: [ ...this.state.amigosCompDz, newlyAddedValue]});
+    //agora dar splice no array de baixo
+    this.spliceSearch(chave, 0);
 
-    console.log("---------------------------------");
-    
-   this.renderArray.push(
-    <View style={styles.circleContainerDZ} key={chave}>
-      <TouchableOpacity style={styles.circle} onPress={ _ => this.removeFromDz(chave)}/>
-    </View>
-   );
+    //re-renderizando
+    this.setState({teste: 1});
   }
 
-  removeFromDz = (removeKey) => {
-    console.log("entrou com a chave: " + removeKey);
+  addBack = (chave) => {
+    //tira de cima e bota embaixo dnv
+    //(por enquanto, talvez) bota embaixo enfilando
 
-    //console.log(this.amigosIniciais[removeKey]);
-    //console.log(this.renderArray[removeKey]);
-    
-    console.log(this.amigosIniciais[removeKey]);
-    //ERRO ATUAL: n consigo fazer o draggable reaparecer embaixo
-    //this.amigosIniciais[removeKey].changeDraggableState(true);
-    
-    //Erro resolvido, agora:
-    //clicou na bolinha emcima e ela volta para baixo
-    //adicionar de volta em amigosIniciais
-    //remover de amigosCompDz
+    //remover de cima
+    this.spliceSearch(chave, 1);
+
+    //e adicionando sem ordem embaixo
+    this.amigosIniciais.push(
+      <Draggable key={chave} id={chave} addMore={this.addMore}/>
+    );   
+
+    //re-renderizando
+    this.setState({teste: 1});
+  }
+
+  spliceSearch = (chave, array) => {
+    //procura no array o objeto que tem a chave correspondente
+    if(array == 0){ //se o array pra remover for o de baixo
+      for(var i = 0; i < this.amigosIniciais.length; i++){
+        if(chave == this.amigosIniciais[i].key){
+          this.amigosIniciais.splice(i, 1);
+        }
+      }
+    } else if (array == 1){ //se o array de remover for o de cima
+      for(var i = 0; i < this.renderArray.length; i++){
+        if(chave == this.renderArray[i].key){
+          this.renderArray.splice(i, 1);
+        }
+      }
+    }
   }
 
   render() {
-    console.log("tests");    
-    /* Antes o array estava sendo mantido assim:
-    this.renderArray = this.state.amigosCompDz.map((item, map) =>{
-      return(
-        <View style={styles.circleContainerDZ} key={item.index}>
-          <TouchableOpacity style={styles.circle} onPress={console.log("oi")}/>
-        </View>
-      );
-    });
-    */
-
     return (
       <View style={styles.container}>
         <BarStatus/>
@@ -186,5 +198,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 10,
     flex: 1
+  },
+  debugText: {
+    textAlign: "center",
+    color: "#FFF",
+    marginTop: 10
   }
 });
