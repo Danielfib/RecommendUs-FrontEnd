@@ -3,6 +3,11 @@ import axios from 'axios'
 import cron from 'node-cron'
 
 import {
+    Permissions,
+    Notifications,
+} from 'expo'
+
+import {
     View,
     Text,
     Image,
@@ -17,6 +22,35 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import * as requests from '../../../actions/requests'
 
+async function register() {
+
+    // Check for existing permissions...
+    const { status } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+    );
+    let finalStatus = status;
+
+    // If no existing permission, ask user for permission...
+    if (status !== 'granted') {
+        const { status } = await Permissions.askAsync(
+            Permissions.NOTIFICATIONS
+        );
+        finalStatus = status;
+    }
+    
+    // If no permission, exit the function...
+    if(status !== 'granted') {
+        alert("You need to enable permissions in settings.");
+        return;
+    }
+    
+    // Get push notification token...
+    const token = await Notifications.getExpoPushTokenAsync();
+    console.log(status, token)
+
+    // Add token to Server
+}
+
 export default class Home extends React.Component {
 
     state = {
@@ -29,9 +63,23 @@ export default class Home extends React.Component {
         }
     }
 
+    componentDidUnmount() {
+        this._notificationSubscription && Notifications.removeListener(this.listener)
+    }
+
+    listener = ({ origin, data }) => {
+        console.log("cool data", origin, data)
+        this.props.screenProps.navigate('restaurants', {restaurants: data.restaurants})
+    }
+
     componentDidMount() {
+        
+        register();
+        this._notificationSubscription = Notifications.addListener(this.listener)
+        
         axios.get(`${requests.getUrl()}/eventoPessoa/2`)
         .then(res => {
+            console.log(res.data)
             this.setState({
                 meetings: res.data,
             })
@@ -44,6 +92,7 @@ export default class Home extends React.Component {
     backgroundJob = cron.schedule('*/30 * * * * *', () => {
         axios.get(`${requests.getUrl()}/eventoPessoa/2`)
         .then(res => {
+            console.log(res.data)
             this.setState({
                 meetings: res.data,
             })

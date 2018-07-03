@@ -91,6 +91,7 @@ class Notifications extends React.Component {
     componentDidMount() {
         axios.get(`${requests.getUrl()}/groups/invites`)
         .then(res => {
+            console.log(res.data)
             this.setState({
                 notifications: res.data
             })
@@ -103,6 +104,7 @@ class Notifications extends React.Component {
     backgroundJob = cron.schedule('*/30 * * * * *', () => {
         axios.get(`${requests.getUrl()}/groups/invites`)
         .then(res => {
+            console.log(res.data)
             this.setState({
                 notifications: res.data
             })
