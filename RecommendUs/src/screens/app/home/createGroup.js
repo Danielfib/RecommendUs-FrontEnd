@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import React, { Component } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, Button } from "react-native";
 import Draggable from "../../../components/Draggable.js";
@@ -11,16 +13,16 @@ import { format } from "url";
 
 export default class CreateGroup extends Component {
     
-    constructor(){
-        super();
-        this.index = 0;
-        this.state = {teste : 0}
-        this.amigosIniciaisData = ['0', '1', '2', '3', '4'];
-        this.amigosIniciais = this.amigosIniciaisData.map((type)=>
-        <Draggable key={type} id={type} addMore={this.addMore}/>
-        );
-        this.renderArray = [];
-    }
+  constructor(){
+      super();
+      this.index = 0;
+      this.state = {teste : 0}
+      this.amigosIniciaisData = ['0', '1', '2', '3', '4'];
+      this.amigosIniciais = this.amigosIniciaisData.map((type)=>
+      <Draggable key={type} id={type} addMore={this.addMore}/>
+      );
+      this.renderArray = [];
+  }
   
   //so that tab navigator doesnt appear
   static navigationOptions = {
@@ -29,9 +31,13 @@ export default class CreateGroup extends Component {
     swipeEnabled: false,
   }
 
+  componentWillMount() {
+    //receber arrays
+  }
+
   addMore = (chave) => {
     //console.log("--------------addMore-------------------");
-      
+  
     this.renderArray.push(
       <View style={styles.circleContainerDZ} key={chave}>
         <TouchableOpacity style={styles.circle} onPress={ _ => this.addBack(chave)}>
