@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as requests from "../../../actions/requests.js"
 
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, Button } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, Button, ImageBackground } from "react-native";
 import Draggable from "../../../components/Draggable.js";
 import BarStatus from "../../../components/StatusBar.js";
 import Header from '../../../components/Header.js';
@@ -21,13 +21,13 @@ export default class CreateGroup extends Component {
       teste : 0,
       //se tudo estiver certo, aqui eu tenho o array de objeto
       //cada objeto com {id, nome, foto}
+      //(a url da foto ta levando em consideracao que o endereco inicial é o diretorio de Draggable.js)
       amigosIniciaisBack: []
     }
 
     this.index = 0;
-    this.amigosIniciaisData = ['0', '1', '2', '3', '4'];
-    this.amigosIniciais = this.amigosIniciaisData.map((type)=>
-    <Draggable key={type} id={type} addMore={this.addMore}/>
+    this.amigosIniciais = this.state.amigosIniciaisBack.map((type)=>
+      <Draggable key={type.id} id={type.id} foto={type.foto} addMore={this.addMore}/>
     );
     this.renderArray = [];
   }
@@ -39,7 +39,8 @@ export default class CreateGroup extends Component {
     swipeEnabled: false,
   }
 
-  componentWillMount() {
+  
+  componentDidMount() {
     //receber arrays
     axios.get('${requests.getUrl()}/profiles/info', requests.getUser().amigos)
     .then(res => {
@@ -54,7 +55,7 @@ export default class CreateGroup extends Component {
     //setar array amigosIniciaisData
     //como fazer pra setar fotos dos draggables?
   }
-
+  
   addMore = (chave) => {
     //console.log("--------------addMore-------------------");
   
@@ -84,7 +85,8 @@ export default class CreateGroup extends Component {
 
     //e adicionando sem ordem embaixo
     this.amigosIniciais.push(
-      <Draggable key={chave} id={chave} addMore={this.addMore}/>
+      <Draggable key={this.state.amigosIniciaisBack[chave].id} id={this.state.amigosIniciaisBack[chave].id} 
+      foto={this.state.amigosIniciaisBack[chave].foto} addMore={this.addMore}/>
     );   
 
     //re-renderizando
@@ -119,8 +121,7 @@ export default class CreateGroup extends Component {
           </Text>
         </Header>
 
-
-        <View style={styles.mainContainer}>
+        <View style={styles.mainContainer}>          
           <View style={styles.dzContainer}>
             <View style={styles.dZTextContainer}>
               <Text style={styles.textDz}>Arraste seus amigos para cá para reunuir sua galera!</Text>
@@ -133,6 +134,7 @@ export default class CreateGroup extends Component {
               </View>
             </ScrollView>
           </View>
+          
 
           <View style={styles.ballContainer}>
             <View style={styles.row}>
