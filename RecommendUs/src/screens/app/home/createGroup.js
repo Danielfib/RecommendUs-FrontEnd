@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as requests from "../../../actions/requests.js"
 
 import React, { Component } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, Button } from "react-native";
@@ -14,14 +15,21 @@ import { format } from "url";
 export default class CreateGroup extends Component {
     
   constructor(){
-      super();
-      this.index = 0;
-      this.state = {teste : 0}
-      this.amigosIniciaisData = ['0', '1', '2', '3', '4'];
-      this.amigosIniciais = this.amigosIniciaisData.map((type)=>
-      <Draggable key={type} id={type} addMore={this.addMore}/>
-      );
-      this.renderArray = [];
+    super();
+  
+    this.state = {
+      teste : 0,
+      //se tudo estiver certo, aqui eu tenho o array de objeto
+      //cada objeto com {id, nome, foto}
+      amigosIniciaisBack: []
+    }
+
+    this.index = 0;
+    this.amigosIniciaisData = ['0', '1', '2', '3', '4'];
+    this.amigosIniciais = this.amigosIniciaisData.map((type)=>
+    <Draggable key={type} id={type} addMore={this.addMore}/>
+    );
+    this.renderArray = [];
   }
   
   //so that tab navigator doesnt appear
@@ -33,6 +41,18 @@ export default class CreateGroup extends Component {
 
   componentWillMount() {
     //receber arrays
+    axios.get('${requests.getUrl()}/profiles/info', requests.getUser().amigos)
+    .then(res => {
+      this.setState({
+        amigosIniciaisBack: res.data
+      })
+    })
+    .catch(err => {
+      console.warn(err)
+    });
+
+    //setar array amigosIniciaisData
+    //como fazer pra setar fotos dos draggables?
   }
 
   addMore = (chave) => {
