@@ -42,7 +42,7 @@ export default class Draggable extends Component {
             );
 
             //adding to DZ
-            this.props.addMore(this.props.id, this.props.foto);
+            this.props.addMore(this.props.id, this.props.foto, this.props.nome);
           } else {
             Animated.spring(
               this.state.pan,

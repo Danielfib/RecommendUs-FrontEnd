@@ -48,7 +48,7 @@ export default class CreateGroup extends Component {
       })
       
       this.amigosIniciais = this.state.amigosIniciaisBack.map((type)=>
-        <Draggable key={type.id} id={type.id} foto={`${requests.getUrl()}${type.foto}`} addMore={this.addMore}/>
+        <Draggable key={type.id} id={type.id} nome={type.nome} foto={`${requests.getUrl()}${type.foto}`} addMore={this.addMore}/>
       );
 
       //re-renderizando
@@ -59,18 +59,13 @@ export default class CreateGroup extends Component {
     });
   }
   
-  addMore = (chave, foto) => {  
+  addMore = (chave, foto, nome) => {  
     this.renderArray.push(
-      <View style={styles.circleContainerDZ} key={chave}>
-        
-        <TouchableOpacity style={styles.circle} onPress={ _ => this.addBack(chave)}>
-          
+      <View style={styles.circleContainerDZ} key={chave} nome={nome} foto={foto}>        
+        <TouchableOpacity style={styles.circle} onPress={ _ => this.addBack(chave, nome)}>          
           <Image style={{height: CIRCLE_RADIUS * 2, width: CIRCLE_RADIUS * 2, borderRadius: CIRCLE_RADIUS}}
-          source={{uri: foto}}/> 
-          
-        
-        </TouchableOpacity>
-        
+          source={{uri: foto}}/>        
+        </TouchableOpacity>        
       </View>
     );
 
@@ -79,9 +74,12 @@ export default class CreateGroup extends Component {
 
     //re-renderizando
     this.setState({teste: 1});
+
+    console.log("PASSANDO:")
+    console.log(this.generateAmigosSaida());
   }
 
-  addBack = (chave) => {
+  addBack = (chave, nome) => {
     //tira de cima e bota embaixo dnv
     //(por enquanto, talvez) bota embaixo enfilando
 
@@ -90,7 +88,7 @@ export default class CreateGroup extends Component {
 
     //e adicionando sem ordem embaixo
     this.amigosIniciais.push(
-      <Draggable key={chave} id={chave}
+      <Draggable key={chave} id={chave} nome={nome}
       foto={`${requests.getUrl()}${this.fotoSearchOnBack(chave)}`} addMore={this.addMore}/>
     );   
 
@@ -121,6 +119,22 @@ export default class CreateGroup extends Component {
         }
       }
     }
+  }
+
+  generateAmigosSaida = () =>{
+    //console.log("pegando de:");
+    //console.log(this.renderArray);
+    arrayRetorno = [];
+    for(var i = 0; i < this.renderArray.length; i++){
+      arrayRetorno.push(
+        {
+          id: this.renderArray[i].key,
+          nome: this.renderArray[i].props.nome,
+          foto: this.renderArray[i].props.foto
+        }
+      )
+    }
+    return arrayRetorno;
   }
 
   render() {
@@ -157,7 +171,7 @@ export default class CreateGroup extends Component {
           </View>
         </View>
       
-        <TouchableOpacity style={styles.nextButton} onPress={() => this.props.navigation.navigate('preferences')}>
+        <TouchableOpacity style={styles.nextButton} onPress={() => this.props.navigation.navigate('preferences', {amigosSaida: this.generateAmigosSaida()})}>
           <NextButton />
         </TouchableOpacity>
 

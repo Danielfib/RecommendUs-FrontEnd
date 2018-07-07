@@ -40,18 +40,7 @@ export default class Preferences extends React.Component {
     super(props)
 
     this.state = {
-      friends: [
-        {
-          name: 'Daniel',
-          image: 'https://memegenerator.net/img/images/17056620.jpg',
-          confirmed: false,
-        },
-        {
-          name: 'Guila',
-          image: 'https://memegenerator.net/img/images/17056620.jpg',
-          confirmed: true,
-        }
-      ],
+      friends: this.props.navigation.state.params.amigosSaida,
 
       pressed: false,           //  To know if the sugeridos is setted 
       multisliderValue: [15],   //  To capture the multislider return
@@ -88,6 +77,7 @@ export default class Preferences extends React.Component {
     // .catch(err => {
     //   console.warn(err)
     // })
+    console.log(this.state.friends);
   }
 
   static navigatinoOptions = {
