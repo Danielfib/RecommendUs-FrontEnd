@@ -107,6 +107,8 @@ export default class Preferences extends React.Component {
         price: this.state.multisliderValue[0],
         day: this.state.calendarValue,
         place: this.state.pickerValue,
+        group: res.data,
+        friends: this.state.friends
       })
 
     })

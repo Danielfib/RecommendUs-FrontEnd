@@ -36,16 +36,8 @@ class Preference2 extends React.Component {
         super(props)
 
         this.state = {
-            friends: [
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: false,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                }
-            ],
+            friends: [],
+
             tags: [{
                     name: 'Açaí',
                     image: 'https://img.stpu.com.br/?img=https://s3.amazonaws.com/pu-mgr/default/a0RG000000sOHSbMAO/5820cf6de4b0c8177ff320fc.jpg&w=620&h=400',
@@ -94,15 +86,48 @@ class Preference2 extends React.Component {
     }
 
     componentDidMount() {
-        // axios.get(`${requests.getUrl()}/juntagrupo/1&2&3`)
-        // .then(res => {
-        //   this.setState({
-        //     friends: res.data.groupmembers,
-        //   })
-        // })
-        // .catch(err => {
-        //   console.warn(err)
-        // })
+        let auxGroup = []
+        let objFriends = this.props.navigation.state.params.friends;
+
+        console.log("OOOOOOOOIIIIIIIIIIIIIIIIIIIIIII");
+        console.log(objFriends);
+
+
+        axios.get(`${requests.getUrl()}/groups/view/${this.props.navigation.state.params.group.GroupID}`)
+        .then(res => {        
+            //ERRO: res.data n imprime nada, e res.data.groupmembers dá undefined
+            console.log("res.data: ");
+            console.log(res.data);
+            console.log("res.data.groupmembers: " + res.data.groupmembers);
+            auxGroup = res.data.groupmembers;
+            
+            
+            for(var i = 0; i < objFriends.length; i++){
+                this.state.friends.push(
+                    {
+                        id: objFriends[i].id,
+                        nome: objFriends[i].nome,
+                        foto: objFriends[i].foto,
+                        confirmed: auxGroup[i].accepted
+                    }
+                );
+            }       
+
+            console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOI")
+            console.log(this.state.friends);
+            
+        })
+        .catch(err => {
+            console.warn(err)
+        })
+
+        //aqui, tenho o objFriends, que é o array de objetos
+        //e o auxGroup, que pega da requisição o grupo
+
+        //e agora, seto o this.state.friends, com o atributo confirmed, que chama o listPhotos no render
+        
+    
+        
       }
 
       selectOption = (name) => {
