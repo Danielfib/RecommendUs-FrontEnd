@@ -26,10 +26,10 @@ export default class CreateGroup extends Component {
     }
 
     this.index = 0;
-    this.amigosIniciais = this.state.amigosIniciaisBack.map((type)=>
-      <Draggable key={type.id} id={type.id} foto={type.foto} addMore={this.addMore}/>
-    );
+    this.amigosIniciais = [];
+    
     this.renderArray = [];
+    console.log("1");
   }
   
   //so that tab navigator doesnt appear
@@ -40,20 +40,34 @@ export default class CreateGroup extends Component {
   }
 
   
-  componentDidMount() {
+  componentWillMount() {
+    console.log("3");
     //receber arrays
-    axios.get('${requests.getUrl()}/profiles/info', requests.getUser().amigos)
+    axios.get(`${requests.getUrl()}/profiles/info`, requests.getUser())
     .then(res => {
+      console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+      console.log(res.data);
       this.setState({
         amigosIniciaisBack: res.data
       })
+      console.log("-------------------------------------------------------------");
+      console.log(this.state.amigosIniciaisBack);
+      //está atualizando state, mas não renderiza
+      //re-renderizando
+      this.setState({teste: 1});
+      console.log("2");
+      this.amigosIniciais = this.state.amigosIniciaisBack.map((type)=>
+        <Draggable key={type.id} id={type.id} foto={`${requests.getUrl()}${type.foto}`} addMore={this.addMore}/>
+      );
+
+      //re-renderizando
+      this.setState({teste: 0});
+      console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP")
+      console.log(this.amigosIniciais);
     })
     .catch(err => {
       console.warn(err)
     });
-
-    //setar array amigosIniciaisData
-    //como fazer pra setar fotos dos draggables?
   }
   
   addMore = (chave) => {
@@ -82,15 +96,28 @@ export default class CreateGroup extends Component {
 
     //remover de cima
     this.spliceSearch(chave, 1);
-
+    console.log("chave: "+ chave);
+    console.log("oi");
+    console.log("oi");
+    console.log("oi");
+    console.log("oi");
+    console.log(this.state.amigosIniciaisBack);
     //e adicionando sem ordem embaixo
     this.amigosIniciais.push(
-      <Draggable key={this.state.amigosIniciaisBack[chave].id} id={this.state.amigosIniciaisBack[chave].id} 
-      foto={this.state.amigosIniciaisBack[chave].foto} addMore={this.addMore}/>
+      <Draggable key={chave} id={chave}
+      foto={`${requests.getUrl()}${this.fotoSearchOnBack(chave)}`} addMore={this.addMore}/>
     );   
 
     //re-renderizando
     this.setState({teste: 1});
+  }
+
+  fotoSearchOnBack = (chave) => {
+    for(var i = 0; i < this.state.amigosIniciaisBack.length; i++){
+      if(this.state.amigosIniciaisBack[i].id == chave){
+        return this.state.amigosIniciaisBack[i].foto;
+      }
+    }
   }
 
   spliceSearch = (chave, array) => {
@@ -138,7 +165,9 @@ export default class CreateGroup extends Component {
 
           <View style={styles.ballContainer}>
             <View style={styles.row}>
-              {this.amigosIniciais}
+              {
+                this.amigosIniciais
+              }
             </View>
           </View>
         </View>

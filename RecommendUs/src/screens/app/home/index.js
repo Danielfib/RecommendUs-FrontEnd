@@ -92,7 +92,7 @@ export default class Home extends React.Component {
     backgroundJob = cron.schedule('*/30 * * * * *', () => {
         axios.get(`${requests.getUrl()}/eventoPessoa/2`)
         .then(res => {
-            console.log(res.data)
+            //console.log(res.data)
             this.setState({
                 meetings: res.data,
             })
