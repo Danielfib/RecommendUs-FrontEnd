@@ -20,13 +20,15 @@ import SlidingUpPanel from 'rn-sliding-up-panel'
 
 export default class Info extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       pressed: false,
       discount: true,
       visible: true,
-      allowDragging: false 
+      allowDragging: true, 
     };
+
+    this.child = React.createRef();
   }
 
   renderTags() {
@@ -78,10 +80,12 @@ export default class Info extends React.Component {
     return jsxPlates;
   }
 
+  transitionTo() {
+    //this.refs[this.child]
+  }
+
   render() {
-    const discountIcon = this.state.discount
-      ? require("../../../assets/Discont.png")
-      : {};
+    const discountIcon = this.state.discount ? require("../../../assets/Discont.png"): {};
 
     return (
       <View style={style.container}>
@@ -92,12 +96,15 @@ export default class Info extends React.Component {
         <SlidingUpPanel 
           onDragEnd={()=>{this.setState({allowDragging:false})}} 
           allowDragging={this.state.allowDragging} 
-          allowMomentum={false} showBackdrop={false} 
+          //allowMomentum={false} 
+          showBackdrop={false} 
           visible={this.state.visible} 
-          draggableRange={{top:em(400), bottom:em(342)}} height= {em(400)}>
-          
+          draggableRange={{top:em(400), bottom:em(350)}} height= {em(400)}
+          ref={this.child}>
           <View style={style.detailsView}>
-            <TouchableOpacity onPressIn={()=>{this.setState({allowDragging:true})}}>
+            <TouchableOpacity onPressIn={()=>{this.setState({allowDragging:true})}} 
+            activeOpacity={1}>
+              
               <Text style={style.restaurantName}>Taverna Burgbeer</Text>
               <View style={style.subcontainer}>
                 <View style={style.discontAndStars}>
