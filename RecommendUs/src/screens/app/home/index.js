@@ -45,10 +45,20 @@ async function register() {
     }
     
     // Get push notification token...
-    const token = await Notifications.getExpoPushTokenAsync();
-    console.log(status, token)
+    const userToken = await Notifications.getExpoPushTokenAsync();
+    console.log(status, userToken)
 
     // Add token to Server
+    axios.put(`${requests.getUrl()}/token`, {
+        userId: requests.getUser().id,
+        token: userToken,
+    })
+    .then(res => {
+        console.log("Token suc: ", res)
+    })
+    .catch(err => {
+        console.log("Token err: ", err)
+    })
 }
 
 export default class Home extends React.Component {
