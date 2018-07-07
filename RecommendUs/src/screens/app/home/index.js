@@ -64,7 +64,10 @@ export default class Home extends React.Component {
     }
 
     componentWillUnmount() {
-        this._notificationSubscription && Notifications.removeListener(this.listener)
+        this._notificationSubscription
+            && 
+        //Notifications.removeListener(this.listener)
+        this._notificationSubscription.remove()
     }
 
     listener = ({ origin, data }) => {
