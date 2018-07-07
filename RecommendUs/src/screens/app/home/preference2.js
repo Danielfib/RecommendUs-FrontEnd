@@ -37,6 +37,7 @@ class Preference2 extends React.Component {
 
         this.state = {
             friends: [],
+            teste: 0,
 
             tags: [{
                     name: 'Açaí',
@@ -93,14 +94,13 @@ class Preference2 extends React.Component {
         console.log(objFriends);
 
 
-        axios.get(`${requests.getUrl()}/groups/view/${this.props.navigation.state.params.group.GroupID}`)
+        axios.get(`${requests.getUrl()}/groups/view/${this.props.navigation.state.params.groupId}`)
         .then(res => {        
-            //ERRO: res.data n imprime nada, e res.data.groupmembers dá undefined
-            console.log("res.data: ");
-            console.log(res.data);
-            console.log("res.data.groupmembers: " + res.data.groupmembers);
+            //ERRO: res.data retorna m array com dois objetos, quando foi convidado só um
+            //talvez isso esteja fixo no back e uma requisição no createGroup.js deva mudar isso (?)
+            console.log("res.data: ", res.data);
+            console.log("res.data.groupmembers: ", res.data.groupmembers);
             auxGroup = res.data.groupmembers;
-            
             
             for(var i = 0; i < objFriends.length; i++){
                 this.state.friends.push(
@@ -116,6 +116,8 @@ class Preference2 extends React.Component {
             console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOI")
             console.log(this.state.friends);
             
+            //re-renderizando
+            this.setState({teste: 1});
         })
         .catch(err => {
             console.warn(err)
