@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as requests from "../../../actions/requests.js"
 
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, Button, ImageBackground } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, Button, ImageBackground, Image } from "react-native";
 import Draggable from "../../../components/Draggable.js";
 import BarStatus from "../../../components/StatusBar.js";
 import Header from '../../../components/Header.js';
@@ -59,14 +59,18 @@ export default class CreateGroup extends Component {
     });
   }
   
-  addMore = (chave) => {  
+  addMore = (chave, foto) => {  
     this.renderArray.push(
       <View style={styles.circleContainerDZ} key={chave}>
+        
         <TouchableOpacity style={styles.circle} onPress={ _ => this.addBack(chave)}>
-          <Text style={styles.debugText}>
-            {chave}
-          </Text>
+          
+          <Image style={{height: CIRCLE_RADIUS * 2, width: CIRCLE_RADIUS * 2, borderRadius: CIRCLE_RADIUS}}
+          source={{uri: foto}}/> 
+          
+        
         </TouchableOpacity>
+        
       </View>
     );
 
@@ -144,7 +148,6 @@ export default class CreateGroup extends Component {
             </ScrollView>
           </View>
           
-
           <View style={styles.ballContainer}>
             <View style={styles.row}>
               {
