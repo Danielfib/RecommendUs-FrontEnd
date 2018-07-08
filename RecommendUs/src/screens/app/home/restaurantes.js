@@ -47,7 +47,58 @@ export default class ListRestaurant extends React.Component {
                     confirmed: true,
                 },
             ],
-            listResponse: this.props.navigation.state.params.restaurants,
+            listResponse: [{
+                "_id": {
+                    "$oid": "5b20853076b611082cafa922"
+                },
+                "name": "Apolo Beer Cafe",
+                "category": "Bares",
+                "expertise": "Cervejarias e choperias",
+                "address/state": "PE",
+                "address/street/0": "Rua do Apolo 164",
+                "address/neighborhood": "Recife Antigo",
+                "address/city": "Recife",
+                "address/phone": "3088-8091",
+                "price_avg": "94",
+                "location/lat": "-8.061377",
+                "location/lng": "-34.8744353",
+                "rating": "4.01",
+                "vote_count": "21"
+            },{
+                "_id": {
+                    "$oid": "5b20853076b611082cafa922"
+                },
+                "name": "Apolo Beer Cafe",
+                "category": "Bares",
+                "expertise": "Cervejarias e choperias",
+                "address/state": "PE",
+                "address/street/0": "Rua do Apolo 164",
+                "address/neighborhood": "Recife Antigo",
+                "address/city": "Recife",
+                "address/phone": "3088-8091",
+                "price_avg": "94",
+                "location/lat": "-8.061377",
+                "location/lng": "-34.8744353",
+                "rating": "4.01",
+                "vote_count": "21"
+            },{
+                "_id": {
+                    "$oid": "5b20853076b611082cafa922"
+                },
+                "name": "Apolo Beer Cafe",
+                "category": "Bares",
+                "expertise": "Cervejarias e choperias",
+                "address/state": "PE",
+                "address/street/0": "Rua do Apolo 164",
+                "address/neighborhood": "Recife Antigo",
+                "address/city": "Recife",
+                "address/phone": "3088-8091",
+                "price_avg": "94",
+                "location/lat": "-8.061377",
+                "location/lng": "-34.8744353",
+                "rating": "4.01",
+                "vote_count": "21"
+            }]//this.props.navigation.state.params.restaurants,
         }
     }
 
@@ -63,17 +114,20 @@ export default class ListRestaurant extends React.Component {
         let listRestaurant = this.state.listResponse.map((restaurant) => {
             if(/*!restaurant.parther*/true)
                 return (
-                    <View key={restaurant._id} style={styles.restaurantView}> 
-                        <View style={styles.textContainer}>
-                            <Text style={styles.textList}>{restaurant.name}</Text>
-                            <Text style={styles.subtextList}>{restaurant.expertise}</Text>
-                            <TouchableOpacity onPress={() => this.vote(restaurant)}>
-                                <Text style = {styles.votar}>Votar</Text>
-                            </TouchableOpacity>
+                    <TouchableOpacity onPress = {() => {this.props.navigation.navigate('details', {restaurant: this.props.restaurant})}}
+                    >
+                        <View key={restaurant._id} style={styles.restaurantView}> 
+                            <View style={styles.textContainer}>
+                                <Text style={styles.textList}>{restaurant.name}</Text>
+                                <Text style={styles.subtextList}>{restaurant.expertise}</Text>
+                                <TouchableOpacity onPress={() => this.vote(restaurant)}>
+                                    <Text style = {styles.votar}>Votar</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <Image style={styles.image} source={{uri: url_image}}/>
+                            <View style = {styles.imageView}></View>
                         </View>
-                        <Image style={styles.image} source={{uri: url_image}}/>
-                        <View style = {styles.imageView}></View>
-                    </View>
+                    </TouchableOpacity>
                 )
             else
                 return (

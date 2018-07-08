@@ -66,7 +66,7 @@ class Preference2 extends React.Component {
             choices: [],
         }
     }
-
+    
     sendInfo() {
         //this.props.navigation.navigate('restaurants'/*, {restaurants: res.data}*/)
         //this.props.navigation.state.params.place
@@ -92,7 +92,7 @@ class Preference2 extends React.Component {
             console.warn(err)
         })
     }
-
+        
     componentDidMount() {
         // axios.get(`${requests.getUrl()}/juntagrupo/1&2&3`)
         // .then(res => {
