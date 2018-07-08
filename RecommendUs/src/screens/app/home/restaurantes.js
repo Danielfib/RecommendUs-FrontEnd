@@ -114,7 +114,7 @@ export default class ListRestaurant extends React.Component {
         let listRestaurant = this.state.listResponse.map((restaurant) => {
             if(/*!restaurant.parther*/true)
                 return (
-                    <TouchableOpacity onPress = {() => {this.props.navigation.navigate('details', {restaurant: this.props.restaurant})}}
+                    <TouchableOpacity onPress = {() => {this.props.navigation.navigate('details', restaurant)}}
                     >
                         <View key={restaurant._id} style={styles.restaurantView}> 
                             <View style={styles.textContainer}>
@@ -129,6 +129,7 @@ export default class ListRestaurant extends React.Component {
                         </View>
                     </TouchableOpacity>
                 )
+                /*
             else
                 return (
                     <View key={restaurant._id} style={[styles.restaurantView, {flexDirection: 'column', height: em (38)}]}> 
@@ -162,7 +163,7 @@ export default class ListRestaurant extends React.Component {
                             </View>
                         </View>
                     </View>
-                )
+                )*/
         })
 
         return listRestaurant

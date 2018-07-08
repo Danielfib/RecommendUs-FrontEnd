@@ -22,49 +22,34 @@ export default class Info extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-        pressed: false,
+        pressedVote: false,
         discount: true,
         visible: true,
-        allowDragging: true, 
-        //restaurantInfo: this.props.restaurant       
-    };
-
-    this.child = React.createRef();
+        allowDragging: true,  
+    }
   }
 
-  renderTags() {
-    //tags = ["Junk food", "Oriental", "Pizza", "Bar", "Game", "Açai"];
+  renderTags() { 
+    strTags = this.props.navigation.state.params.expertise;
+    tags = strTags.split(' ')
+
     let jsxTags = tags.map(tagName => {
-      return (
-        <View
-          style={[
-            style.tagStyle,
-            tags[0] == tagName ? { marginLeft: em(5) } : {},
-            tagName == "Oriental" || tagName == "Junk food"
-              ? { backgroundColor: "#A30000" }
-              : {}
-          ]}
-          key={tagName}
-        >
-          <Text
-            style={[
-              style.tagNameStyle,
-              tagName == "Oriental" || tagName == "Junk food"
-                ? { color: "#FFF" }
-                : {}
-            ]}
-          >
-            {tagName}
-          </Text>
-        </View>
-      );
+      if(tagName.length >= 2) {
+        
+        return (
+          <View style={[style.tagStyle, tags[0] == tagName ? { marginLeft: em(5) } : {}]} key={tagName}>
+            <Text style={style.tagNameStyle}>
+              {tagName.charAt(0).toUpperCase() + tagName.slice(1)}
+            </Text>
+          </View>
+        );
+      }
     });
 
     return jsxTags;
   }
 
   convertTo$(price) {
-    
     if(price >= 50 && price <= 100){
         return '$$$'
     } else if(price < 50 && price >= 20){
@@ -82,29 +67,29 @@ export default class Info extends React.Component {
     return (
       <View style={style.container}>
         <Image
-          source={require("../../../assets/taverna.png")} //FALTA DAR GET NA IMAGEM
+          source={require("../../../assets/rest-generic.png")} //FALTA DAR GET NA IMAGEM
           style={style.backgroundImage}
         />
         <SlidingUpPanel 
-          onDragEnd={()=>{this.setState({allowDragging:false})}} 
+          //onDragEnd={()=>{this.setState({allowDragging:false})}} 
           allowDragging={this.state.allowDragging} 
-          //allowMomentum={false} 
+          allowMomentum={false} 
           showBackdrop={false} 
           visible={this.state.visible} 
-          draggableRange={{top:em(400), bottom:em(350)}} height= {em(400)}
-          ref={this.child}>
+          draggableRange={{top:em(400), bottom:em(360)}} height= {em(400)}
+          /*ref={this.child}*/>
           <View style={style.detailsView}>
-            <TouchableOpacity onPressIn={()=>{this.setState({allowDragging:true})}} 
+            <TouchableOpacity //onPressIn={()=>{this.setState({allowDragging:true})}} 
             activeOpacity={1}>
               
-              <Text style={style.restaurantName}>{this.props.restaurant.name}</Text>
+              <Text style={style.restaurantName}>{this.props.navigation.state.params.name}</Text>
               <View style={style.subcontainer}>
                 <View style={style.discontAndStars}>
                   <View style={style.starContainer}>
                     <StartRating
                       disabled={true}
                       maxStars={5}
-                      rating={this.props.restaurant.rating}
+                      rating={this.props.navigation.state.params.rating}
                       starSize={em(4)}
                       iconSet={"Ionicons"}
                       emptyStar={"ios-star-outline"}
@@ -116,12 +101,12 @@ export default class Info extends React.Component {
                 </View>
                 <Btn
                   onPress={() => {
-                    this.state.pressed = true;
+                    this.state.pressedVote = true;
                     //console.warn(this.state.pressed)
                     return this.btn.success();
                   }}
                   onSecondaryPress={() => {
-                    this.state.pressed = false;
+                    this.state.pressedVote = false;
                     //console.warn(this.state.pressed)
                     return this.btn.reset();
                   }}
@@ -144,13 +129,12 @@ export default class Info extends React.Component {
               <View style={style.infoContainer}>
                 <Text style={style.textTitleInfo}>Informações</Text>
                 <View style={style.infoStyle}>
-                  <Text style={style.priceStyle}>{this.convertTo$(this.state.restaurantInfo.price)}</Text>
-                  <Text style={style.descriptionStyle}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris nisi ut aliquip ex ea commodo consequat.
-                  </Text>
+                  <Text style={style.priceStyle}>{this.convertTo$(this.props.navigation.state.params.price_avg)}</Text>
+                    <ScrollView>
+                      <Text style={style.descriptionStyle}>
+                        {/*this.props.navigation.state.params.description*/}
+                      </Text>
+                    </ScrollView>
                 </View>
               </View>
             </ScrollView>
@@ -170,7 +154,7 @@ const style = StyleSheet.create({
     width: em(100),
     height: "70%",
     marginTop: em(5),
-    resizeMode: "stretch"
+    resizeMode: "cover"
   },
   detailsView: {
     backgroundColor: "#FFF",
@@ -261,5 +245,8 @@ const style = StyleSheet.create({
     height: em(15),
     borderRadius: em(20),
     margin: em(3)
+  },
+  infoStyle: {
+    marginBottom: em(10)
   }
 });
