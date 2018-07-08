@@ -39,7 +39,7 @@ export default class NotificationCard extends React.Component {
         axios.put(`${requests.getUrl()}/api_acceptGroup`, data)
         .then(res => {
             console.log("Suc Accept: ", res)
-            this.props.navigation.navigate('preferences', {group: group, leader: false})
+            this.props.navigation.navigate('preferences', {amigosSaida: this.props.friends, group: group, skipCalendar: true})
         })
         .catch(err => {
             console.log("Err Accept: ", err)

@@ -160,18 +160,20 @@ export default class Preferences extends React.Component {
                 {console.warn(this.state.multisliderValue)}
               </View>
             </View>
-            <View style = {style.container}>
-              <View style={style.titleAndButton}>
-                <Text style = {style.textTitle}>Quando vai ser?</Text>
-                <TouchableOpacity style={[style.buttonBestDays, (this.state.pressed)?{backgroundColor: '#A30000'}:{}]}
-                  onPress={()=>this.pressedBestDaysButton()}  
-                >
-                  <Text style={[style.textButton, (this.state.pressed)?{color: '#FFF'}:{}]}> Sugeridos </Text>
-                </TouchableOpacity>
-              </View>
-              <Calendar callback={this.getCalendarReponse.bind(this)}/>
-              
-            </View>
+            {
+              !this.props.navigation.state.params.skipCalendar &&
+                <View style = {style.container}>
+                  <View style={style.titleAndButton}>
+                    <Text style = {style.textTitle}>Quando vai ser?</Text>
+                    <TouchableOpacity style={[style.buttonBestDays, (this.state.pressed)?{backgroundColor: '#A30000'}:{}]}
+                      onPress={()=>this.pressedBestDaysButton()}  
+                    >
+                      <Text style={[style.textButton, (this.state.pressed)?{color: '#FFF'}:{}]}> Sugeridos </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <Calendar callback={this.getCalendarReponse.bind(this)}/>
+                </View>
+            }
             <View style = {[style.container, {marginBottom: em (28),}]}>
               <Text style = {style.textTitle}>Onde você vai estar?</Text>
               <View style = {style.pickerContainer}>
