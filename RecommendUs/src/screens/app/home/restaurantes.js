@@ -59,7 +59,7 @@ export default class ListRestaurant extends React.Component {
         let url_image = 'https://radiant-depths-66237.herokuapp.com/uploads/usuarios/mufasa.png'
 
         let listRestaurant = this.state.listResponse.map((restaurant) => {
-            if(/*!restaurant.parther*/true)
+            if(!restaurant.parceiro)
                 return (
                     <TouchableOpacity onPress = {() => {this.props.navigation.navigate('details', restaurant)}}
                     >
@@ -76,7 +76,6 @@ export default class ListRestaurant extends React.Component {
                         </View>
                     </TouchableOpacity>
                 )
-                /*
             else
                 return (
                     <View key={restaurant._id} style={[styles.restaurantView, {flexDirection: 'column', height: em (38)}]}> 
@@ -110,7 +109,7 @@ export default class ListRestaurant extends React.Component {
                             </View>
                         </View>
                     </View>
-                )*/
+                )
         })
 
         return listRestaurant

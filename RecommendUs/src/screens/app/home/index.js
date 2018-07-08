@@ -120,7 +120,7 @@ export default class Home extends React.Component {
     });
 
     rec() {
-        axios.post(`${requests.getUrl()}/preferencia`, {groupId: '5'})
+        axios.post(`${requests.getUrl()}/preferencia`, {groupId: '6'})
         .then(res => {})
         .catch(err => {})
     }

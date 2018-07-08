@@ -62,7 +62,7 @@ export default class Info extends React.Component {
   }
 
   render() {
-    const discountIcon = this.state.discount ? require("../../../assets/Discont.png"): {};
+    const discountIcon = !!this.props.navigation.state.params.parceiro ? require("../../../assets/Discont.png"): {};
 
     return (
       <View style={style.container}>
@@ -132,7 +132,7 @@ export default class Info extends React.Component {
                   <Text style={style.priceStyle}>{this.convertTo$(this.props.navigation.state.params.price_avg)}</Text>
                     <ScrollView>
                       <Text style={style.descriptionStyle}>
-                        {/*this.props.navigation.state.params.description*/}
+                        {this.props.navigation.state.params.description}
                       </Text>
                     </ScrollView>
                 </View>
