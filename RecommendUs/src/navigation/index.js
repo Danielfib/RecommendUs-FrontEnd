@@ -13,22 +13,22 @@ import Details from '../screens/app/home/details'
 
 const MainNavigator = StackNavigator(
     {
-        //login: {
-          //  screen: Login
-        //},
-        // tabHome: {
-        //     screen: TabHome
-        // },
-        // createGroup: {
-        //     screen: CreateGroup
-        // },
-        // preferences: {
-        //     screen: Preferences
-        // },
-        /*
+        login: {
+            screen: Login
+        },
+         tabHome: {
+             screen: TabHome
+         },
+         createGroup: {
+             screen: CreateGroup
+         },
+         preferences: {
+             screen: Preferences
+         },
+        
         preferences2: {
             screen: Preference2
-        },*/
+        },
         restaurants: {
             screen: ListRestaurant
         },

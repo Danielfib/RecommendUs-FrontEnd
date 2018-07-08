@@ -47,7 +47,8 @@ export default class ListRestaurant extends React.Component {
                     confirmed: true,
                 },
             ],
-            listResponse: [{
+            listResponse: this.props.navigation.state.params.restaurants
+            /*[{    
                 "_id": {
                     "$oid": "5b20853076b611082cafa922"
                 },
@@ -98,7 +99,7 @@ export default class ListRestaurant extends React.Component {
                 "location/lng": "-34.8744353",
                 "rating": "4.01",
                 "vote_count": "21"
-            }]//this.props.navigation.state.params.restaurants,
+            }]*/
         }
     }
 
