@@ -52,7 +52,6 @@ export default class Calendar extends React.Component {
     
         const dayStructure = allDays.map(day => {
           let today = (day[1] == currentDay)
-          
           let pressed = (this.state.pressed && (this.state.day == day[1]))
 
           return (
