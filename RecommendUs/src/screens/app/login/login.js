@@ -103,6 +103,13 @@ class Login extends React.Component {
                             color={'#BEBEBE'}
                         />
                     </View>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('tabHome')}>
+                        <Text style={styles.title}>
+                            {
+                                "LogIn"
+                            }
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
         );

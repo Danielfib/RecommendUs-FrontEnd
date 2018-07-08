@@ -105,6 +105,7 @@ export default class Preferences extends React.Component {
     let data = {
         groupname: 'Copa do Mundo, é Hexa meu irmão!',
         groupdate: date,
+        userId: requests.getUser().id,
         groupmembers: ["1"],
     }
 
