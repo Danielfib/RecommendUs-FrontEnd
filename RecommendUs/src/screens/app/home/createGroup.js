@@ -1,5 +1,8 @@
+import axios from 'axios';
+import * as requests from "../../../actions/requests.js"
+
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, Button } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, TouchableHighlight, ScrollView, Button, ImageBackground, Image } from "react-native";
 import Draggable from "../../../components/Draggable.js";
 import BarStatus from "../../../components/StatusBar.js";
 import Header from '../../../components/Header.js';
@@ -11,16 +14,22 @@ import { format } from "url";
 
 export default class CreateGroup extends Component {
     
-    constructor(){
-        super();
-        this.index = 0;
-        this.state = {teste : 0}
-        this.amigosIniciaisData = ['0', '1', '2', '3', '4'];
-        this.amigosIniciais = this.amigosIniciaisData.map((type)=>
-        <Draggable key={type} id={type} addMore={this.addMore}/>
-        );
-        this.renderArray = [];
+  constructor(){
+    super();
+  
+    this.state = {
+      teste : 0,
+      //se tudo estiver certo, aqui eu tenho o array de objeto
+      //cada objeto com {id, nome, foto}
+      //(a url da foto ta levando em consideracao que o endereco inicial é o diretorio de Draggable.js)
+      amigosIniciaisBack: []
     }
+
+    this.index = 0;
+    this.amigosIniciais = [];
+    
+    this.renderArray = [];
+  }
   
   //so that tab navigator doesnt appear
   static navigationOptions = {
@@ -29,16 +38,34 @@ export default class CreateGroup extends Component {
     swipeEnabled: false,
   }
 
-  addMore = (chave) => {
-    //console.log("--------------addMore-------------------");
+  
+  componentWillMount() {
+    //receber arrays
+    axios.get(`${requests.getUrl()}/profiles/info`, requests.getUser())
+    .then(res => {
+      this.setState({
+        amigosIniciaisBack: res.data
+      })
       
+      this.amigosIniciais = this.state.amigosIniciaisBack.map((type)=>
+        <Draggable key={type.id} id={type.id} nome={type.nome} foto={`${requests.getUrl()}${type.foto}`} addMore={this.addMore}/>
+      );
+
+      //re-renderizando
+      this.setState({teste: 0});
+    })
+    .catch(err => {
+      console.warn(err)
+    });
+  }
+  
+  addMore = (chave, foto, nome) => {  
     this.renderArray.push(
-      <View style={styles.circleContainerDZ} key={chave}>
-        <TouchableOpacity style={styles.circle} onPress={ _ => this.addBack(chave)}>
-          <Text style={styles.debugText}>
-            {chave}
-          </Text>
-        </TouchableOpacity>
+      <View style={styles.circleContainerDZ} key={chave} nome={nome} foto={foto}>        
+        <TouchableOpacity style={styles.circle} onPress={ _ => this.addBack(chave, nome)}>          
+          <Image style={{height: CIRCLE_RADIUS * 2, width: CIRCLE_RADIUS * 2, borderRadius: CIRCLE_RADIUS}}
+          source={{uri: foto}}/>        
+        </TouchableOpacity>        
       </View>
     );
 
@@ -47,9 +74,12 @@ export default class CreateGroup extends Component {
 
     //re-renderizando
     this.setState({teste: 1});
+
+    console.log("PASSANDO:")
+    console.log(this.generateAmigosSaida());
   }
 
-  addBack = (chave) => {
+  addBack = (chave, nome) => {
     //tira de cima e bota embaixo dnv
     //(por enquanto, talvez) bota embaixo enfilando
 
@@ -58,11 +88,20 @@ export default class CreateGroup extends Component {
 
     //e adicionando sem ordem embaixo
     this.amigosIniciais.push(
-      <Draggable key={chave} id={chave} addMore={this.addMore}/>
+      <Draggable key={chave} id={chave} nome={nome}
+      foto={`${requests.getUrl()}${this.fotoSearchOnBack(chave)}`} addMore={this.addMore}/>
     );   
 
     //re-renderizando
     this.setState({teste: 1});
+  }
+
+  fotoSearchOnBack = (chave) => {
+    for(var i = 0; i < this.state.amigosIniciaisBack.length; i++){
+      if(this.state.amigosIniciaisBack[i].id == chave){
+        return this.state.amigosIniciaisBack[i].foto;
+      }
+    }
   }
 
   spliceSearch = (chave, array) => {
@@ -82,6 +121,22 @@ export default class CreateGroup extends Component {
     }
   }
 
+  generateAmigosSaida = () =>{
+    //console.log("pegando de:");
+    //console.log(this.renderArray);
+    arrayRetorno = [];
+    for(var i = 0; i < this.renderArray.length; i++){
+      arrayRetorno.push(
+        {
+          id: this.renderArray[i].key,
+          nome: this.renderArray[i].props.nome,
+          foto: this.renderArray[i].props.foto
+        }
+      )
+    }
+    return arrayRetorno;
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -93,8 +148,7 @@ export default class CreateGroup extends Component {
           </Text>
         </Header>
 
-
-        <View style={styles.mainContainer}>
+        <View style={styles.mainContainer}>          
           <View style={styles.dzContainer}>
             <View style={styles.dZTextContainer}>
               <Text style={styles.textDz}>Arraste seus amigos para cá para reunuir sua galera!</Text>
@@ -107,15 +161,17 @@ export default class CreateGroup extends Component {
               </View>
             </ScrollView>
           </View>
-
+          
           <View style={styles.ballContainer}>
             <View style={styles.row}>
-              {this.amigosIniciais}
+              {
+                this.amigosIniciais
+              }
             </View>
           </View>
         </View>
       
-        <TouchableOpacity style={styles.nextButton} onPress={() => this.props.navigation.navigate('preferences')}>
+        <TouchableOpacity style={styles.nextButton} onPress={() => this.props.navigation.navigate('preferences', {amigosSaida: this.generateAmigosSaida()})}>
           <NextButton />
         </TouchableOpacity>
 

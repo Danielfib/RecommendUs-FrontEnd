@@ -40,18 +40,7 @@ export default class Preferences extends React.Component {
     super(props)
 
     this.state = {
-      friends: [
-        {
-          name: 'Daniel',
-          image: 'https://memegenerator.net/img/images/17056620.jpg',
-          confirmed: false,
-        },
-        {
-          name: 'Guila',
-          image: 'https://memegenerator.net/img/images/17056620.jpg',
-          confirmed: true,
-        }
-      ],
+      friends: this.props.navigation.state.params.amigosSaida,
 
       pressed: false,           //  To know if the sugeridos is setted 
       multisliderValue: [15],   //  To capture the multislider return
@@ -88,6 +77,7 @@ export default class Preferences extends React.Component {
     // .catch(err => {
     //   console.warn(err)
     // })
+    console.log(this.state.friends);
   }
 
   static navigatinoOptions = {
@@ -102,11 +92,15 @@ export default class Preferences extends React.Component {
     let d = new Date()
     let date = this.state.pressed ? '' : new Date(d.getUTCFullYear(), d.getUTCMonth(), this.state.calendarValue)
 
+    let members = this.state.friends.map((friend) => {
+      return friend.id;
+    });
+
     let data = {
         groupname: 'Copa do Mundo, é Hexa meu irmão!',
         groupdate: date,
         userId: requests.getUser().id,
-        groupmembers: ["1"],
+        groupmembers: members,
     }
 
     axios.post(`${requests.getUrl()}/create-group`, data)
@@ -118,8 +112,9 @@ export default class Preferences extends React.Component {
         price: this.state.multisliderValue[0],
         day: this.state.calendarValue,
         place: this.state.pickerValue,
+        groupId: res.data.GroupID,
+        friends: this.state.friends
       })
-
     })
     .catch(err => {
         console.warn("Err create group: ", err)
