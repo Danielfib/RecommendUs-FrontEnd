@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         height: em (178),
     },
     subContainer: {
-        backgroundColor: 'transparent',
+        position: 'absolute',
         alignSelf: 'center',
     },
     logo: {
