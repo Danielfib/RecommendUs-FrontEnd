@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, PanResponder, Animated,  } from "react-native";
+import { StyleSheet, View, Text, PanResponder, Animated, ImageBackground, Image } from "react-native";
 
 export default class Draggable extends Component {
   constructor(props) {
@@ -42,7 +42,7 @@ export default class Draggable extends Component {
             );
 
             //adding to DZ
-            this.props.addMore(this.props.id);
+            this.props.addMore(this.props.id, this.props.foto, this.props.nome);
           } else {
             Animated.spring(
               this.state.pan,
@@ -73,25 +73,19 @@ export default class Draggable extends Component {
     const panStyle = {
       transform: this.state.pan.getTranslateTransform()
     }
-    if (this.state.showDraggable && !this.state.isOnDz) {
+    if (this.state.showDraggable && !this.state.isOnDz) {      
+      //O PROBLEMA AQUI É:
+      //REQUIRE N ACEITA VARIAVEL, ent só funciona se a url da imagem for aceita no uri
       return (
         <View style={{ position: "absolute" }}>
-          <Animated.View
+          <Animated.Image
+            source = {{uri: this.props.foto}}
             {...this.panResponder.panHandlers}
             style={[panStyle, styles.circle, {opacity:this.state.opacity}]}
-          />
-        </View>
+          />                 
+        </View>        
       );
-    } else if (this.state.isOnDz){
-      return (
-        <View style={{marginLeft: 15}}>
-          <Animated.View
-            {...this.panResponder.panHandlers}
-            style={[panStyle, styles.circle, {opacity:this.state.opacity}]}
-          />
-        </View>
-      );
-    }
+    } 
   }
 }
 
@@ -104,7 +98,7 @@ const styles = StyleSheet.create({
     height:200
   },
   circle: {
-    backgroundColor: "#A30000",
+    //backgroundColor: "#A30000",
     width: CIRCLE_RADIUS * 2,
     height: CIRCLE_RADIUS * 2,
     borderRadius: CIRCLE_RADIUS
@@ -124,5 +118,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 25,
     fontWeight: "bold"
+  },
+  draggableImage: {
+    position: 'absolute',
+    opacity: 0.7,
   }
 });

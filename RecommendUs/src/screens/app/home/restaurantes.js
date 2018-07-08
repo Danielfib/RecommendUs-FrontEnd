@@ -33,74 +33,20 @@ export default class ListRestaurant extends React.Component {
         super(props)
 
         this.state = {
-            friends: [
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: false,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                },
-            ],
-            listResponse: this.props.navigation.state.params.restaurants
-            /*[{    
-                "_id": {
-                    "$oid": "5b20853076b611082cafa922"
-                },
-                "name": "Apolo Beer Cafe",
-                "category": "Bares",
-                "expertise": "Cervejarias e choperias",
-                "address/state": "PE",
-                "address/street/0": "Rua do Apolo 164",
-                "address/neighborhood": "Recife Antigo",
-                "address/city": "Recife",
-                "address/phone": "3088-8091",
-                "price_avg": "94",
-                "location/lat": "-8.061377",
-                "location/lng": "-34.8744353",
-                "rating": "4.01",
-                "vote_count": "21"
-            },{
-                "_id": {
-                    "$oid": "5b20853076b611082cafa922"
-                },
-                "name": "Apolo Beer Cafe",
-                "category": "Bares",
-                "expertise": "Cervejarias e choperias",
-                "address/state": "PE",
-                "address/street/0": "Rua do Apolo 164",
-                "address/neighborhood": "Recife Antigo",
-                "address/city": "Recife",
-                "address/phone": "3088-8091",
-                "price_avg": "94",
-                "location/lat": "-8.061377",
-                "location/lng": "-34.8744353",
-                "rating": "4.01",
-                "vote_count": "21"
-            },{
-                "_id": {
-                    "$oid": "5b20853076b611082cafa922"
-                },
-                "name": "Apolo Beer Cafe",
-                "category": "Bares",
-                "expertise": "Cervejarias e choperias",
-                "address/state": "PE",
-                "address/street/0": "Rua do Apolo 164",
-                "address/neighborhood": "Recife Antigo",
-                "address/city": "Recife",
-                "address/phone": "3088-8091",
-                "price_avg": "94",
-                "location/lat": "-8.061377",
-                "location/lng": "-34.8744353",
-                "rating": "4.01",
-                "vote_count": "21"
-            }]*/
+            listResponse: [],
         }
+    }
+
+    componentDidMount() {
+        axios.post(`${requests.getUrl()}/restaurantsInfo`, {
+            restaurants: this.props.navigation.state.params.restaurants
+        })
+        .then(res => {
+            this.setState({
+                listResponse: res.data.result
+            })
+        })
+        .catch(err => {})
     }
 
     vote(restaurante) {
@@ -125,7 +71,7 @@ export default class ListRestaurant extends React.Component {
                                     <Text style = {styles.votar}>Votar</Text>
                                 </TouchableOpacity>
                             </View>
-                            <Image style={styles.image} source={{uri: url_image}}/>
+                            <Image style={styles.image} source={require('../../../assets/rest-generic.png')}/>
                             <View style = {styles.imageView}></View>
                         </View>
                     </TouchableOpacity>
@@ -181,24 +127,6 @@ export default class ListRestaurant extends React.Component {
                 </Header>
                 <ScrollView>
                     <View style={styles.subContainer}>
-                        <View style={styles.friendsView}>
-                            {listPhotos.renderFriends(this.state.friends, 22)}
-                            <Text style={styles.friendsText}>
-                                {"Esperando Confirmação"}
-                            </Text>
-                            <View style={{marginTop: em (5),}}>
-                                <Progress.Bar
-                                progress={0.9}
-                                color={'#A30000'}
-                                unfilledColor={'#CCCCCC'}
-                                borderColor={'transparent'}
-                                borderWidth={0}
-                                width={em (94)}
-                                height={em (0.5)}
-                                borderRadius={0}
-                                />
-                            </View>
-                        </View>
                         <View style={styles.listRestaurantView}>
                             {this.renderRestaurantList()}
                         </View>

@@ -21,7 +21,7 @@ export function renderFriends(friends, size) {
                             width: em (size),
                             borderRadius: em (size / 2),
                         }
-                        ]} source={{uri: friend.image}} />
+                        ]} source={{uri: friend.foto}} />
                     {
                         friend.confirmed &&
                         <View style={

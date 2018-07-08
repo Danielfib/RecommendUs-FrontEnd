@@ -46,6 +46,7 @@ async function register() {
     
     // Get push notification token...
     const userToken = await Notifications.getExpoPushTokenAsync();
+
     console.log(status, userToken)
 
     // Add token to Server
@@ -55,6 +56,9 @@ async function register() {
     })
     .then(res => {
         console.log("Token suc: ", res)
+        let data = requests.getUser();
+        data.token = userToken;
+        requests.setUser(data);
     })
     .catch(err => {
         console.log("Token err: ", err)
@@ -105,7 +109,7 @@ export default class Home extends React.Component {
     backgroundJob = cron.schedule('*/30 * * * * *', () => {
         axios.get(`${requests.getUrl()}/eventoPessoa/2`)
         .then(res => {
-            console.log(res.data)
+            //console.log(res.data)
             this.setState({
                 meetings: res.data,
             })
@@ -114,6 +118,12 @@ export default class Home extends React.Component {
             console.log(err)
         })
     });
+
+    rec() {
+        axios.post(`${requests.getUrl()}/preferencia`, {groupId: '5'})
+        .then(res => {})
+        .catch(err => {})
+    }
 
     renderMeetings() {
 
@@ -177,7 +187,7 @@ export default class Home extends React.Component {
                 <ScrollView>
                     <View style={styles.subContainer}>
                         <View style={styles.buttonGroup}>
-                            <TouchableOpacity onPress={() => this.props.screenProps.navigate('createGroup')}>
+                            <TouchableOpacity onPress={() => /*this.props.screenProps.navigate('createGroup')*/this.rec()}>
                                 <Image source = {require('../../../assets/buttonGroup.png')} />
                             </TouchableOpacity>
                         </View>

@@ -34,7 +34,7 @@ class Login extends React.Component {
         }
     }
 
-    componentDidMount() {
+    loginCicrano() {
         let data = {
             username: 'cicrano@gmail.com',
             password: 'secret',
@@ -44,6 +44,24 @@ class Login extends React.Component {
         .then(res => {
             console.log("Suc Log In: ", res.data)
             requests.setUser(res.data)
+            this.props.navigation.navigate('tabHome')
+        })
+        .catch(err => {
+            console.log("Err Log In: ", err)
+        })
+    }
+
+    loginFulano() {
+        let data = {
+            username: 'fulano@gmail.com',
+            password: 'secret',
+        }
+
+        axios.post(`${requests.getUrl()}/login`, data)
+        .then(res => {
+            console.log("Suc Log In: ", res.data)
+            requests.setUser(res.data)
+            this.props.navigation.navigate('tabHome')
         })
         .catch(err => {
             console.log("Err Log In: ", err)
@@ -103,10 +121,17 @@ class Login extends React.Component {
                             color={'#BEBEBE'}
                         />
                     </View>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('tabHome')}>
+                    <TouchableOpacity onPress={() => this.loginFulano()}>
                         <Text style={styles.title}>
                             {
-                                "LogIn"
+                                "LogIn Fulano"
+                            }
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.loginCicrano()}>
+                        <Text style={styles.title}>
+                            {
+                                "LogIn Cicrano"
                             }
                         </Text>
                     </TouchableOpacity>

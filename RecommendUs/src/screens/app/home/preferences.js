@@ -40,18 +40,7 @@ export default class Preferences extends React.Component {
     super(props)
 
     this.state = {
-      friends: [
-        {
-          name: 'Daniel',
-          image: 'https://memegenerator.net/img/images/17056620.jpg',
-          confirmed: false,
-        },
-        {
-          name: 'Guila',
-          image: 'https://memegenerator.net/img/images/17056620.jpg',
-          confirmed: true,
-        }
-      ],
+      friends: this.props.navigation.state.params.amigosSaida,
 
       pressed: false,           //  To know if the sugeridos is setted 
       multisliderValue: [15],   //  To capture the multislider return
@@ -88,6 +77,7 @@ export default class Preferences extends React.Component {
     // .catch(err => {
     //   console.warn(err)
     // })
+    console.log(this.state.friends);
   }
 
   static navigatinoOptions = {
@@ -99,31 +89,47 @@ export default class Preferences extends React.Component {
 
   createGroup() {
 
-    let d = new Date()
-    let date = this.state.pressed ? '' : new Date(d.getUTCFullYear(), d.getUTCMonth(), this.state.calendarValue)
-
-    let data = {
-        groupname: 'Copa do Mundo, é Hexa meu irmão!',
-        groupdate: date,
-        userId: requests.getUser().id,
-        groupmembers: ["1"],
-    }
-
-    axios.post(`${requests.getUrl()}/create-group`, data)
-    .then(res => {
-      console.warn("Suc create group: ", res)
-      
+    if(this.props.navigation.state.params.skipCalendar) {
       this.props.navigation.navigate('preferences2', {
         sugestions: this.state.pressed,
         price: this.state.multisliderValue[0],
         day: this.state.calendarValue,
         place: this.state.pickerValue,
+        groupId: this.props.navigation.state.params.groupId,
+        friends: this.state.friends
       })
+    } else {
+      let d = new Date()
+      let date = this.state.pressed ? '' : new Date(d.getUTCFullYear(), d.getUTCMonth(), this.state.calendarValue)
 
-    })
-    .catch(err => {
-        console.warn("Err create group: ", err)
-    })
+      let members = this.state.friends.map((friend) => {
+        return friend.id;
+      });
+
+      let data = {
+          groupname: 'Copa do Mundo, é Hexa meu irmão!',
+          groupdate: date,
+          userId: requests.getUser().id,
+          groupmembers: members,
+      }
+
+      axios.post(`${requests.getUrl()}/create-group`, data)
+      .then(res => {
+        console.warn("Suc create group: ", res)
+        
+        this.props.navigation.navigate('preferences2', {
+          sugestions: this.state.pressed,
+          price: this.state.multisliderValue[0],
+          day: this.state.calendarValue,
+          place: this.state.pickerValue,
+          groupId: res.data.GroupID,
+          friends: this.state.friends
+        })
+      })
+      .catch(err => {
+          console.warn("Err create group: ", err)
+      })
+  }
 }
 
   render() {
@@ -165,18 +171,20 @@ export default class Preferences extends React.Component {
                 {console.warn(this.state.multisliderValue)}
               </View>
             </View>
-            <View style = {style.container}>
-              <View style={style.titleAndButton}>
-                <Text style = {style.textTitle}>Quando vai ser?</Text>
-                <TouchableOpacity style={[style.buttonBestDays, (this.state.pressed)?{backgroundColor: '#A30000'}:{}]}
-                  onPress={()=>this.pressedBestDaysButton()}  
-                >
-                  <Text style={[style.textButton, (this.state.pressed)?{color: '#FFF'}:{}]}> Sugeridos </Text>
-                </TouchableOpacity>
-              </View>
-              <Calendar callback={this.getCalendarReponse.bind(this)}/>
-              
-            </View>
+            {
+              !this.props.navigation.state.params.skipCalendar &&
+                <View style = {style.container}>
+                  <View style={style.titleAndButton}>
+                    <Text style = {style.textTitle}>Quando vai ser?</Text>
+                    <TouchableOpacity style={[style.buttonBestDays, (this.state.pressed)?{backgroundColor: '#A30000'}:{}]}
+                      onPress={()=>this.pressedBestDaysButton()}  
+                    >
+                      <Text style={[style.textButton, (this.state.pressed)?{color: '#FFF'}:{}]}> Sugeridos </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <Calendar callback={this.getCalendarReponse.bind(this)}/>
+                </View>
+            }
             <View style = {[style.container, {marginBottom: em (28),}]}>
               <Text style = {style.textTitle}>Onde você vai estar?</Text>
               <View style = {style.pickerContainer}>

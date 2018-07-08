@@ -36,16 +36,9 @@ class Preference2 extends React.Component {
         super(props)
 
         this.state = {
-            friends: [
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: false,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                }
-            ],
+            friends: [],
+            teste: 0,
+
             tags: [{
                     name: 'Açaí',
                     image: 'https://img.stpu.com.br/?img=https://s3.amazonaws.com/pu-mgr/default/a0RG000000sOHSbMAO/5820cf6de4b0c8177ff320fc.jpg&w=620&h=400',
@@ -68,25 +61,21 @@ class Preference2 extends React.Component {
     }
     
     sendInfo() {
-        //this.props.navigation.navigate('restaurants'/*, {restaurants: res.data}*/)
-        //this.props.navigation.state.params.place
 
         let data = {
-            users: [
-                {
-                    lat: '-8.055668',
-                    lon: '-34.951578',
-                    tags: this.state.choices,
-                    price: this.props.navigation.state.params.price,
-                },
-            ],
-            groupId: '1',
+            groupid: this.props.navigation.state.params.groupId,
+            lat: '-8.055668',
+            lon: '-34.951578',
+            price: this.props.navigation.state.params.price,
+            tags: this.state.choices,
+            userid: requests.getUser().id,
+            token: requests.getUser().token,
         }
 
-        axios.post(`${requests.getUrl()}/preferencia`, data)
+        axios.post(`${requests.getUrl()}/groups/fill-preferences`, data)
         .then(res => {
             console.log(res.data)
-            this.props.navigation.navigate('restaurants', {restaurants: res.data})
+            this.props.navigation.navigate('tabHome')
         })
         .catch(err => {
             console.warn(err)
@@ -94,15 +83,57 @@ class Preference2 extends React.Component {
     }
         
     componentDidMount() {
-        // axios.get(`${requests.getUrl()}/juntagrupo/1&2&3`)
-        // .then(res => {
-        //   this.setState({
-        //     friends: res.data.groupmembers,
-        //   })
-        // })
-        // .catch(err => {
-        //   console.warn(err)
-        // })
+        let auxGroup = []
+        let objFriends = this.props.navigation.state.params.friends;
+
+        //console.log("OOOOOOOOIIIIIIIIIIIIIIIIIIIIIII");
+        //console.log(objFriends);
+
+
+        axios.get(`${requests.getUrl()}/groups/view/${this.props.navigation.state.params.groupId}`)
+        .then(res => {
+            console.log("res.data: ", res.data);
+            console.log("res.data.groupmembers: ", res.data.groupmembers);
+            auxGroup = res.data.groupmembers;
+
+            var iAux = 0;
+            
+            for(var i = 0; i < objFriends.length; i++){
+                console.log("comparando");
+                console.log("obj " + auxGroup[iAux].id);
+                console.log("usario atual " + requests.getUser().id);
+                if(auxGroup[iAux].id == requests.getUser().id){
+                    console.log("corrigiu");
+                    iAux++; //corrige o problema de o auxGroup[] pegar o usuario atual (?) (pulando o usuario atual na varrida de auxGroup[])
+                }                
+                this.state.friends.push(
+                    {
+                        id: objFriends[i].id,
+                        nome: objFriends[i].nome,
+                        foto: objFriends[i].foto,
+                        confirmed: auxGroup[iAux].accepted
+                    }
+                );
+                iAux++;
+            }       
+
+            console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOI")
+            console.log(this.state.friends);
+            
+            //re-renderizando
+            this.setState({teste: 1});
+        })
+        .catch(err => {
+            console.warn(err)
+        })
+
+        //aqui, tenho o objFriends, que é o array de objetos
+        //e o auxGroup, que pega da requisição o grupo
+
+        //e agora, seto o this.state.friends, com o atributo confirmed, que chama o listPhotos no render
+        
+    
+        
       }
 
       selectOption = (name) => {
