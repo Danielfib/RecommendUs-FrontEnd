@@ -5,6 +5,7 @@ import {
     View,
     Text,
     TouchableOpacity,
+    Image,
     StyleSheet,
 } from 'react-native'
 
@@ -43,10 +44,19 @@ class Login extends React.Component {
     }
     
     render() {
-        // Tamanho dos cards: 21 para o clima e 30 para os tipos de comida
         return (
             <View style={styles.container}>
                 <BarStatus />
+                <Image
+                    style={styles.imagemFundo}
+                    source={require('../../../assets/login-fundo.jpg')}
+                />
+                <View style={styles.telafundo}>
+                    <Image
+                        style={styles.logo}
+                        source={require('../../../assets/Group.png')}
+                    />
+                </View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('tabHome')}>
                     <Text>
                         {
@@ -65,4 +75,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    imagemFundo: {
+        flex: 1,
+        width: em (100),
+    },
+    telafundo: {
+        flex: 1,
+        position: 'absolute',
+        backgroundColor: '#A30000',
+        opacity: 0.75,
+        width: em (100),
+        alignItems: 'center',
+    },
+    logo: {},
 })
