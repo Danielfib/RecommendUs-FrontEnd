@@ -6,12 +6,16 @@ import {
     Text,
     TouchableOpacity,
     Image,
+    TextInput,
+    KeyboardAvoidingView,
     StyleSheet,
 } from 'react-native'
 
 import BarStatus from '../../../components/StatusBar'
 
 import * as requests from '../../../actions/requests'
+
+import * as Icons from 'react-native-vector-icons'
 
 import em from '../../../properties/responsive'
 
@@ -24,7 +28,10 @@ class Login extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {}
+        this.state = {
+            email: '',
+            password: '',
+        }
     }
 
     componentDidMount() {
@@ -45,26 +52,59 @@ class Login extends React.Component {
     
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior="padding"
+            >
                 <BarStatus />
                 <Image
                     style={styles.imagemFundo}
                     source={require('../../../assets/login-fundo.jpg')}
                 />
-                <View style={styles.telafundo}>
+                <View style={styles.telafundo} />
+                <View style={styles.subContainer}>
                     <Image
                         style={styles.logo}
                         source={require('../../../assets/Group.png')}
                     />
-                </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('tabHome')}>
-                    <Text>
+                    <Text style={styles.title}>
                         {
-                            "Login"
+                            "RecomendUs"
                         }
                     </Text>
-                </TouchableOpacity>
-            </View>
+                    <View style={styles.fields}>
+                        <TextInput
+                            style={styles.textInput}
+                            onChangeText={(text) => this.setState({email: text})}
+                            value={this.state.email}
+                            placeholder={'Email'}
+                            underlineColorAndroid={'transparent'}
+                        />
+                        <Icons.MaterialCommunityIcons
+                            style={styles.icon}
+                            name={'email-outline'}
+                            size={35}
+                            color={'#BEBEBE'}
+                        />
+                    </View>
+                    <View style={styles.fields}>
+                        <TextInput
+                            style={styles.textInput}
+                            onChangeText={(text) => this.setState({password: text})}
+                            value={this.state.password}
+                            placeholder={'Senha'}
+                            underlineColorAndroid={'transparent'}
+                            secureTextEntry={true}
+                        />
+                        <Icons.MaterialIcons
+                            style={styles.icon}
+                            name={'lock-outline'}
+                            size={35}
+                            color={'#BEBEBE'}
+                        />
+                    </View>
+                </View>
+            </KeyboardAvoidingView>
         );
     }
 }
@@ -80,12 +120,46 @@ const styles = StyleSheet.create({
         width: em (100),
     },
     telafundo: {
-        flex: 1,
         position: 'absolute',
         backgroundColor: '#A30000',
         opacity: 0.75,
         width: em (100),
-        alignItems: 'center',
+        height: em (178),
     },
-    logo: {},
+    subContainer: {
+        backgroundColor: 'transparent',
+        alignSelf: 'center',
+    },
+    logo: {
+        marginTop: em (30),
+        width: em (62),
+        height: em (62),
+        alignSelf: 'center',
+    },
+    title: {
+        color: '#FFFFFF',
+        textAlign: 'center',
+        fontWeight: '600',
+        fontSize: em (8),
+        marginTop: em (4),
+        marginBottom: em (4),
+    },
+    fields: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: em (5),
+    },
+    icon: {
+        position: 'absolute',
+        right: em (0.7),
+    },
+    textInput: {
+        paddingLeft: em (3),
+        backgroundColor: '#FFFFFF',
+        width: em (78),
+        height: em (12.5),
+        fontSize: em (6),
+        color: '#BEBEBE',
+    },
 })
