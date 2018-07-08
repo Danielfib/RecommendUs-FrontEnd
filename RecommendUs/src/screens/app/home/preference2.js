@@ -90,27 +90,42 @@ class Preference2 extends React.Component {
         let auxGroup = []
         let objFriends = this.props.navigation.state.params.friends;
 
-        console.log("OOOOOOOOIIIIIIIIIIIIIIIIIIIIIII");
-        console.log(objFriends);
+        //console.log("OOOOOOOOIIIIIIIIIIIIIIIIIIIIIII");
+        //console.log(objFriends);
 
 
         axios.get(`${requests.getUrl()}/groups/view/${this.props.navigation.state.params.groupId}`)
         .then(res => {        
-            //ERRO: res.data retorna m array com dois objetos, quando foi convidado só um
+            //ERRO: res.data retorna o array com dois objetos, quando foi convidado só um
             //talvez isso esteja fixo no back e uma requisição no createGroup.js deva mudar isso (?)
+            //na real, parece que é um erro de atribuicao do lider (no caso aqui, o lider é o 2, e está sendo colocado o 3)
             console.log("res.data: ", res.data);
             console.log("res.data.groupmembers: ", res.data.groupmembers);
             auxGroup = res.data.groupmembers;
             
+            //PROBLEMA:
+            //no array, vai estar sempre o lider e os amigos, mas esse for deve ignorar a pessoa que esta respondendo na hora,
+            //para this.state.friends ter só os amigos de quem está respondendo, e não o próprio
+            //ACHO QUE RESOLVEU ESSE ->
+            //mas o erro emcima (linha 99) impede de funcionar direito 
+            var iAux = 0;
             for(var i = 0; i < objFriends.length; i++){
+                console.log("comparando");
+                console.log("obj " + auxGroup[iAux].id);
+                console.log("usario atual " + requests.getUser().id);
+                if(auxGroup[iAux].id == requests.getUser().id){
+                    console.log("corrigiu");
+                    iAux++; //corrige o problema de o auxGroup[] pegar o usuario atual (?) (pulando o usuario atual na varrida de auxGroup[])
+                }                
                 this.state.friends.push(
                     {
                         id: objFriends[i].id,
                         nome: objFriends[i].nome,
                         foto: objFriends[i].foto,
-                        confirmed: auxGroup[i].accepted
+                        confirmed: auxGroup[iAux].accepted
                     }
                 );
+                iAux++;
             }       
 
             console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOI")

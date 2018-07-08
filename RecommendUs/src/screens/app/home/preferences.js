@@ -110,7 +110,6 @@ export default class Preferences extends React.Component {
         groupId: res.data.GroupID,
         friends: this.state.friends
       })
-
     })
     .catch(err => {
         console.warn("Err create group: ", err)
