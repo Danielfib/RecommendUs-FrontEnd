@@ -9,6 +9,8 @@ import {
     TextInput,
     KeyboardAvoidingView,
     StyleSheet,
+    Dimensions,
+    Button
 } from 'react-native'
 
 import BarStatus from '../../../components/StatusBar'
@@ -34,16 +36,17 @@ class Login extends React.Component {
         }
     }
 
-    componentDidMount() {
+    login() {
         let data = {
-            username: 'cicrano@gmail.com',
-            password: 'secret',
+            username: this.state.email,
+            password: this.state.password,
         }
 
         axios.post(`${requests.getUrl()}/login`, data)
         .then(res => {
             console.log("Suc Log In: ", res.data)
             requests.setUser(res.data)
+            this.props.navigation.navigate('tabHome');
         })
         .catch(err => {
             console.log("Err Log In: ", err)
@@ -52,114 +55,135 @@ class Login extends React.Component {
     
     render() {
         return (
-            <KeyboardAvoidingView
-                style={styles.container}
-                behavior="padding"
-            >
-                <BarStatus />
+            <View style={{flex: 1}}>
+                <BarStatus/>
+        {/*
                 <Image
                     style={styles.imagemFundo}
                     source={require('../../../assets/login-fundo.jpg')}
                 />
-                <View style={styles.telafundo} />
-                <View style={styles.subContainer}>
-                    <Image
-                        style={styles.logo}
-                        source={require('../../../assets/Group.png')}
-                    />
-                    <Text style={styles.title}>
-                        {
-                            "RecomendUs"
-                        }
+                <View style={styles.telafundo} />                
+        */}
+                <KeyboardAvoidingView
+                    style={styles.container}
+                    behavior="padding"
+                >
+                    <Image source={require('../../../assets/Group.png')} style={styles.logo} />
+                    <Text style = {styles.title}>
+                        RecomendUs
                     </Text>
-                    <View style={styles.fields}>
-                        <TextInput
-                            style={styles.textInput}
-                            onChangeText={(text) => this.setState({email: text})}
-                            value={this.state.email}
-                            placeholder={'Email'}
-                            underlineColorAndroid={'transparent'}
-                        />
-                        <Icons.MaterialCommunityIcons
-                            style={styles.icon}
-                            name={'email-outline'}
-                            size={35}
-                            color={'#BEBEBE'}
-                        />
+                    
+                    <View>
+                        <View>
+                            <View style={styles.fields}>
+                                <TextInput
+                                    placeholder="Email"
+                                    underlineColorAndroid={'transparent'}
+                                    style={styles.input}
+                                    onChangeText = {(text) => this.setState({email: text})}
+                                    value = {this.state.email}
+                                />
+                                <Icons.MaterialCommunityIcons
+                                    style={styles.icon}
+                                    name={'email-outline'}
+                                    size={35}
+                                    color={'#BEBEBE'}
+                                />
+                            </View>
+                            <View style = {styles.fields}>
+                                <TextInput
+                                    placeholder="Senha"
+                                    underlineColorAndroid={'transparent'}
+                                    style={styles.input}
+                                    onChangeText = {(text) => this.setState({password: text})}
+                                    value = {this.state.password}
+                                />
+                                <Icons.MaterialIcons
+                                    style={styles.icon}
+                                    name={'lock-outline'}
+                                    size={35}
+                                    color={'#BEBEBE'}
+                                />
+                            </View>
+                        </View>
+
+                        <Button title="LogIn" color="#fff" onPress = {this.login}/>
+                            
                     </View>
-                    <View style={styles.fields}>
-                        <TextInput
-                            style={styles.textInput}
-                            onChangeText={(text) => this.setState({password: text})}
-                            value={this.state.password}
-                            placeholder={'Senha'}
-                            underlineColorAndroid={'transparent'}
-                            secureTextEntry={true}
-                        />
-                        <Icons.MaterialIcons
-                            style={styles.icon}
-                            name={'lock-outline'}
-                            size={35}
-                            color={'#BEBEBE'}
-                        />
-                    </View>
-                </View>
-            </KeyboardAvoidingView>
+                    
+                    <View style={{ height: 60 }} />
+                </KeyboardAvoidingView>
+            </View>
         );
     }
 }
 
 export default Login
 
+const window = Dimensions.get('window');
+
+export const IMAGE_HEIGHT = window.width / 2;
+export const IMAGE_HEIGHT_SMALL = window.width /7;
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    imagemFundo: {
-        flex: 1,
-        width: em (100),
-    },
-    telafundo: {
-        position: 'absolute',
-        backgroundColor: '#A30000',
-        opacity: 0.75,
-        width: em (100),
-        height: em (178),
-    },
-    subContainer: {
-        position: 'absolute',
-        alignSelf: 'center',
-    },
-    logo: {
-        marginTop: em (30),
-        width: em (62),
-        height: em (62),
-        alignSelf: 'center',
-    },
-    title: {
-        color: '#FFFFFF',
-        textAlign: 'center',
-        fontWeight: '600',
-        fontSize: em (8),
-        marginTop: em (4),
-        marginBottom: em (4),
-    },
-    fields: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: em (5),
-    },
-    icon: {
-        position: 'absolute',
-        right: em (0.7),
-    },
-    textInput: {
-        paddingLeft: em (3),
-        backgroundColor: '#FFFFFF',
-        width: em (78),
-        height: em (12.5),
-        fontSize: em (6),
-        color: '#BEBEBE',
-    },
-})
+  container: {
+    backgroundColor: '#A30000',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input: {
+    paddingLeft: em(3),
+    height: em(12.5),
+    width: em(60),
+    fontSize: em(6),
+    backgroundColor: '#fff',
+    marginHorizontal: 10,
+    marginVertical: 5,
+   // paddingVertical: 5,
+    // paddingHorizontal: 15,
+    width: window.width - 30,
+  },
+  logo: {
+    height: IMAGE_HEIGHT,
+    resizeMode: 'contain',
+    marginBottom: 10,
+    padding:10,
+    marginTop:20
+  },
+  register:{
+    marginBottom:20, 
+    width:window.width -100,
+    alignItems:'center',
+    justifyContent:'center',
+    height:50,
+    backgroundColor: '#ffae',
+  },
+  title: {
+    color: '#FFFFFF',
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: em (8),
+    marginBottom: em (4),
+  },
+  imagemFundo: {
+    position: 'absolute',
+    width: em (100),
+  },
+  telafundo: {
+    position: 'absolute',
+    backgroundColor: '#A30000',
+    opacity: 0.75,
+    width: em (100),
+    height: em (178),
+  },
+  fields: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    position: 'absolute',
+    right: em (1),
+  },
+});
