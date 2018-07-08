@@ -46,6 +46,7 @@ async function register() {
     
     // Get push notification token...
     const userToken = await Notifications.getExpoPushTokenAsync();
+
     console.log(status, userToken)
 
     // Add token to Server
@@ -55,6 +56,9 @@ async function register() {
     })
     .then(res => {
         console.log("Token suc: ", res)
+        let data = requests.getUser();
+        data.token = userToken;
+        requests.setUser(data);
     })
     .catch(err => {
         console.log("Token err: ", err)

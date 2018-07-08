@@ -89,36 +89,47 @@ export default class Preferences extends React.Component {
 
   createGroup() {
 
-    let d = new Date()
-    let date = this.state.pressed ? '' : new Date(d.getUTCFullYear(), d.getUTCMonth(), this.state.calendarValue)
-
-    let members = this.state.friends.map((friend) => {
-      return friend.id;
-    });
-
-    let data = {
-        groupname: 'Copa do Mundo, é Hexa meu irmão!',
-        groupdate: date,
-        userId: requests.getUser().id,
-        groupmembers: members,
-    }
-
-    axios.post(`${requests.getUrl()}/create-group`, data)
-    .then(res => {
-      console.warn("Suc create group: ", res)
-      
+    if(this.props.navigation.state.params.skipCalendar) {
       this.props.navigation.navigate('preferences2', {
         sugestions: this.state.pressed,
         price: this.state.multisliderValue[0],
         day: this.state.calendarValue,
         place: this.state.pickerValue,
-        groupId: res.data.GroupID,
+        groupId: this.props.navigation.state.params.groupId,
         friends: this.state.friends
       })
-    })
-    .catch(err => {
-        console.warn("Err create group: ", err)
-    })
+    } else {
+      let d = new Date()
+      let date = this.state.pressed ? '' : new Date(d.getUTCFullYear(), d.getUTCMonth(), this.state.calendarValue)
+
+      let members = this.state.friends.map((friend) => {
+        return friend.id;
+      });
+
+      let data = {
+          groupname: 'Copa do Mundo, é Hexa meu irmão!',
+          groupdate: date,
+          userId: requests.getUser().id,
+          groupmembers: members,
+      }
+
+      axios.post(`${requests.getUrl()}/create-group`, data)
+      .then(res => {
+        console.warn("Suc create group: ", res)
+        
+        this.props.navigation.navigate('preferences2', {
+          sugestions: this.state.pressed,
+          price: this.state.multisliderValue[0],
+          day: this.state.calendarValue,
+          place: this.state.pickerValue,
+          groupId: res.data.GroupID,
+          friends: this.state.friends
+        })
+      })
+      .catch(err => {
+          console.warn("Err create group: ", err)
+      })
+  }
 }
 
   render() {

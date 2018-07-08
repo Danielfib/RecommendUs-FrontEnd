@@ -61,25 +61,21 @@ class Preference2 extends React.Component {
     }
 
     sendInfo() {
-        //this.props.navigation.navigate('restaurants'/*, {restaurants: res.data}*/)
-        //this.props.navigation.state.params.place
 
         let data = {
-            users: [
-                {
-                    lat: '-8.055668',
-                    lon: '-34.951578',
-                    tags: this.state.choices,
-                    price: this.props.navigation.state.params.price,
-                },
-            ],
-            groupId: '1',
+            groupid: this.props.navigation.state.params.groupId,
+            lat: '-8.055668',
+            lon: '-34.951578',
+            price: this.props.navigation.state.params.price,
+            tags: this.state.choices,
+            userid: requests.getUser().id,
+            token: requests.getUser().token,
         }
 
-        axios.post(`${requests.getUrl()}/preferencia`, data)
+        axios.post(`${requests.getUrl()}/groups/fill-preferences`, data)
         .then(res => {
             console.log(res.data)
-            this.props.navigation.navigate('restaurants', {restaurants: res.data})
+            this.props.navigation.navigate('tabHome')
         })
         .catch(err => {
             console.warn(err)
