@@ -1,5 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import cron from 'node-cron'
+
+import {
+    Permissions,
+    Notifications,
+} from 'expo'
 
 import {
     View,
@@ -16,6 +22,35 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import * as requests from '../../../actions/requests'
 
+async function register() {
+
+    // Check for existing permissions...
+    const { status } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+    );
+    let finalStatus = status;
+
+    // If no existing permission, ask user for permission...
+    if (status !== 'granted') {
+        const { status } = await Permissions.askAsync(
+            Permissions.NOTIFICATIONS
+        );
+        finalStatus = status;
+    }
+    
+    // If no permission, exit the function...
+    if(status !== 'granted') {
+        alert("You need to enable permissions in settings.");
+        return;
+    }
+    
+    // Get push notification token...
+    const token = await Notifications.getExpoPushTokenAsync();
+    console.log(status, token)
+
+    // Add token to Server
+}
+
 export default class Home extends React.Component {
 
     state = {
@@ -28,9 +63,26 @@ export default class Home extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this._notificationSubscription
+            && 
+        //Notifications.removeListener(this.listener)
+        this._notificationSubscription.remove()
+    }
+
+    listener = ({ origin, data }) => {
+        console.log("cool data", origin, data)
+        this.props.screenProps.navigate('restaurants', {restaurants: data.restaurants})
+    }
+
     componentDidMount() {
-        axios.get(`${requests.getUrl()}/eventoPessoa/1`)
+        
+        register();
+        this._notificationSubscription = Notifications.addListener(this.listener)
+        
+        axios.get(`${requests.getUrl()}/eventoPessoa/2`)
         .then(res => {
+            console.log(res.data)
             this.setState({
                 meetings: res.data,
             })
@@ -39,6 +91,19 @@ export default class Home extends React.Component {
             console.log(err)
         })
     }
+
+    backgroundJob = cron.schedule('*/30 * * * * *', () => {
+        axios.get(`${requests.getUrl()}/eventoPessoa/2`)
+        .then(res => {
+            console.log(res.data)
+            this.setState({
+                meetings: res.data,
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    });
 
     renderMeetings() {
 
@@ -95,12 +160,14 @@ export default class Home extends React.Component {
 
     render() {
 
+        this.backgroundJob.start();
+
         return (
             <View style={styles.container}>
                 <ScrollView>
                     <View style={styles.subContainer}>
                         <View style={styles.buttonGroup}>
-                            <TouchableOpacity onPress={() => this.props.screenProps.navigate('preferences')}>
+                            <TouchableOpacity onPress={() => this.props.screenProps.navigate('createGroup')}>
                                 <Image source = {require('../../../assets/buttonGroup.png')} />
                             </TouchableOpacity>
                         </View>

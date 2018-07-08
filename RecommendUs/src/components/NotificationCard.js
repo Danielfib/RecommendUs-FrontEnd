@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 import {
     View,
@@ -24,28 +25,49 @@ export default class NotificationCard extends React.Component {
         super(props)
 
         this.state = {
-            friends: [
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: true,
-                },
-                {
-                    image: 'https://memegenerator.net/img/images/17056620.jpg',
-                    confirmed: false,
-                },
-            ],
+            user: requests.getUser()
         }
+    }
+
+    accept(group) {
+
+        let data = {
+            userId: this.state.user.id,
+            groupId: group.groupid
+        }
+
+        axios.put(`${requests.getUrl()}/api_acceptGroup`, data)
+        .then(res => {
+            console.log("Suc Accept: ", res)
+            this.props.navigation.navigate('preferences', {group: group})
+        })
+        .catch(err => {
+            console.log("Err Accept: ", err)
+        })
+    }
+
+    reject(groupid) {
+
+        axios.delete(`${requests.getUrl()}/api_RejectGroup`, {
+            data: {
+                userId: this.state.user.id,
+                groupId: groupid
+            }
+        })
+        .then(res => {
+            console.log("Suc Reject: ", res)
+        })
+        .catch(err => {
+            console.log("Err Reject: ", err)
+        })
     }
     
     render() {
 
         const day = this.props.day
         const date = this.props.date
-        const image = 'https://memegenerator.net/img/images/17056620.jpg'
+        const friends = this.props.friends
+        const group = this.props.group
 
         return (
             <View style={styles.shape}>
@@ -64,17 +86,20 @@ export default class NotificationCard extends React.Component {
                 </View>
                 <View style={styles.friendsView}>
                     <ScrollView contentContainerStyle={styles.scrollView} horizontal>
-                        {listPhotos.renderFriends(this.state.friends, 14)}
+                        {listPhotos.renderFriends(friends, 14)}
                     </ScrollView>
                 </View>
-                <TouchableOpacity style={styles.notButton}>
+                <TouchableOpacity
+                    style={styles.notButton}
+                    onPress={() => this.reject(group.groupid)}
+                >
                     <Text style={styles.textButton}>
                         {"Hoje não"}
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.yeahButton}
-                    onPress={() => this.props.navigation.navigate('preferences')}
+                    onPress={() => this.accept(group)}
                 >
                     <Text style={[styles.textButton, {fontSize: em (6)}]}>
                         {"Bora!"}

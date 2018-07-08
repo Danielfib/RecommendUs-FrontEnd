@@ -1,4 +1,6 @@
 import React from 'react'
+import axios from 'axios'
+import cron from 'node-cron'
 
 import {
     View,
@@ -15,6 +17,8 @@ import NotificationCard from '../../../components/NotificationCard'
 
 import em from '../../../properties/responsive'
 
+import * as requests from '../../../actions/requests'
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 class Notifications extends React.Component {
@@ -29,36 +33,91 @@ class Notifications extends React.Component {
         super(props)
 
         this.state = {
-            notifications: [
-                {
-                    friends: [],
-                    day: 'SEX',
-                    date: '18',
-                },
-                {
-                    friends: [],
-                    day: 'SEX',
-                    date: '18',
-                },
-            ],
+            notifications: [],
         }
     }
     
     renderCardsNotification() {
+
+        let months = {
+            '01': 'JAN',
+            '02': 'FEB',
+            '03': 'MAR',
+            '04': 'APR',
+            '05': 'MAY',
+            '06': 'JUN',
+            '07': 'JUL',
+            '08': 'AUG',
+            '09': 'SEP',
+            '10': 'OCT',
+            '11': 'NOV',
+            '12': 'DEC'
+        };
+
         let cards = this.state.notifications.map((notification, index) => {
+            
+            let DAY = notification.groupdate.substring(8, 10);
+            let month = months[notification.groupdate.substring(5, 7)];
+
+            let friends = [
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: true,
+                },
+                {
+                    image: 'https://memegenerator.net/img/images/17056620.jpg',
+                    confirmed: false,
+                },
+            ]
+
             return (
                 <NotificationCard
-                    key={index}
-                    day={notification.day}
-                    date={notification.date}
-                    navigation={this.props.screenProps}
+                    key = {index}
+                    group = {notification}
+                    day = {DAY}
+                    date = {month}
+                    navigation = {this.props.screenProps}
+                    friends = {friends}
                 />
             )
         })
         return cards
     }
+
+    componentDidMount() {
+        axios.get(`${requests.getUrl()}/groups/invites`)
+        .then(res => {
+            console.log(res.data)
+            this.setState({
+                notifications: res.data
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    backgroundJob = cron.schedule('*/30 * * * * *', () => {
+        axios.get(`${requests.getUrl()}/groups/invites`)
+        .then(res => {
+            console.log(res.data)
+            this.setState({
+                notifications: res.data
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    });
     
     render() {
+
+        this.backgroundJob.start();
+
         // Tamanho dos cards: 21 para o clima e 30 para os tipos de comida
         return (
             <View style={styles.container}>

@@ -97,81 +97,104 @@ export default class Preferences extends React.Component {
       swipeEnabled: false,
   }
 
-    render() {
-      return (
-        <View style = {style.mainContainer}>
-          <BarStatus/>
-          <Header navigation={this.props.navigation}>
-              <Text style={style.titleHeader}>
-                  {"Preferências"}
-              </Text>
-          </Header>
-          <View style = {style.container}>
-            <ScrollView>
-              {
-                this.state.friends &&
-                  <View style={style.friendsView}>
-                    {listPhotos.renderFriends(this.state.friends, 22)}
-                    <Text style={style.friendsText}>
-                        {"Esperando Confirmação"}
-                    </Text>                 
-                    <View style={{marginTop: em (5),}}>
-                      <Progress.Bar
-                        progress={0.3}
-                        color={'#A30000'}
-                        unfilledColor={'#CCCCCC'}
-                        borderColor={'transparent'}
-                        borderWidth={0}
-                        width={em (94)}
-                        height={em (0.5)}
-                        borderRadius={0}
-                      />
-                    </View>
+  createGroup() {
+
+    let d = new Date()
+    let date = this.state.pressed ? '' : new Date(d.getUTCFullYear(), d.getUTCMonth(), this.state.calendarValue)
+
+    let data = {
+        groupname: 'Copa do Mundo, é Hexa meu irmão!',
+        groupdate: date,
+        groupmembers: ["1"],
+    }
+
+    axios.post(`${requests.getUrl()}/create-group`, data)
+    .then(res => {
+      console.warn("Suc create group: ", res)
+      
+      this.props.navigation.navigate('preferences2', {
+        sugestions: this.state.pressed,
+        price: this.state.multisliderValue[0],
+        day: this.state.calendarValue,
+        place: this.state.pickerValue,
+      })
+
+    })
+    .catch(err => {
+        console.warn("Err create group: ", err)
+    })
+}
+
+  render() {
+    return (
+      <View style = {style.mainContainer}>
+        <BarStatus/>
+        <Header navigation={this.props.navigation}>
+            <Text style={style.titleHeader}>
+                {"Preferências"}
+            </Text>
+        </Header>
+        <View style = {style.container}>
+          <ScrollView>
+            {
+              this.state.friends &&
+                <View style={style.friendsView}>
+                  {listPhotos.renderFriends(this.state.friends, 22)}
+                  <Text style={style.friendsText}>
+                      {"Esperando Confirmação"}
+                  </Text>                 
+                  <View style={{marginTop: em (5),}}>
+                    <Progress.Bar
+                      progress={0.3}
+                      color={'#A30000'}
+                      unfilledColor={'#CCCCCC'}
+                      borderColor={'transparent'}
+                      borderWidth={0}
+                      width={em (94)}
+                      height={em (0.5)}
+                      borderRadius={0}
+                    />
                   </View>
-              }
-              <View style = {[{marginTop: em (4)}]}>
-                <Text style = {style.textTitle}>Quanto você quer pagar?</Text>
-                <View style = {[style.containerSlider]}>  
-                  <MultisliderButton value = {this.state.multisliderValue} callback={this.getMultisliderReponse.bind(this)}/>
-                  {console.warn(this.state.multisliderValue)}
                 </View>
+            }
+            <View style = {[{marginTop: em (4)}]}>
+              <Text style = {style.textTitle}>Quanto você quer pagar?</Text>
+              <View style = {[style.containerSlider]}>  
+                <MultisliderButton value = {this.state.multisliderValue} callback={this.getMultisliderReponse.bind(this)}/>
+                {console.warn(this.state.multisliderValue)}
               </View>
-              <View style = {style.container}>
-                <View style={style.titleAndButton}>
-                  <Text style = {style.textTitle}>Quando vai ser?</Text>
-                  <TouchableOpacity style={[style.buttonBestDays, (this.state.pressed)?{backgroundColor: '#A30000'}:{}]}
-                    onPress={()=>this.pressedBestDaysButton()}  
-                  >
-                    <Text style={[style.textButton, (this.state.pressed)?{color: '#FFF'}:{}]}> Sugeridos </Text>
-                  </TouchableOpacity>
-                </View>
-                <Calendar callback={this.getCalendarReponse.bind(this)}/>
+            </View>
+            <View style = {style.container}>
+              <View style={style.titleAndButton}>
+                <Text style = {style.textTitle}>Quando vai ser?</Text>
+                <TouchableOpacity style={[style.buttonBestDays, (this.state.pressed)?{backgroundColor: '#A30000'}:{}]}
+                  onPress={()=>this.pressedBestDaysButton()}  
+                >
+                  <Text style={[style.textButton, (this.state.pressed)?{color: '#FFF'}:{}]}> Sugeridos </Text>
+                </TouchableOpacity>
+              </View>
+              <Calendar callback={this.getCalendarReponse.bind(this)}/>
+              
+            </View>
+            <View style = {[style.container, {marginBottom: em (28),}]}>
+              <Text style = {style.textTitle}>Onde você vai estar?</Text>
+              <View style = {style.pickerContainer}>
+                <PickerButton gpsButton={true} dimensions = {{height: em(6.5), width: em(80)}} defaultOption={this.state.pickerValue} data = {["Recife", 'Olinda', 'Jaboatão']}
+                  callback = {this.getPickerButtonResponse.bind(this)}
+                />
                 
               </View>
-              <View style = {[style.container, {marginBottom: em (28),}]}>
-                <Text style = {style.textTitle}>Onde você vai estar?</Text>
-                <View style = {style.pickerContainer}>
-                  <PickerButton gpsButton={true} dimensions = {{height: em(6.5), width: em(80)}} defaultOption={this.state.pickerValue} data = {["Recife", 'Olinda', 'Jaboatão']}
-                    callback = {this.getPickerButtonResponse.bind(this)}
-                  />
-                  
-                </View>
-              </View>
-            </ScrollView>
-            <TouchableOpacity
-              style={style.nextButton}
-              onPress={() => this.props.navigation.navigate('preferences2', {
-                sugestions: this.state.pressed,
-                price: this.state.multisliderValue[0],
-                day: this.state.calendarValue,
-                place: this.state.pickerValue,
-            })}>
-                <NextButton />
-            </TouchableOpacity>
-          </View>
+            </View>
+          </ScrollView>
+          <TouchableOpacity
+            style={style.nextButton}
+            onPress={() => this.createGroup()}>
+              <NextButton />
+          </TouchableOpacity>
         </View>
-      );
-    }
+      </View>
+    );
+  }
 }
 
 const style = StyleSheet.create({

@@ -1,5 +1,14 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "RecomendUs",
+    "slug": "RecomendUs",
+    "sdkVersion": "27.0.0",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/Group.png",
+    "loading": {
+      "icon": "./src/assets/Group.png",
+      "hideExponentText": false
+    }
   }
 }

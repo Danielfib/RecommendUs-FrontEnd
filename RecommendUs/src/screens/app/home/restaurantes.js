@@ -47,7 +47,58 @@ export default class ListRestaurant extends React.Component {
                     confirmed: true,
                 },
             ],
-            listResponse: this.props.navigation.state.params.restaurants,
+            listResponse: [{
+                "_id": {
+                    "$oid": "5b20853076b611082cafa922"
+                },
+                "name": "Apolo Beer Cafe",
+                "category": "Bares",
+                "expertise": "Cervejarias e choperias",
+                "address/state": "PE",
+                "address/street/0": "Rua do Apolo 164",
+                "address/neighborhood": "Recife Antigo",
+                "address/city": "Recife",
+                "address/phone": "3088-8091",
+                "price_avg": "94",
+                "location/lat": "-8.061377",
+                "location/lng": "-34.8744353",
+                "rating": "4.01",
+                "vote_count": "21"
+            },{
+                "_id": {
+                    "$oid": "5b20853076b611082cafa922"
+                },
+                "name": "Apolo Beer Cafe",
+                "category": "Bares",
+                "expertise": "Cervejarias e choperias",
+                "address/state": "PE",
+                "address/street/0": "Rua do Apolo 164",
+                "address/neighborhood": "Recife Antigo",
+                "address/city": "Recife",
+                "address/phone": "3088-8091",
+                "price_avg": "94",
+                "location/lat": "-8.061377",
+                "location/lng": "-34.8744353",
+                "rating": "4.01",
+                "vote_count": "21"
+            },{
+                "_id": {
+                    "$oid": "5b20853076b611082cafa922"
+                },
+                "name": "Apolo Beer Cafe",
+                "category": "Bares",
+                "expertise": "Cervejarias e choperias",
+                "address/state": "PE",
+                "address/street/0": "Rua do Apolo 164",
+                "address/neighborhood": "Recife Antigo",
+                "address/city": "Recife",
+                "address/phone": "3088-8091",
+                "price_avg": "94",
+                "location/lat": "-8.061377",
+                "location/lng": "-34.8744353",
+                "rating": "4.01",
+                "vote_count": "21"
+            }]//this.props.navigation.state.params.restaurants,
         }
     }
 
@@ -58,46 +109,25 @@ export default class ListRestaurant extends React.Component {
     /* Checar o dados do json */
     renderRestaurantList() {
 
-        //console.warn(this.state.listRestaurant.name[4])
-
-        let listResponse = [
-            {
-                name: 'Pizzaria Atlântico',
-                expertise: 'Churrascaria, Pizzaria, Regional',
-                address: 'Rua Conselheiro Portela, 374',
-                url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
-                parther: true,
-            },
-            {
-                name: 'Brazzetus',
-                expertise: 'Pizzaria, Regional, Sushi',
-                url_image: 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png',
-                parther: false,
-            },
-        ]
-
         let url_image = 'https://radiant-depths-66237.herokuapp.com/uploads/usuarios/mufasa.png'
 
-        // axios.get('url')
-        // .then((response)=>{
-        //     listResponse = response //nome expertise url_image
-        // })
-
-        //let objectRest = [{r:'Restaurante1', t:'tags', img: 'url'}, {r:'Restaurante2', t:'tags', img: 'url'}, {r:'Restaurante3', t:'tags', img: 'url'}, {r:'Restaurante4', t:'tags', img: 'url'}]   
         let listRestaurant = this.state.listResponse.map((restaurant) => {
             if(/*!restaurant.parther*/true)
                 return (
-                    <View key={restaurant._id} style={styles.restaurantView}> 
-                        <View style={styles.textContainer}>
-                            <Text style={styles.textList}>{restaurant.name}</Text>
-                            <Text style={styles.subtextList}>{restaurant.expertise}</Text>
-                            <TouchableOpacity onPress={() => this.vote(restaurant)}>
-                                <Text style = {styles.votar}>Votar</Text>
-                            </TouchableOpacity>
+                    <TouchableOpacity onPress = {() => {this.props.navigation.navigate('details', {restaurant: this.props.restaurant})}}
+                    >
+                        <View key={restaurant._id} style={styles.restaurantView}> 
+                            <View style={styles.textContainer}>
+                                <Text style={styles.textList}>{restaurant.name}</Text>
+                                <Text style={styles.subtextList}>{restaurant.expertise}</Text>
+                                <TouchableOpacity onPress={() => this.vote(restaurant)}>
+                                    <Text style = {styles.votar}>Votar</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <Image style={styles.image} source={{uri: url_image}}/>
+                            <View style = {styles.imageView}></View>
                         </View>
-                        <Image style={styles.image} source={{uri: url_image}}/>
-                        <View style = {styles.imageView}></View>
-                    </View>
+                    </TouchableOpacity>
                 )
             else
                 return (

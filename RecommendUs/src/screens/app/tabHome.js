@@ -9,6 +9,8 @@ import {
 
 import em from '../../properties/responsive'
 
+import * as requests from '../../actions/requests'
+
 import BarStatus from '../../components/StatusBar'
 import Header from '../../components/Header'
 import MyTab from '../../navigation/tab-router'
@@ -16,6 +18,8 @@ import MyTab from '../../navigation/tab-router'
 export default class TabHome extends React.Component {
   
     render() {
+
+        const user = requests.getUser()
 
         return (
             <View style={styles.container}>
@@ -30,7 +34,7 @@ export default class TabHome extends React.Component {
                         </Text>
                     </View>
                     <View style = {styles.rightHeader}>
-                        <Image style = {styles.logo} source = {require('../../assets/bolinha.png')} />
+                        <Image style = {styles.logo} source = {{uri: `${requests.getUrl()}${user.foto}`}} />
                     </View>
                 </View>
                 <MyTab
@@ -67,11 +71,16 @@ const styles = StyleSheet.create({
         paddingTop: em (4),
         marginRight: em (2),
     },
-    logo: {},
+    logo: {
+        width: em (12),
+        height: em (12),
+        borderRadius: em (6),
+    },
     name: {
         color: '#FFFFFF',
         fontSize: em (6),
         fontWeight: '500',
         marginLeft: em (3),
+        marginTop: em (2),
     },
 })
