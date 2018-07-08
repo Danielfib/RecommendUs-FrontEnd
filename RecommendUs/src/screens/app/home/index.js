@@ -119,6 +119,12 @@ export default class Home extends React.Component {
         })
     });
 
+    rec() {
+        axios.post(`${requests.getUrl()}/preferencia`, {groupId: '5'})
+        .then(res => {})
+        .catch(err => {})
+    }
+
     renderMeetings() {
 
         let image = 'https://pbs.twimg.com/profile_images/446735594077429760/SUUAPAsP_400x400.png'
@@ -181,7 +187,7 @@ export default class Home extends React.Component {
                 <ScrollView>
                     <View style={styles.subContainer}>
                         <View style={styles.buttonGroup}>
-                            <TouchableOpacity onPress={() => this.props.screenProps.navigate('createGroup')}>
+                            <TouchableOpacity onPress={() => /*this.props.screenProps.navigate('createGroup')*/this.rec()}>
                                 <Image source = {require('../../../assets/buttonGroup.png')} />
                             </TouchableOpacity>
                         </View>
