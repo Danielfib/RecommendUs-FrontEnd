@@ -68,50 +68,64 @@ class Login extends React.Component {
                     style={styles.container}
                     behavior="padding"
                 >
-                    <Image source={require('../../../assets/Group.png')} style={styles.logo} />
-                    <Text style = {styles.title}>
-                        RecomendUs
-                    </Text>
-                    
-                    <View>
-                        <View>
-                            <View style={styles.fields}>
-                                <TextInput
-                                    placeholder="Email"
-                                    underlineColorAndroid={'transparent'}
-                                    style={styles.input}
-                                    onChangeText = {(text) => this.setState({email: text})}
-                                    value = {this.state.email}
-                                />
-                                <Icons.MaterialCommunityIcons
-                                    style={styles.icon}
-                                    name={'email-outline'}
-                                    size={35}
-                                    color={'#BEBEBE'}
-                                />
-                            </View>
-                            <View style = {styles.fields}>
-                                <TextInput
-                                    placeholder="Senha"
-                                    underlineColorAndroid={'transparent'}
-                                    style={styles.input}
-                                    onChangeText = {(text) => this.setState({password: text})}
-                                    value = {this.state.password}
-                                />
-                                <Icons.MaterialIcons
-                                    style={styles.icon}
-                                    name={'lock-outline'}
-                                    size={35}
-                                    color={'#BEBEBE'}
-                                />
-                            </View>
-                        </View>
+                    <Image
+                        style={styles.imagemFundo}
+                        source={require('../../../assets/login-fundo.jpg')}
+                    />
+                    <View style={styles.telafundo} />
 
-                        <Button title="LogIn" color="#fff" onPress = {this.login}/>
-                            
+                    <View style={styles.container}>
+                        <Image source={require('../../../assets/Group.png')} style={styles.logo} />
+                        <Text style = {styles.title}>
+                            RecomendUs
+                        </Text>
+                        
+                        <View>
+                            <View>
+                                <View style={styles.fields}>
+                                    <TextInput
+                                        placeholder="Email"
+                                        underlineColorAndroid={'transparent'}
+                                        style={styles.input}
+                                        onChangeText = {(text) => this.setState({email: text})}
+                                        value = {this.state.email}
+                                    />
+                                    <Icons.MaterialCommunityIcons
+                                        style={styles.icon}
+                                        name={'email-outline'}
+                                        size={35}
+                                        color={'#BEBEBE'}
+                                    />
+                                </View>
+                                <View style = {styles.fields}>
+                                    <TextInput
+                                        placeholder="Senha"
+                                        underlineColorAndroid={'transparent'}
+                                        style={styles.input}
+                                        onChangeText = {(text) => this.setState({password: text})}
+                                        value = {this.state.password}
+                                    />
+                                    <Icons.MaterialIcons
+                                        style={styles.icon}
+                                        name={'lock-outline'}
+                                        size={35}
+                                        color={'#BEBEBE'}
+                                    />
+                                </View>
+                            </View>
+
+                            <View>
+                                <TouchableOpacity style={styles.botao} title="LogIn" onPress = {this.login}>
+                                    <Text style={{fontFamily: 'Roboto', fontSize: 18, fontWeight: 'bold', color: '#A30000'}}>
+                                        Log In
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                                
+                        </View>
+                        
+                        <View style={{ height: 120}} />
                     </View>
-                    
-                    <View style={{ height: 60 }} />
                 </KeyboardAvoidingView>
             </View>
         );
@@ -127,10 +141,20 @@ export const IMAGE_HEIGHT_SMALL = window.width /7;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#A30000',
+    //backgroundColor: '#A30000',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  botao: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 10,
+      backgroundColor: "#fff",
+      //width: em(30),
+      height: em(12),
+      borderRadius: 10,
+      marginHorizontal: 40,
   },
   input: {
     paddingLeft: em(3),
@@ -167,13 +191,16 @@ const styles = StyleSheet.create({
     marginBottom: em (4),
   },
   imagemFundo: {
+    //flex: 1,
     position: 'absolute',
     width: em (100),
+    height: em(178)
+
   },
   telafundo: {
     position: 'absolute',
     backgroundColor: '#A30000',
-    opacity: 0.75,
+    opacity: 0.7,
     width: em (100),
     height: em (178),
   },
@@ -184,6 +211,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    right: em (1),
+    right: em (4),
   },
 });
