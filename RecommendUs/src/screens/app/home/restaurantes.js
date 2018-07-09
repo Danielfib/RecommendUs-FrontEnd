@@ -35,29 +35,11 @@ export default class ListRestaurant extends React.Component {
         super(props)
 
         this.state = {
-            listResponse: [{
-                "_id": {
-                    "$oid": "5b20853076b611082cafa922"
-                },
-                "name": "Apolo Beer Cafe",
-                "category": "Bares",
-                "expertise": "Cervejarias e choperias",
-                "address/state": "PE",
-                "address/street/0": "Rua do Apolo 164",
-                "address/neighborhood": "Recife Antigo",
-                "address/city": "Recife",
-                "address/phone": "3088-8091",
-                "price_avg": "94",
-                "location/lat": "-8.061377",
-                "location/lng": "-34.8744353",
-                "rating": "4.01",
-                "vote_count": "21"
-            }]
+            listResponse: []
         }
     }
 
     componentDidMount() {
-        /*
         axios.post(`${requests.getUrl()}/restaurantsInfo`, {
             restaurants: this.props.navigation.state.params.restaurants
         })
@@ -67,7 +49,6 @@ export default class ListRestaurant extends React.Component {
             })
         })
         .catch(err => {})
-        */
     }
 
     vote(restaurante) {
