@@ -221,7 +221,8 @@ const style = StyleSheet.create({
   infoContainer: {
     marginTop: em (1.5),
     marginLeft: em (4),
-    marginRight: em (4)
+    marginRight: em (4),
+    marginBottom: em (13),
     //backgroundColor: 'green',
   },
   textTitleInfo: {
@@ -248,7 +249,6 @@ const style = StyleSheet.create({
     //flexDirection:'row',
     width: '100%',
     //height: '100%',
-    marginBottom: em(10)
   },
   descriptionStyle: {
     //flex: 1, 
