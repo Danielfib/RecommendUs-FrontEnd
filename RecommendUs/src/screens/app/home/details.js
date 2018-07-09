@@ -134,10 +134,7 @@ export default class Info extends React.Component {
                   <Text style={style.priceStyle}>{this.convertTo$(this.props.navigation.state.params.price_avg)}</Text>
                   <ScrollView style={style.infoStyle}>
                     <Text textAlignVertical={'top'} maxLength={10} style={style.descriptionStyle}> 
-                    Ao contrário do que se acredita, Lorem Ipsum não é simplesmente um texto randômico. Com mais de 2000 anos, suas raízes podem ser encontradas em uma obra de literatura latina clássica datada de 45 AC. Richard McClintock, um professor de latim do Hampden-Sydney College na Virginia, pesquisou uma das mais obscuras palavras em latim, consectetur, oriunda de uma passagem de Lorem Ipsum, e, procurando por entre citações da palavra na literatura clássica, descobriu a sua indubitável origem. Lorem Ipsum vem das seções 1.10.32 e 1.10.33 do "de Finibus Bonorum et Malorum" (Os Extremos do Bem e do Mal), de Cícero, escrito em 45 AC. Este livro é um tratado de teoria da ética muito popular na época da Renascença. A primeira linha de Lorem Ipsum, "Lorem Ipsum dolor sit amet..." vem de uma linha na seção 1.10.32.
-                    Ao contrário do que se acredita, Lorem Ipsum não é simplesmente um texto randômico. Com mais de 2000 anos, suas raízes podem ser encontradas em uma obra de literatura latina clássica datada de 45 AC. Richard McClintock, um professor de latim do Hampden-Sydney College na Virginia, pesquisou uma das mais obscuras palavras em latim, consectetur, oriunda de uma passagem de Lorem Ipsum, e, procurando por entre citações da palavra na literatura clássica, descobriu a sua indubitável origem. Lorem Ipsum vem das seções 1.10.32 e 1.10.33 do "de Finibus Bonorum et Malorum" (Os Extremos do Bem e do Mal), de Cícero, escrito em 45 AC. Este livro é um tratado de teoria da ética muito popular na época da Renascença. A primeira linha de Lorem Ipsum, "Lorem Ipsum dolor sit amet..." vem de uma linha na seção 1.10.32.
-
-                      {/*'\t'+this.props.navigation.state.params.description*/}
+                    {'\t' + this.props.navigation.state.params.description}
                     </Text>
                   </ScrollView>
                 </View>
@@ -212,25 +209,26 @@ const style = StyleSheet.create({
   },
   tagNameStyle: {
     fontWeight: "bold",
-    fontSize: em(3),
-    padding: em(0.5),
+    fontSize: em (3),
+    padding: em (0.5),
     color: "#A30000"
   },
   ScrollViewStyleTags: {
-    marginTop: em(2),
-    marginBottom: em(2)
+    marginTop: em (2),
+    marginBottom: em (2),
+    marginRight: em (2),
   },
   infoContainer: {
-    marginTop: em(1.5),
-    marginLeft: em(4),
-    marginRight: em(4)
+    marginTop: em (1.5),
+    marginLeft: em (4),
+    marginRight: em (4)
     //backgroundColor: 'green',
   },
   textTitleInfo: {
-    fontSize: em(3.5),
+    fontSize: em (3.5),
     fontWeight: "600",
-    marginBottom: em(1.5),
-    marginTop: em(1.5)
+    marginBottom: em (1.5),
+    marginTop: em (1.5)
   },
   textTitlePlates: {
     fontSize: em(3.5),
