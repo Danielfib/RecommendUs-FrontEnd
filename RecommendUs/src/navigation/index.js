@@ -12,7 +12,7 @@ import Details from '../screens/app/home/details'
 
 
 const MainNavigator = StackNavigator(
-    {   /*
+    {   
         login: {
             screen: Login
         },
@@ -28,7 +28,7 @@ const MainNavigator = StackNavigator(
         
         preferences2: {
             screen: Preference2
-        },*/
+        },
         restaurants: {
             screen: ListRestaurant
         },

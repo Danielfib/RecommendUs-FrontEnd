@@ -96,37 +96,39 @@ export default class ListRestaurant extends React.Component {
                 )
             else
                 return (
-                    <View key={restaurant._id} style={[styles.restaurantView, {flexDirection: 'column', height: em (38)}]}> 
-                        <View style={{flexDirection: 'column',}}>
-                            <View style={{padding: em (3), height: em (25), backgroundColor: '#A30000'}}>
-                                <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurant.name}</Text>
-                                <Text style={styles.subtextList}>{restaurant.expertise}</Text>
-                                <Text style={styles.subtextList}>
-                                    {
-                                        `${restaurant["address/street/0"]}, ${restaurant["address/neighborhood"]}, ${restaurant["address/city"]}`
-                                    }
-                                </Text>
+                    <TouchableOpacity onPress = {() => {this.props.navigation.navigate('details', restaurant)}}>
+                        <View key={restaurant._id} style={[styles.restaurantView, {flexDirection: 'column', height: em (38)}]}> 
+                            <View style={{flexDirection: 'column',}}>
+                                <View style={{padding: em (3), height: em (25), backgroundColor: '#A30000'}}>
+                                    <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurant.name}</Text>
+                                    <Text style={styles.subtextList}>{restaurant.expertise}</Text>
+                                    <Text style={styles.subtextList}>
+                                        {
+                                            `${restaurant["address/street/0"]}, ${restaurant["address/neighborhood"]}, ${restaurant["address/city"]}`
+                                        }
+                                    </Text>
+                                </View>
+                                <Image style={[styles.image, {height: em (25),}]} source={{uri: url_image}}/>
+                                <View style = {[styles.imageView, {height: em (25),}]}></View>
                             </View>
-                            <Image style={[styles.image, {height: em (25),}]} source={{uri: url_image}}/>
-                            <View style = {[styles.imageView, {height: em (25),}]}></View>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <TouchableOpacity onPress={() => this.vote(restaurant)} style={styles.partherButton}>
-                                <Text style={styles.partherButtonText}>
-                                    Votar
-                                </Text>
-                            </TouchableOpacity>
-                            <View style={styles.viewDiscount}>
-                                <Text style={styles.valueDiscount}>
-                                    {"20"}
-                                </Text>
-                                <Image style={styles.imagePercent} source={require('../../../assets/Discont.png')} />
-                                <Text style={styles.daysDicount} >
-                                    {"QUA~SEX"}
-                                </Text>
+                            <View style={{flex: 1,}}>
+                                <TouchableOpacity onPress={() => this.vote(restaurant)} style={styles.partherButton}>
+                                    <Text style={styles.partherButtonText}>
+                                        Votar
+                                    </Text>
+                                </TouchableOpacity>
+                                <View style={styles.viewDiscount}>
+                                    <Text style={styles.valueDiscount}>
+                                        {"20"}
+                                    </Text>
+                                    <Image style={styles.imagePercent} source={require('../../../assets/Discont.png')} />
+                                    <Text style={styles.daysDicount} >
+                                        {"QUA~SEX"}
+                                    </Text>
+                                </View>
                             </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 )
         })
 
