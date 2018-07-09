@@ -123,7 +123,9 @@ export default class Preferences extends React.Component {
           day: this.state.calendarValue,
           place: this.state.pickerValue,
           groupId: res.data.GroupID,
-          friends: this.state.friends
+          friends: this.state.friends,
+          lat: '-8.055668',
+          lon: '-34.951578',
         })
       })
       .catch(err => {

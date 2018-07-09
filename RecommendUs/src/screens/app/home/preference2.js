@@ -64,8 +64,8 @@ class Preference2 extends React.Component {
 
         let data = {
             groupid: this.props.navigation.state.params.groupId,
-            lat: '-8.055668',
-            lon: '-34.951578',
+            lat: this.props.navigation.state.params.lat,
+            lon: this.props.navigation.state.params.log,
             price: this.props.navigation.state.params.price,
             tags: this.state.choices,
             userid: requests.getUser().id,
