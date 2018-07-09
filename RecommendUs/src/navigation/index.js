@@ -12,7 +12,7 @@ import Details from '../screens/app/home/details'
 
 
 const MainNavigator = StackNavigator(
-    {
+    {   
         login: {
             screen: Login
         },

@@ -9,6 +9,8 @@ import {
 } from 'react-native'
 
 import axios from 'axios'
+import Btn from "react-native-micro-animated-button";
+
 
 import BarStatus from '../../../components/StatusBar'
 import Header from '../../../components/Header'
@@ -38,6 +40,7 @@ export default class ListRestaurant extends React.Component {
     }
 
     componentDidMount() {
+        /*
         axios.post(`${requests.getUrl()}/restaurantsInfo`, {
             restaurants: this.props.navigation.state.params.restaurants
         })
@@ -47,6 +50,7 @@ export default class ListRestaurant extends React.Component {
             })
         })
         .catch(err => {})
+        */
     }
 
     vote(restaurante) {
@@ -67,9 +71,23 @@ export default class ListRestaurant extends React.Component {
                             <View style={styles.textContainer}>
                                 <Text style={styles.textList}>{restaurant.name}</Text>
                                 <Text style={styles.subtextList}>{restaurant.expertise}</Text>
-                                <TouchableOpacity onPress={() => this.vote(restaurant)}>
-                                    <Text style = {styles.votar}>Votar</Text>
-                                </TouchableOpacity>
+                                    <Btn
+                                    onPress={() => {
+                                        this.state.pressedVote = restaurant._id;
+                                        return this.btn.success();
+                                    }}
+                                    onSecondaryPress={() => {
+                                        this.state.pressedVote = false;
+                                        return this.btn.reset();
+                                    }}
+                                    ref={ref => (this.btn = ref)}
+                                    successIcon="check"
+                                    backgroundColor="#FFF"
+                                    noBorder={true}
+                                    maxWidth={em(20)}
+                                    renderLabel={<Text style={styles.labelButton}>Votar</Text>}
+                                    successForegroundColor="#FFF"
+                                    />
                             </View>
                             <Image style={styles.image} source={require('../../../assets/rest-generic.png')}/>
                             <View style = {styles.imageView}></View>
@@ -78,37 +96,39 @@ export default class ListRestaurant extends React.Component {
                 )
             else
                 return (
-                    <View key={restaurant._id} style={[styles.restaurantView, {flexDirection: 'column', height: em (38)}]}> 
-                        <View style={{flexDirection: 'column',}}>
-                            <View style={{padding: em (3), height: em (25), backgroundColor: '#A30000'}}>
-                                <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurant.name}</Text>
-                                <Text style={styles.subtextList}>{restaurant.expertise}</Text>
-                                <Text style={styles.subtextList}>
-                                    {
-                                        `${restaurant["address/street/0"]}, ${restaurant["address/neighborhood"]}, ${restaurant["address/city"]}`
-                                    }
-                                </Text>
+                    <TouchableOpacity onPress = {() => {this.props.navigation.navigate('details', restaurant)}}>
+                        <View key={restaurant._id} style={[styles.restaurantView, {flexDirection: 'column', height: em (38)}]}> 
+                            <View style={{flexDirection: 'column',}}>
+                                <View style={{padding: em (3), height: em (25), backgroundColor: '#A30000'}}>
+                                    <Text style={[styles.textList, {color: '#FFFFFF'}]}>{restaurant.name}</Text>
+                                    <Text style={styles.subtextList}>{restaurant.expertise}</Text>
+                                    <Text style={styles.subtextList}>
+                                        {
+                                            `${restaurant["address/street/0"]}, ${restaurant["address/neighborhood"]}, ${restaurant["address/city"]}`
+                                        }
+                                    </Text>
+                                </View>
+                                <Image style={[styles.image, {height: em (25),}]} source={{uri: url_image}}/>
+                                <View style = {[styles.imageView, {height: em (25),}]}></View>
                             </View>
-                            <Image style={[styles.image, {height: em (25),}]} source={{uri: url_image}}/>
-                            <View style = {[styles.imageView, {height: em (25),}]}></View>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <TouchableOpacity onPress={() => this.vote(restaurant)} style={styles.partherButton}>
-                                <Text style={styles.partherButtonText}>
-                                    Votar
-                                </Text>
-                            </TouchableOpacity>
-                            <View style={styles.viewDiscount}>
-                                <Text style={styles.valueDiscount}>
-                                    {"20"}
-                                </Text>
-                                <Image style={styles.imagePercent} source={require('../../../assets/Discont.png')} />
-                                <Text style={styles.daysDicount} >
-                                    {"QUA~SEX"}
-                                </Text>
+                            <View style={{flex: 1,}}>
+                                <TouchableOpacity onPress={() => this.vote(restaurant)} style={styles.partherButton}>
+                                    <Text style={styles.partherButtonText}>
+                                        Votar
+                                    </Text>
+                                </TouchableOpacity>
+                                <View style={styles.viewDiscount}>
+                                    <Text style={styles.valueDiscount}>
+                                        {"20"}
+                                    </Text>
+                                    <Image style={styles.imagePercent} source={require('../../../assets/Discont.png')} />
+                                    <Text style={styles.daysDicount} >
+                                        {"QUA~SEX"}
+                                    </Text>
+                                </View>
                             </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 )
         })
 
@@ -254,5 +274,11 @@ const styles = StyleSheet.create({
         width: em (23),
         height: em (28),
         right: 0,
+    },
+    labelButton: {
+        fontSize: em(4),
+        color: "#27AE60",
+        fontWeight: "bold",
+        marginLeft: em(-9)
     },
 })
