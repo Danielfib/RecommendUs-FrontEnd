@@ -35,7 +35,24 @@ export default class ListRestaurant extends React.Component {
         super(props)
 
         this.state = {
-            listResponse: [],
+            listResponse: [{
+                "_id": {
+                    "$oid": "5b20853076b611082cafa922"
+                },
+                "name": "Apolo Beer Cafe",
+                "category": "Bares",
+                "expertise": "Cervejarias e choperias",
+                "address/state": "PE",
+                "address/street/0": "Rua do Apolo 164",
+                "address/neighborhood": "Recife Antigo",
+                "address/city": "Recife",
+                "address/phone": "3088-8091",
+                "price_avg": "94",
+                "location/lat": "-8.061377",
+                "location/lng": "-34.8744353",
+                "rating": "4.01",
+                "vote_count": "21"
+            }]
         }
     }
 
@@ -96,7 +113,8 @@ export default class ListRestaurant extends React.Component {
                 )
             else
                 return (
-                    <TouchableOpacity onPress = {() => {this.props.navigation.navigate('details', restaurant)}}>
+                    <TouchableOpacity onPress = {() => {this.props.navigation.navigate('details', restaurant)}}
+                    >
                         <View key={restaurant._id} style={[styles.restaurantView, {flexDirection: 'column', height: em (38)}]}> 
                             <View style={{flexDirection: 'column',}}>
                                 <View style={{padding: em (3), height: em (25), backgroundColor: '#A30000'}}>
