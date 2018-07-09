@@ -94,7 +94,7 @@ class Login extends React.Component {
                                         style={styles.icon}
                                         name={'email-outline'}
                                         size={35}
-                                        color={'#BEBEBE'}
+                                        color={'#A30000'}
                                     />
                                 </View>
                                 <View style = {styles.fields}>
@@ -109,7 +109,7 @@ class Login extends React.Component {
                                         style={styles.icon}
                                         name={'lock-outline'}
                                         size={35}
-                                        color={'#BEBEBE'}
+                                        color={'#A30000'}
                                     />
                                 </View>
                             </View>
