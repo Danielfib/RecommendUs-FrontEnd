@@ -42,6 +42,8 @@ class Login extends React.Component {
             password: this.state.password,
         }
 
+        console.log(data)
+
         axios.post(`${requests.getUrl()}/login`, data)
         .then(res => {
             console.log("Suc Log In: ", res.data)
@@ -104,6 +106,7 @@ class Login extends React.Component {
                                         style={styles.input}
                                         onChangeText = {(text) => this.setState({password: text})}
                                         value = {this.state.password}
+                                        secureTextEntry={true}
                                     />
                                     <Icons.MaterialIcons
                                         style={styles.icon}
@@ -115,7 +118,7 @@ class Login extends React.Component {
                             </View>
 
                             <View>
-                                <TouchableOpacity style={styles.botao} title="LogIn" onPress = {this.login}>
+                                <TouchableOpacity style={styles.botao} title="LogIn" onPress = {()=>this.login()}>
                                     <Text style={{fontFamily: 'Roboto', fontSize: 18, fontWeight: 'bold', color: '#A30000'}}>
                                         Log In
                                     </Text>
@@ -164,6 +167,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginHorizontal: 10,
     marginVertical: 5,
+    color: '#BEBEBE',
+
    // paddingVertical: 5,
     // paddingHorizontal: 15,
     width: window.width - 30,
