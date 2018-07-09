@@ -9,6 +9,8 @@ import {
 } from 'react-native'
 
 import axios from 'axios'
+import Btn from "react-native-micro-animated-button";
+
 
 import BarStatus from '../../../components/StatusBar'
 import Header from '../../../components/Header'
@@ -38,6 +40,7 @@ export default class ListRestaurant extends React.Component {
     }
 
     componentDidMount() {
+        /*
         axios.post(`${requests.getUrl()}/restaurantsInfo`, {
             restaurants: this.props.navigation.state.params.restaurants
         })
@@ -47,6 +50,7 @@ export default class ListRestaurant extends React.Component {
             })
         })
         .catch(err => {})
+        */
     }
 
     vote(restaurante) {
@@ -67,9 +71,23 @@ export default class ListRestaurant extends React.Component {
                             <View style={styles.textContainer}>
                                 <Text style={styles.textList}>{restaurant.name}</Text>
                                 <Text style={styles.subtextList}>{restaurant.expertise}</Text>
-                                <TouchableOpacity onPress={() => this.vote(restaurant)}>
-                                    <Text style = {styles.votar}>Votar</Text>
-                                </TouchableOpacity>
+                                    <Btn
+                                    onPress={() => {
+                                        this.state.pressedVote = restaurant._id;
+                                        return this.btn.success();
+                                    }}
+                                    onSecondaryPress={() => {
+                                        this.state.pressedVote = false;
+                                        return this.btn.reset();
+                                    }}
+                                    ref={ref => (this.btn = ref)}
+                                    successIcon="check"
+                                    backgroundColor="#FFF"
+                                    noBorder={true}
+                                    maxWidth={em(20)}
+                                    renderLabel={<Text style={styles.labelButton}>Votar</Text>}
+                                    successForegroundColor="#FFF"
+                                    />
                             </View>
                             <Image style={styles.image} source={require('../../../assets/rest-generic.png')}/>
                             <View style = {styles.imageView}></View>
@@ -254,5 +272,11 @@ const styles = StyleSheet.create({
         width: em (23),
         height: em (28),
         right: 0,
+    },
+    labelButton: {
+        fontSize: em(4),
+        color: "#27AE60",
+        fontWeight: "bold",
+        marginLeft: em(-9)
     },
 })

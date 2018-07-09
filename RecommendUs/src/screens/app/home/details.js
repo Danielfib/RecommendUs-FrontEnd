@@ -17,6 +17,8 @@ import em from "../../../properties/responsive";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Btn from "react-native-micro-animated-button";
 import SlidingUpPanel from 'rn-sliding-up-panel'
+import Header from '../../../components/Header'
+
 
 export default class Info extends React.Component {
   constructor(props) {
@@ -63,21 +65,24 @@ export default class Info extends React.Component {
 
   render() {
     const discountIcon = !!this.props.navigation.state.params.parceiro ? require("../../../assets/Discont.png"): {};
-
+    const navigation = this.props.navigation
     return (
       <View style={style.container}>
         <Image
           source={require("../../../assets/rest-generic.png")} //FALTA DAR GET NA IMAGEM
           style={style.backgroundImage}
         />
+        <TouchableOpacity style = {style.arrowButton} onPress={() => navigation.goBack()}>
+          <Image source={require("../../../assets/arrow-left.png")}/>
+        </TouchableOpacity>
         <SlidingUpPanel 
           //onDragEnd={()=>{this.setState({allowDragging:false})}} 
           allowDragging={this.state.allowDragging} 
           allowMomentum={false} 
           showBackdrop={false} 
           visible={this.state.visible} 
-          draggableRange={{top:em(400), bottom:em(360)}} height= {em(400)}
-          /*ref={this.child}*/>
+          draggableRange={{top:em(400), bottom:em(338)}} height= {em(400)}
+          startCollapsed={true}>
           <View style={style.detailsView}>
             <TouchableOpacity //onPressIn={()=>{this.setState({allowDragging:true})}} 
             activeOpacity={1}>
@@ -102,12 +107,10 @@ export default class Info extends React.Component {
                 <Btn
                   onPress={() => {
                     this.state.pressedVote = true;
-                    //console.warn(this.state.pressed)
                     return this.btn.success();
                   }}
                   onSecondaryPress={() => {
                     this.state.pressedVote = false;
-                    //console.warn(this.state.pressed)
                     return this.btn.reset();
                   }}
                   ref={ref => (this.btn = ref)}
@@ -128,11 +131,11 @@ export default class Info extends React.Component {
               </View>
               <View style={style.infoContainer}>
                 <Text style={style.textTitleInfo}>Informações</Text>
-                <View style={style.infoStyle}>
+                <View>
                   <Text style={style.priceStyle}>{this.convertTo$(this.props.navigation.state.params.price_avg)}</Text>
-                    <ScrollView>
-                      <Text style={style.descriptionStyle}>
-                        {this.props.navigation.state.params.description}
+                    <ScrollView style={style.infoStyle}>
+                      <Text textAlignVertical={'top'} maxLength={10} style={style.descriptionStyle}>
+                        {'\t' + this.props.navigation.state.params.description}
                       </Text>
                     </ScrollView>
                 </View>
@@ -152,9 +155,9 @@ const style = StyleSheet.create({
   },
   backgroundImage: {
     width: em(100),
-    height: "70%",
+    height: "80%",
     marginTop: em(5),
-    resizeMode: "cover"
+    resizeMode: "stretch",
   },
   detailsView: {
     backgroundColor: "#FFF",
@@ -239,14 +242,19 @@ const style = StyleSheet.create({
   timeStyle: {
     marginBottom: em(1.5)
   },
-  shapePlate: {
-    backgroundColor: "gray",
-    width: em(15),
-    height: em(15),
-    borderRadius: em(20),
-    margin: em(3)
-  },
   infoStyle: {
-    marginBottom: em(10)
+    width: em(100),
+    height: '65%',
+    //flexDirection:'row',
+    width: '100%',
+  },
+  descriptionStyle: {
+    //flex: 1, 
+    //flexWrap: 'wrap'
+  },
+  arrowButton: {
+    position: 'absolute',
+    marginLeft: em(3),
+    marginTop: em(10)
   }
 });
