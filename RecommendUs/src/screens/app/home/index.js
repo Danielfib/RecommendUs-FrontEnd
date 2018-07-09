@@ -94,7 +94,7 @@ export default class Home extends React.Component {
         register();
         this._notificationSubscription = Notifications.addListener(this.listener)
         
-        axios.get(`${requests.getUrl()}/eventoPessoa/2`)
+        axios.get(`${requests.getUrl()}/eventoPessoa/${requests.getUser().id}`)
         .then(res => {
             console.log(res.data)
             this.setState({
@@ -107,7 +107,7 @@ export default class Home extends React.Component {
     }
 
     backgroundJob = cron.schedule('*/30 * * * * *', () => {
-        axios.get(`${requests.getUrl()}/eventoPessoa/2`)
+        axios.get(`${requests.getUrl()}/eventoPessoa/${requests.getUser().id}`)
         .then(res => {
             //console.log(res.data)
             this.setState({
@@ -118,12 +118,6 @@ export default class Home extends React.Component {
             console.log(err)
         })
     });
-
-    rec() {
-        axios.post(`${requests.getUrl()}/preferencia`, {groupId: '6'})
-        .then(res => {})
-        .catch(err => {})
-    }
 
     renderMeetings() {
 
@@ -187,7 +181,7 @@ export default class Home extends React.Component {
                 <ScrollView>
                     <View style={styles.subContainer}>
                         <View style={styles.buttonGroup}>
-                            <TouchableOpacity onPress={() => /*this.props.screenProps.navigate('createGroup')*/this.rec()}>
+                            <TouchableOpacity onPress={() => this.props.screenProps.navigate('createGroup')}>
                                 <Image source = {require('../../../assets/buttonGroup.png')} />
                             </TouchableOpacity>
                         </View>
